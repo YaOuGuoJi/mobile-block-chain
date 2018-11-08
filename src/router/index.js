@@ -5,6 +5,7 @@ import Home from '@/page/index/Home'
 import Find from '@/page/index/Find'
 import Play from '@/page/index/Play'
 import My from '@/page/index/My'
+import PowerRecord from '@/page/PowerRecord'
 
 
 Vue.use(Router);
@@ -38,6 +39,11 @@ export default new Router({
           component: My
         }
       ]
+    },
+    {
+      path: "/powerRecord",
+      name: 'powerRecord',
+      component: PowerRecord
     }
   ]
 })
