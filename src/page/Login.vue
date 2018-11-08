@@ -1,32 +1,26 @@
 <template>
   <div class="mobile-wrapper">
+    <img src="https://preview.ibb.co/dktKWL/bg-1.jpg">
     <div class="login-wrapper">
-
       <div class="brand-logo">
-        Brand<span>Logo</span>
+        Mall <span>Fun</span>
       </div>
       <div class="form-wrapper">
-        <form>
-          <div class="input-group">
-            <!--<label for="email"><i class="fas fa-user"></i></label>-->
-            <input v-model="userId" type="text" placeholder="E-MAIL"  id="email">
-          </div>
-          <div class="input-group">
-            <!--<label for="password"><i class="fas fa-unlock-alt"></i></label>-->
-            <input v-model="password" type="password" placeholder="PASSWORD" id="password">
-          </div>
-          <button v-on:click="login">LOGIN</button>
-        </form>
+        <div class="input-group">
+          <input v-model="userId" type="text" placeholder="E-MAIL">
+        </div>
+        <div class="input-group">
+          <input v-model="password" type="password" placeholder="PASSWORD">
+        </div>
+        <button v-on:click="login">LOGIN</button>
       </div>
-
     </div>
-
     <div class="help-text">forgot password ?</div>
-
   </div>
 </template>
 
 <script type="text/javascript">
+
   import {service} from "../js/api";
 
   export default {
@@ -39,17 +33,15 @@
     },
     methods: {
       login: function () {
-        console.log('aaa');
         service('post', '/user/login', {
           userId: this.userId,
           password: this.password
         }).then(data => {
-          console.log(data);
-          // if (data.data === null) {
-          //   window.alert(data.message)
-          // } else {
-          //   // this.$router.push({path: '/home'})
-          // }
+          if (data.code !== 200 || !data.data) {
+            alert(data.message);
+          } else {
+            this.$router.push({path: '/home'})
+          }
         });
       }
     }
@@ -95,6 +87,11 @@
     box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.25), 0 5px 15px 0 rgba(0, 0, 0, 0.25);
   }
 
+  .mobile-wrapper img {
+    width: 100%;
+    height: 100%;
+  }
+
   .login-wrapper {
     width: 80%;
     position: absolute;
@@ -109,7 +106,7 @@
     text-align: center;
     color: #46c0c0;
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 1rem;
     position: relative;
   }
 
@@ -165,12 +162,12 @@
   }
 
   .form-wrapper button {
-    width: 100%;
-    height: 60px;
+    width: 80%;
+    height: 50px;
     background: linear-gradient(to right, #6ddec7, #46c0c0);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
     color: #fff;
-    font-size: 1.2rem;
+    font-size: 0.5rem;
   }
 
   .help-text {
