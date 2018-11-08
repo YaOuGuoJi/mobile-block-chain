@@ -1,15 +1,43 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Index from '@/components/Index'
+import Home from '@/page/index/Home'
+import Find from '@/page/index/Find'
+import Play from '@/page/index/Play'
+import My from '@/page/index/My'
 
-Vue.use(Router)
+
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Index',
+      component: Index,
+      redirect: 'Home',
+      children: [
+        {
+          path: '/home',
+          name: 'Home',
+          component: Home
+        },
+        {
+          path: '/find',
+          name: 'Find',
+          component: Find
+        },
+        {
+          path: '/play',
+          name: 'Play',
+          component: Play
+        },
+        {
+          path: '/my',
+          name: 'My',
+          component: My
+        }
+      ]
     }
   ]
 })
