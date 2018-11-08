@@ -20,7 +20,7 @@
 
 <script>
   import commonHeader from '../components/common-header'
-  import axios from 'axios'
+  import {service} from '../js/api'
 
   export default {
 
@@ -40,15 +40,10 @@
     },
     methods: {
       getOreNumber() {
-        axios.get('http://localhost:8080/user/oreNumber', {
-          params: {
-            userId: this.userId
-          }
-        }).then((response) => {
-          if (response.status !== 200 || !response.data) {
-            window.alert('请求失败')
-          }
+        service('get','user/oreNumber',{}).then(data =>{
+          console.log(data)
         })
+
       }
     }
   }
