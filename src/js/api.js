@@ -8,9 +8,8 @@ export function service(method, url, params = {}) {
   return axios({
     url: '/api' + url,
     method: method,
-    data: 'post' === method
-      ? qs.stringify(params)
-      : params
+    data: 'post' === method ? qs.stringify(params) : {},
+    params: 'get' === method ? params : {}
   }).then(
     response => {
       if (response === null || response.status !== 200) {
