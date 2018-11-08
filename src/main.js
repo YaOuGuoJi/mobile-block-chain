@@ -5,12 +5,14 @@ import App from './App'
 import router from './router'
 import '../static/js/flexible'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
-new Vue({
+const app = new Vue({
   el: '#app',
   router,
   components: { App },
   template: '<App/>'
 })
+
+export default app

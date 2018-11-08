@@ -44,7 +44,7 @@
 </template>
 <script>
   import commonHeader from '../components/common-header'
-  import axios from 'axios'
+  import {service} from '../js/api'
 
   export default {
     data() {
@@ -53,33 +53,37 @@
         validMessage: "生效算力值",
         notValidMessage: "未生效算力值",
         validPowerSum: 0,
-        notValidPowerSum: 0
+        notValidPowerSum: 0,
+        pageNum: 1,
+        pageSize: 20
       }
     },
     created() {
       this.getPowerSum();
+      this.getPowerRecord();
     },
     methods: {
-      getPowerSum(){
-        axios.get('http://localhost:8088/user/power/valid')
-          .then((response) => {
-            if (response.status !== 200 || !response.data) {
-              window.alert('请求失败')
-            }
-            this.dataInvoker(response.data)
-          })
+      getPowerSum() {
+        service('post', '/user/login', {
+          userId: 1,
+          password: 'liuwen'
+        }).then(data => {
+          console.log(data)
+        })
+        service('get', '/user/power/isValid', {}).then(data => {
+          console.log(data);
+          this.validPowerSum = data.data.validPowerSum;
+          this.notValidPowerSum = data.data.notValidPowerSum;
+        });
       },
-      dataInvoker: function (response) {
-        if (!response.success || response.code !== 200){
-          window.alert(response.data);
-          return
-        }
-        this.validPowerSum = response.data.powerSum.map(function (power) {
-          return power.validPowerSum;
-        });
-        this.notValidPowerSum = response.data.powerSum.map(function (power) {
-          return power.notValidPowerSum;
-        });
+
+      getPowerRecord() {
+        service('get', '/user/power/valid', {
+          pageNum: this.pageNum,
+          pageSize: this.pageSize
+        }).then(data => {
+          console.log(data)
+        })
       }
     },
     components: {
