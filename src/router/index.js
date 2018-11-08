@@ -5,6 +5,8 @@ import Home from '@/page/index/Home'
 import Find from '@/page/index/Find'
 import Play from '@/page/index/Play'
 import My from '@/page/index/My'
+import Ore from '@/page/Ore'
+import Login from '@/page/Login'
 
 
 Vue.use(Router);

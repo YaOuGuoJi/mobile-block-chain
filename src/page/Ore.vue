@@ -8,11 +8,17 @@
       <br/><br/>
       <span class="ore-number-font" style="font-family: 宋体; font-size:16px; color:white;margin-left: 30px">黑矿总数</span>
       <br/><br/>
-      <span style="font-size:40px; color:white;margin-left: 30px">11.0001{{oreNumber}}</span>
+      <span style="font-size:40px; color:white;margin-left: 30px">{{oreNumber}}</span>
     </div>
     <div class="ore-introduction" style="width: 100%;height: 200px">
-      <div style="margin-left: 20px;margin-right: 20px">
+      <!--<div style="margin-left: 20px;margin-right: 20px">
         控制字体位置可以用padding margin text-indent 单位可以是px em % (em是根据你设置的字体大小设定的，假如你设置字体为12px，那么2em就是24px。 %是根据父容器的宽度或高度决定的。
+      </div>-->
+      <div class="ore-record">
+        <h3>收支记录</h3>
+        <hr>
+        <table></table>
+
       </div>
     </div>
   </div>
@@ -36,14 +42,32 @@
       commonHeader
     },
     created() {
+      this.login();
       this.getOreNumber();
+      this.getOreRecord();
     },
     methods: {
-      getOreNumber() {
-        service('get','user/oreNumber',{}).then(data =>{
+      login(){
+        service('post', '/user/login', {
+          userId: 100001,
+          password: 'liuwen',
+        }).then(data => {
           console.log(data)
         })
-
+      },
+      getOreNumber() {
+        service('get', '/user/oreNumber', {}).then(data => {
+          console.log(data)
+          this.oreNumber = data.data.oreNumber
+        })
+      },
+      getOreRecord(){
+        service('get','/user/oreRecord',{
+          pageNum:1,
+          pageSize:10
+        }).then(data =>{
+          console.log(data)
+        })
       }
     }
   }
