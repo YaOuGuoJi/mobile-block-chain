@@ -20,6 +20,7 @@
 </template>
 
 <script type="text/javascript">
+
   import {service} from "../js/api";
 
   export default {
@@ -32,7 +33,6 @@
     },
     methods: {
       login: function () {
-        console.log('aaa');
         service('post', '/user/login', {
           userId: this.userId,
           password: this.password
