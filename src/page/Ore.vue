@@ -16,9 +16,31 @@
       </div>-->
       <div class="ore-record">
         <h3>收支记录</h3>
-        <hr>
+        <hr style="height: 20px; width:100%;color: blue">
         <table></table>
+        <tr v-for="(order,index) in oreRecordPage.list" :key="order.orderId" :class="{on:index%2===0,off:index%2!==0}">
+          <td>{{ index+1 }}</td>
+          <td>{{ buildDate(order.addTime) }}</td>
+          <td>¥{{ order.ore }}</td>
+          <td>{{ order.source }}</td>
+        </tr>
+        <ol>
+          <li v-if="oreRecordPage.isFirstPage"><a class="banclick">上一页</a></li>
+          <li v-else><a v-on:click="pageNum--, getOreRecord()">上一页</a></li>
+          <li v-for="index in oreRecordPage.pages" v-bind:class="{ 'active': pageNum === index}" :key="index"><a
+            v-on:click="pageNum = index, getOreRecord()">{{ index }}</a></li>
+          <li v-if="oreRecordPage.isLastPage"><a class="banclick">下一页</a></li>
+          <li v-else><a v-on:click="pageNum++, getOreRecord()">下一页</a></li>
+          <li><a>共<i>{{ oreRecordPage.pages }}</i>页</a></li>
 
+        </ol>
+        <ul>
+          <li v-for="news of list">
+            <p class="ore-source">{{ news.title }}</p>
+            <p class="ore-date">{{ news.create_at }}</p>
+            <p class="ore-num">By: {{ news.author.loginname }}</p>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -33,9 +55,9 @@
     data() {
       return {
         title: '矿石记录',
-
         userId: 100001,
         oreNumber: null,
+        oreRecordPage:null,
       }
     },
     components: {
@@ -47,7 +69,7 @@
       this.getOreRecord();
     },
     methods: {
-      login(){
+      login() {
         service('post', '/user/login', {
           userId: 100001,
           password: 'liuwen',
@@ -61,14 +83,30 @@
           this.oreNumber = data.data.oreNumber
         })
       },
-      getOreRecord(){
-        service('get','/user/oreRecord',{
-          pageNum:1,
-          pageSize:10
-        }).then(data =>{
+      getOreRecord() {
+        service('get', '/user/oreRecord', {
+          pageNum: 1,
+          pageSize: 10
+        }).then(data => {
+          this.oreRecordPage =data.data.oreRecordDTOPageInfo
           console.log(data)
         })
+      },
+      buildDate: function (str) {
+        let date = new Date(str),
+          year = date.getFullYear(),
+          // 月份从0开始，需要+1
+          month = date.getMonth() + 1,
+          day = date.getDate(),
+          hour = date.getHours(),
+          min = date.getMinutes()
+        return year + '-' +
+          (month < 10 ? '0' + month : month) + '-' +
+          (day < 10 ? '0' + day : day) + ' ' +
+          (hour < 10 ? '0' + hour : hour) + ':' +
+          (min < 10 ? '0' + min : min)
       }
+
     }
   }
 </script>
@@ -80,6 +118,6 @@
   .ore-number {
     height: 150px;
     width: 100%;
-    background-color: #fabd6f;
+    background-color: #9d6efa;
   }
 </style>

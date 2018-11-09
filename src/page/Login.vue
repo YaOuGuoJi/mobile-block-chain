@@ -1,36 +1,31 @@
 <template>
   <div class="mobile-wrapper">
+    <img src="https://preview.ibb.co/dktKWL/bg-1.jpg">
     <div class="login-wrapper">
-
       <div class="brand-logo">
-        Brand<span>Logo</span>
+        Mall <span>Fun</span>
       </div>
       <div class="form-wrapper">
-        <form action="#">
-          <div class="input-group">
-            <label for="email"><i class="fas fa-user"></i></label>
-            <input v-model="userId" type="text" placeholder="E-MAIL" name="email" id="email">
-          </div>
-          <div class="input-group">
-            <label for="password"><i class="fas fa-unlock-alt"></i></label>
-            <input v-model="password" type="password" placeholder="PASSWORD" name="password" id="password">
-          </div>
-          <button v-on:click="login">LOGIN</button>
-        </form>
+        <div class="input-group">
+          <input v-model="userId" type="text" placeholder="E-MAIL">
+        </div>
+        <div class="input-group">
+          <input v-model="password" type="password" placeholder="PASSWORD">
+        </div>
+        <button v-on:click="login">LOGIN</button>
       </div>
-
     </div>
-
     <div class="help-text">forgot password ?</div>
-
   </div>
 </template>
 
 <script type="text/javascript">
-  import axios from 'axios'
+
+  import {service} from "../js/api";
+
   export default {
     name: "Login",
-    data () {
+    data() {
       return {
         userId: null,
         password: null
@@ -38,8 +33,16 @@
     },
     methods: {
       login: function () {
-
-        this.$router.push({path: '/home'})
+        service('post', '/user/login', {
+          userId: this.userId,
+          password: this.password
+        }).then(data => {
+          if (data.code !== 200 || !data.data) {
+            alert(data.message);
+          } else {
+            this.$router.push({path: '/home'})
+          }
+        });
       }
     }
   }
@@ -55,17 +58,20 @@
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
   }
+
   body {
     width: 100%;
     height: 100vh;
     background: linear-gradient(to right, #6ddec7, #46c0c0);
   }
+
   input,
   button {
     border: 0;
     padding: 0;
     outline: none;
   }
+
   button {
     cursor: pointer;
   }
@@ -78,7 +84,12 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #1c485c;
-    box-shadow: 0 15px 30px 0 rgba(0,0,0,0.25), 0 5px 15px 0 rgba(0,0,0,0.25);
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.25), 0 5px 15px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  .mobile-wrapper img {
+    width: 100%;
+    height: 100%;
   }
 
   .login-wrapper {
@@ -95,12 +106,14 @@
     text-align: center;
     color: #46c0c0;
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 1rem;
     position: relative;
   }
+
   .brand-logo span {
     font-weight: normal;
   }
+
   .brand-logo::before {
     content: '';
     position: absolute;
@@ -124,6 +137,7 @@
     float: left;
     margin-bottom: 1rem;
   }
+
   .input-group label {
     width: 60px;
     height: 60px;
@@ -132,12 +146,14 @@
     text-align: center;
     background-color: #0e2c3d;
   }
+
   .input-group label i {
     display: block;
     line-height: 60px;
     color: #fff;
     font-size: 1.2rem;
   }
+
   .input-group input {
     width: calc(100% - 60px);
     height: 60px;
@@ -146,12 +162,12 @@
   }
 
   .form-wrapper button {
-    width: 100%;
-    height: 60px;
+    width: 80%;
+    height: 50px;
     background: linear-gradient(to right, #6ddec7, #46c0c0);
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.25);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
     color: #fff;
-    font-size: 1.2rem;
+    font-size: 0.5rem;
   }
 
   .help-text {
