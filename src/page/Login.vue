@@ -3,7 +3,7 @@
     <img src="https://preview.ibb.co/dktKWL/bg-1.jpg">
     <div class="login-wrapper">
       <div class="brand-logo">
-        Mall <span>Fun</span>
+        <span>Mall Fun</span>
       </div>
       <div class="form-wrapper">
         <div class="input-group">
@@ -22,6 +22,7 @@
 <script type="text/javascript">
 
   import {service} from "../js/api";
+  import md5 from 'js-md5'
 
   export default {
     name: "Login",
@@ -33,9 +34,10 @@
     },
     methods: {
       login: function () {
+        console.log(md5(this.password))
         service('post', '/user/login', {
           userId: this.userId,
-          password: this.password
+          password: md5(this.password)
         }).then(data => {
           if (data.code !== 200 || !data.data) {
             alert(data.message);
