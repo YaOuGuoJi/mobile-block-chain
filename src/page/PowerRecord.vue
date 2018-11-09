@@ -15,16 +15,13 @@
         <li><a href="#not_valid_record_table">未生效算力记录</a></li>
       </ul>
       <hr>
-      <template v-if="">
+      <template v-if="powerRecordList">
         <table id="valid_record_table" class="table">
           <tbody>
-            <tr v-for="">
-              <td>11111111111111111111111</td>
-              <td>22211111111111111111111</td>
-            </tr>
-            <tr>
-              <td>333</td>
-              <td>444</td>
+            <tr v-for="power in powerRecordList">
+              <td>{{power.addTime}}</td>
+              <td>{{power.source}}</td>
+              <td bgcolor="#ffb6c1">算力值+{{power.power}}</td>
             </tr>
           </tbody>
         </table>
@@ -55,7 +52,8 @@
         validPowerSum: 0,
         notValidPowerSum: 0,
         pageNum: 1,
-        pageSize: 20
+        pageSize: 20,
+        powerRecordList: null
       }
     },
     created() {
@@ -64,12 +62,12 @@
     },
     methods: {
       getPowerSum() {
-        service('post', '/user/login', {
-          userId: 1,
-          password: 'liuwen'
-        }).then(data => {
-          console.log(data)
-        })
+//        service('post', '/user/login', {
+//          userId: 1,
+//          password: 'liuwen'
+//        }).then(data => {
+//          console.log(data)
+//        })
         service('get', '/user/power/isValid', {}).then(data => {
           console.log(data);
           this.validPowerSum = data.data.validPowerSum;
@@ -82,6 +80,8 @@
           pageNum: this.pageNum,
           pageSize: this.pageSize
         }).then(data => {
+          this.powerRecordList = data.data.list;
+          console.log(this.powerRecordList);
           console.log(data)
         })
       }
