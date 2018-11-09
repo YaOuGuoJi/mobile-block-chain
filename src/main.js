@@ -4,8 +4,13 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import '../static/js/flexible'
+import mintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
+import infiniteScroll from 'vue-infinite-scroll'
 
 Vue.config.productionTip = false;
+Vue.use(mintUI);
+Vue.use(infiniteScroll);
 
 /* eslint-disable no-new */
 const app = new Vue({
