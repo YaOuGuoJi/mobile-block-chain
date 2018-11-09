@@ -37,13 +37,13 @@ export default new Router({
           path: '/my',
           name: 'My',
           component: My
-        },
-        {
-          path: '/login',
-          name: 'Login',
-          component: Login
         }
       ]
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     }
   ]
 })
