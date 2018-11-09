@@ -10,7 +10,6 @@ export function service(method, url, params = {}) {
       url: '/api/user/isLogin',
       method: 'get'
     }).then(response => {
-      console.log(response.data.data);
       if (!response.data.data) {
         app.$router.replace('/login');
       } else {
