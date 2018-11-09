@@ -34,7 +34,6 @@
     },
     methods: {
       login: function () {
-        console.log(md5(this.password))
         service('post', '/user/login', {
           userId: this.userId,
           password: md5(this.password)
