@@ -14,35 +14,12 @@
       <!--<div style="margin-left: 20px;margin-right: 20px">
         控制字体位置可以用padding margin text-indent 单位可以是px em % (em是根据你设置的字体大小设定的，假如你设置字体为12px，那么2em就是24px。 %是根据父容器的宽度或高度决定的。
       </div>-->
-      <div class="ore-record">
-        <h3>收支记录</h3>
-        <hr style="height: 20px; width:100%;color: blue">
-        <table></table>
-        <tr v-for="(order,index) in oreRecordPage.list" :key="order.orderId" :class="{on:index%2===0,off:index%2!==0}">
-          <td>{{ index+1 }}</td>
-          <td>{{ buildDate(order.addTime) }}</td>
-          <td>{{ order.ore }}</td>
-          <td>{{ order.source == 1?"正常领取":"其他" }}</td>
-        </tr>
-        <div class="page-bar">
-        <ol>
-          <li v-if="oreRecordPage.isFirstPage"><a class="banclick">上一页</a></li>
-          <li v-else><a v-on:click="pageNum--, getOreRecord()">上一页</a></li>
-          <li v-for="index in oreRecordPage.pages" v-bind:class="{ 'active': pageNum === index}" :key="index"><a
-            v-on:click="pageNum = index, getOreRecord()">{{ index }}</a></li>
-          <li v-if="oreRecordPage.isLastPage"><a class="banclick">下一页</a></li>
-          <li v-else><a v-on:click="pageNum++, getOreRecord()">下一页</a></li>
-          <li><a>共<i>{{ oreRecordPage.pages }}</i>页</a></li>
-
+      <div v-if="oreRecordPage">
+        <ol v-for="record in oreRecordPage.list">
+          <li>{{ buildDate(record.addTime) }}
+          <li>{{ record.ore }}</li>
+          <li>{{ record.source }}</li>
         </ol>
-        </div>
-        <ul>
-          <li v-for="news of list">
-            <p class="ore-source">{{ news.title }}</p>
-            <p class="ore-date">{{ news.create_at }}</p>
-            <p class="ore-num">By: {{ news.author.loginname }}</p>
-          </li>
-        </ul>
       </div>
     </div>
   </div>
@@ -59,7 +36,9 @@
         title: '矿石记录',
         userId: 100001,
         oreNumber: null,
-        oreRecordPage:null,
+        oreRecordPage: null,
+        pageNum: 1,
+        pageSize:2,
       }
     },
     components: {
@@ -74,26 +53,59 @@
       login() {
         service('post', '/user/login', {
           userId: 100001,
-          password: 'liuwen',
-        }).then(data => {
-          console.log(data)
+          password: '2198d45569dbbd23dce3a48c77497b59',
         })
       },
       getOreNumber() {
         service('get', '/user/oreNumber', {}).then(data => {
-          console.log(data)
           this.oreNumber = data.data.oreNumber
         })
       },
       getOreRecord() {
         service('get', '/user/oreRecord', {
-          pageNum: 1,
-          pageSize: 1
+          pageNum: this.pageNum,
+          pageSize: this.pageSize
         }).then(data => {
-          this.oreRecordPage =data.data.oreRecordDTOPageInfo
-          console.log(data)
+          this.oreRecordPage = data.data.oreRecordDTOPageInfo;
+          console.log(this.oreRecordPage)
         })
       },
+      // 注册scroll事件并监听
+      window: addEventListener('scroll', function () {
+        // console.log(document.documentElement.clientHeight+'-----------'+window.innerHeight); // 可视区域高度
+        // console.log(document.body.scrollTop); // 滚动高度
+        // console.log(document.body.offsetHeight); // 文档高度
+        // 判断是否滚动到底部
+        if (document.body.scrollTop + window.innerHeight >= document.body.offsetHeight) {
+          // console.log(sw);
+          // 如果开关打开则加载数据
+          /*if (sw == true) {
+            // 将开关关闭
+            sw = false;
+            axios.get('http://localhost:3000/proxy?url=http://news.at.zhihu.com/api/4/news/before/20170608')
+              .then(function (response) {
+                console.log(JSON.parse(response.data));
+                // 将新获取的数据push到vue中的data，就会反应到视图中了
+                JSON.parse(response.data).stories.forEach(function (val, index) {
+                  _this.articles.push(val);
+                  // console.log(val);
+                });
+                // 数据更新完毕，将开关打开
+                sw = true;
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+          }*/
+          service('get', '/user/oreRecord', {
+            pageNum: this.pageNum++,
+            pageSize: 2
+          }).then(data => {
+            this.oreRecordPage = data.data.oreRecordDTOPageInfo;
+            console.log(this.oreRecordPage)
+          })
+        }
+      }),
       buildDate: function (str) {
         let date = new Date(str),
           year = date.getFullYear(),
@@ -122,6 +134,7 @@
     width: 100%;
     background-color: #9d6efa;
   }
+
   .page-bar {
     text-align: center;
   }
