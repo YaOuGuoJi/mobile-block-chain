@@ -6,6 +6,7 @@ import Find from '@/page/index/Find'
 import Play from '@/page/index/Play'
 import My from '@/page/index/My'
 import Login from '@/page/Login'
+import Register from '@/page/Register'
 
 Vue.use(Router);
 
@@ -44,6 +45,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
     }
   ]
 })

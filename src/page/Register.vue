@@ -3,60 +3,52 @@
     <img src="https://preview.ibb.co/dktKWL/bg-1.jpg">
     <div class="login-wrapper">
       <div class="brand-logo">
-        <span>Mall Fun</span>
+        <span>Sign Up For Free</span>
       </div>
       <div class="form-wrapper">
         <div class="input-group">
-          <input v-model="userId" type="text" placeholder="E-MAIL">
+          <input v-model="userName" type="text" placeholder="Set An UserName">
         </div>
         <div class="input-group">
-          <input v-model="password" type="password" placeholder="PASSWORD">
+          <input v-model="password" type="password" placeholder="Set A Password">
         </div>
-        <button v-on:click="login">LOGIN</button>
+        <button v-on:click="register">Register</button>
       </div>
     </div>
-    <div class="help-text">
-      <span v-on:click="register">Register</span>
-    </div>
   </div>
+
 </template>
 
-<script type="text/javascript">
-
+<script>
   import {service} from "../js/api";
   import md5 from 'js-md5'
 
   export default {
-    name: "Login",
-    data() {
-      return {
-        userId: null,
-        password: null
-      }
-    },
-    methods: {
-      login: function () {
-        service('post', '/user/login', {
-          userId: this.userId,
-          password: md5(this.password)
-        }).then(data => {
-          if (data.code !== 200 || !data.data) {
-            alert(data.message);
-          } else {
-            this.$router.push({path: '/home'})
-          }
-        });
+      name: "Register",
+      data() {
+        return {
+          userName: null,
+          password: null
+        }
       },
-      register: function () {
-        this.$router.push({path: '/register'})
+      methods: {
+        register: function () {
+          service('post', '/user/register', {
+            userName: this.userName,
+            password: md5(this.password)
+          }).then(data => {
+            if (data.code !== 200 || !data.data) {
+              alert(data.message)
+            } else {
+              this.$router.push({path: '/home'})
+            }
+          })
+        }
       }
     }
-  }
-
 </script>
 
 <style scoped>
-  /*@charset "UTF-8";*/
 
   * {
     margin: 0 auto;
@@ -184,4 +176,5 @@
     bottom: 50px;
     cursor: pointer;
   }
+
 </style>
