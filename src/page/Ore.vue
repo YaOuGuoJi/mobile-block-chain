@@ -21,9 +21,10 @@
         <tr v-for="(order,index) in oreRecordPage.list" :key="order.orderId" :class="{on:index%2===0,off:index%2!==0}">
           <td>{{ index+1 }}</td>
           <td>{{ buildDate(order.addTime) }}</td>
-          <td>¥{{ order.ore }}</td>
-          <td>{{ order.source }}</td>
+          <td>{{ order.ore }}</td>
+          <td>{{ order.source == 1?"正常领取":"其他" }}</td>
         </tr>
+        <div class="page-bar">
         <ol>
           <li v-if="oreRecordPage.isFirstPage"><a class="banclick">上一页</a></li>
           <li v-else><a v-on:click="pageNum--, getOreRecord()">上一页</a></li>
@@ -34,6 +35,7 @@
           <li><a>共<i>{{ oreRecordPage.pages }}</i>页</a></li>
 
         </ol>
+        </div>
         <ul>
           <li v-for="news of list">
             <p class="ore-source">{{ news.title }}</p>
@@ -86,7 +88,7 @@
       getOreRecord() {
         service('get', '/user/oreRecord', {
           pageNum: 1,
-          pageSize: 10
+          pageSize: 1
         }).then(data => {
           this.oreRecordPage =data.data.oreRecordDTOPageInfo
           console.log(data)
@@ -119,5 +121,53 @@
     height: 150px;
     width: 100%;
     background-color: #9d6efa;
+  }
+  .page-bar {
+    text-align: center;
+  }
+
+  .page-bar ul {
+    display: table;
+    margin: 40px auto;
+    position: relative;
+    left: 300px;
+  }
+
+  .page-bar li {
+    display: table-cell;
+  }
+
+  .page-bar a {
+    border: 1px solid #ddd;
+    text-decoration: none;
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    cursor: pointer
+  }
+
+  .page-bar a:hover {
+    background-color: #eee;
+  }
+
+  .page-bar a.banclick {
+    cursor: not-allowed;
+  }
+
+  .page-bar .active a {
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+  }
+
+  .page-bar i {
+    font-style: normal;
+    color: #d44950;
+    margin: 0px 4px;
+    font-size: 12px;
   }
 </style>
