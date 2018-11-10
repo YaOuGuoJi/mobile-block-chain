@@ -38,11 +38,6 @@ export default new Router({
           path: '/my',
           name: 'My',
           component: My
-        },
-        {
-          path: '/login',
-          name: 'Login',
-          component: Login
         }
       ]
     },
@@ -50,6 +45,11 @@ export default new Router({
       path: '/ore',
       name: 'Ore',
       component: Ore
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     }
   ]
 })
