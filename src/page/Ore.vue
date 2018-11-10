@@ -1,31 +1,39 @@
 <template>
   <div class="ore-page" style="background-color: white">
     <div class="ore-header">
-      <common-header :title="title" :showback="true"></common-header>
+      <common-header :title="oreInfoTitle" :showback="true"></common-header>
     </div>
-    <div style="height:50px; width:100%"></div>
-    <div class="ore-number" style="text-align:left;">
+    <div style="height:50px;"></div>
+    <div class="ore-info" style="text-align:left;">
       <br/><br/>
-      <span class="ore-number-font" style="font-family: 宋体; font-size:16px; color:white;margin-left: 30px">{{oreInfoTitle}}</span>
-      <br/><br/>
-      <span class="" style="font-size:40px; color:white;margin-left: 30px">{{oreNumber}}</span>
+      <div class="ore-number-title">{{oreNumberTitle}}
+      </div>
+      <br/>
+      <div>
+        <div class="ore-number">{{oreNumber}}
+        </div>
+        <div class="ore-exchange">兑换</div>
+      </div>
     </div>
-    <h4>{{oreRecordTitle}}</h4>
+    <div style="height: 15px"></div>
+    <div class="ore-record-title">{{oreRecordTitle}}</div>
     <hr>
     <div v-if="oreList">
-      <div v-for="record in oreList" >
-        <div style="height: 30px">
+      <div v-for="record in oreList">
+        <div class="ore-List">
           <div class="oreList-source">{{ record.source }}</div>
-          <div class="oreList-time">{{ buildDate(record.addTime) }}</div>
-          <div class="oreList-Number">{{ record.ore }}</div>
+          <div>
+            <div class="oreList-time">{{ buildDate(record.addTime) }}</div>
+            <div class="oreList-Number">+{{ record.ore }}
+            </div>
+          </div>
         </div>
         <hr>
       </div>
     </div>
   </div>
 </template>
-
-<script>
+git<script>
   import commonHeader from '../components/common-header'
   import {service} from '../js/api'
 
@@ -33,6 +41,7 @@
     data() {
       return {
         title: '矿石记录',
+        oreNumberTitle: '矿石数量',
         oreInfoTitle: '矿石详情',
         oreRecordTitle: '矿石收支纪录',
         userId: 100001,
@@ -144,21 +153,78 @@
   .ore-header {
     display: block;
   }
-  .ore-number {
+
+  .ore-info {
     height: 150px;
     width: 100%;
-    background-color: #9d6efa;
+    background: url(../assets/imgs/oreBackImg.jpg) no-repeat left top;
+    background-size: cover;
   }
-  ul li{
-    list-style-type:none;
-    background-color: white;
-  }
-  hr{
-    background-color: #fffbf9;
-    height: 2px;
-  }
-  .oreList-source oreList-time{
-    margin-left: 40px;
 
+  .ore-exchange {
+    font-size: 20px;
+    color: white;
+    text-align: right;
+    width: 40%;
+    float: right;
+    margin-right: 5%;
+  }
+
+  .ore-number {
+    font-size: 40px;
+    color: white;
+    text-align: left;
+    width: 50%;
+    float: left;
+    margin-left: 5%;
+  }
+
+  .ore-number-title {
+    font-family: 宋体;
+    font-size: 16px;
+    color: white;
+    text-align: left;
+    width: 50%;
+    margin-left: 5%;
+  }
+
+  .ore-List {
+    text-align: left;
+    width: 90%;
+    margin-left: 5%;
+    height: 50px;
+    font-size: 16px;
+  }
+
+  hr {
+    background-color: #fffbf9;
+    height: 0.5px;
+  }
+
+  .oreList-source {
+    width: 50%;
+  }
+
+  .oreList-time {
+    width: 50%;
+    float: left;
+  }
+
+  .oreList-Number {
+    width: 50%;
+    text-align: right;
+    float: right;
+    color: #ff5342
+  }
+
+  .ore-record-title {
+    text-align: left;
+    width: 90%;
+    margin-left: 5%;
+    font-size: 16px;
+  }
+
+  div {
+    width: 100%;
   }
 </style>
