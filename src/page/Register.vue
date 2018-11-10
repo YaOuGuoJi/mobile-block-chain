@@ -1,10 +1,14 @@
 <template>
-  <div class="mobile-wrapper">
-    <img src="https://preview.ibb.co/dktKWL/bg-1.jpg">
+  <div class="mobile-wrapper" style="background:url('../../static/image/register.jpg');background-size: contain;">
+    <div class="left-icon">
+      <span class="icon-back" @click="back">Back</span>
+    </div>
     <div class="login-wrapper">
       <div class="brand-logo">
         <span>Sign Up For Free</span>
       </div>
+      <!--<div>-->
+      <!--</div>-->
       <div class="form-wrapper">
         <div class="input-group">
           <input v-model="userName" type="text" placeholder="Set An UserName">
@@ -12,7 +16,7 @@
         <div class="input-group">
           <input v-model="password" type="password" placeholder="Set A Password">
         </div>
-        <button v-on:click="register">Register</button>
+        <button v-on:click="register" style="background: url('../../static/image/button.png'); background-size: contain">Register</button>
       </div>
     </div>
   </div>
@@ -43,12 +47,23 @@
               this.$router.push({path: '/home'})
             }
           })
+        },
+        back: function () {
+          this.$router.go(-1);
         }
       }
     }
 </script>
 
 <style scoped>
+  .icon-back {
+    float: left;
+    padding-left: 5%;
+    padding-top: 3%;
+    color: rgba(255, 232, 140, 0.8);
+    font-weight: bold;
+    font-size: 0.4rem;
+  }
 
   * {
     margin: 0 auto;
@@ -102,7 +117,7 @@
     width: 100%;
     float: left;
     text-align: center;
-    color: #46c0c0;
+    color: rgba(87, 15, 18, 0.8);
     font-weight: bold;
     font-size: 1rem;
     position: relative;
@@ -121,49 +136,38 @@
     left: 50%;
     bottom: -12px;
     transform: translateX(-50%);
-    background-color: #46c0c0;
   }
 
   .form-wrapper {
     width: 100%;
-    /*float: left;*/
     margin-top: 3rem;
   }
 
+
   .input-group {
-    width: 100%;
-    float: left;
-    margin-bottom: 1rem;
-  }
-
-  .input-group label {
-    width: 60px;
-    height: 60px;
-    float: left;
-    display: block;
-    text-align: center;
-    background-color: #0e2c3d;
-  }
-
-  .input-group label i {
-    display: block;
-    line-height: 60px;
-    color: #fff;
-    font-size: 1.2rem;
+    position: relative;
+    margin-bottom: 45px;
   }
 
   .input-group input {
-    width: calc(100% - 60px);
-    height: 60px;
-    background-color: #0e2c3d;
-    color: #7f7f7f;
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid #ffe88c;
+    background-color: transparent;
+  }
+
+  .input-group input:focus {
+    outline: none;
   }
 
   .form-wrapper button {
     width: 80%;
     height: 50px;
-    background: linear-gradient(to right, #6ddec7, #46c0c0);
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+    background-color: rgba(255, 232, 140, 0.2);
+    /*box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);*/
     color: #fff;
     font-size: 0.5rem;
   }
