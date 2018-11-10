@@ -1,62 +1,69 @@
 <template>
   <div class="mobile-wrapper" style="background:url('../../static/image/register.jpg');background-size: contain;">
-    <!--<img src="https://preview.ibb.co/dktKWL/bg-1.jpg">-->
+    <div class="left-icon">
+      <span class="icon-back" @click="back">Back</span>
+    </div>
     <div class="login-wrapper">
       <div class="brand-logo">
-        <span>Mall Fun</span>
+        <span>Sign Up For Free</span>
       </div>
+      <!--<div>-->
+      <!--</div>-->
       <div class="form-wrapper">
         <div class="input-group">
-          <input v-model="userId" type="text" placeholder="userName">
+          <input v-model="userName" type="text" placeholder="Set An UserName">
         </div>
         <div class="input-group">
-          <input v-model="password" type="password" placeholder="password">
+          <input v-model="password" type="password" placeholder="Set A Password">
         </div>
-        <button v-on:click="login" style="background:url('../../static/image/button.png');background-size: contain;">LOGIN</button>
+        <button v-on:click="register" style="background: url('../../static/image/button.png'); background-size: contain">Register</button>
       </div>
     </div>
-    <div class="help-text">
-      <span v-on:click="register">Register</span>
-    </div>
   </div>
+
 </template>
 
-<script type="text/javascript">
-
+<script>
   import {service} from "../js/api";
   import md5 from 'js-md5'
 
   export default {
-    name: "Login",
-    data() {
-      return {
-        userId: null,
-        password: null
-      }
-    },
-    methods: {
-      login: function () {
-        service('post', '/user/login', {
-          userId: this.userId,
-          password: md5(this.password)
-        }).then(data => {
-          if (data.code !== 200 || !data.data) {
-            alert(data.message);
-          } else {
-            this.$router.push({path: '/home'})
-          }
-        });
+      name: "Register",
+      data() {
+        return {
+          userName: null,
+          password: null
+        }
       },
-      register: function () {
-        this.$router.push({path: '/register'})
+      methods: {
+        register: function () {
+          service('post', '/user/register', {
+            userName: this.userName,
+            password: md5(this.password)
+          }).then(data => {
+            if (data.code !== 200 || !data.data) {
+              alert(data.message)
+            } else {
+              this.$router.push({path: '/home'})
+            }
+          })
+        },
+        back: function () {
+          this.$router.go(-1);
+        }
       }
     }
-  }
-
 </script>
 
 <style scoped>
-  /*@charset "UTF-8";*/
+  .icon-back {
+    float: left;
+    padding-left: 5%;
+    padding-top: 3%;
+    color: rgba(255, 232, 140, 0.8);
+    font-weight: bold;
+    font-size: 0.4rem;
+  }
 
   * {
     margin: 0 auto;
@@ -136,6 +143,7 @@
     margin-top: 3rem;
   }
 
+
   .input-group {
     position: relative;
     margin-bottom: 45px;
@@ -158,7 +166,7 @@
   .form-wrapper button {
     width: 80%;
     height: 50px;
-    background: rgba(255, 232, 140, 0.22);
+    background-color: rgba(255, 232, 140, 0.2);
     /*box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);*/
     color: #fff;
     font-size: 0.5rem;
@@ -171,11 +179,6 @@
     position: absolute;
     bottom: 50px;
     cursor: pointer;
-  }
-
-  .help-text span {
-    font-size: 0.45rem;
-    color: white;
   }
 
 </style>
