@@ -11,10 +11,10 @@
       <!--</div>-->
       <div class="form-wrapper">
         <div class="input-group">
-          <input v-model="userName" type="text" placeholder="Set An UserName">
+          <input v-model="userName" type="text" placeholder="Set An UserName 4-20 character">
         </div>
         <div class="input-group">
-          <input v-model="password" type="password" placeholder="Set A Password">
+          <input v-model="password" type="password" placeholder="Set A Password 8-16 character">
         </div>
         <button v-on:click="register" style="background: url('../../static/image/button.png'); background-size: contain">Register</button>
       </div>
@@ -37,6 +37,22 @@
       },
       methods: {
         register: function () {
+          if (this.userName === null) {
+            alert('请输入用户名')
+            return
+          }
+          if (this.userName.length < 3 || this.userName.length > 20) {
+            alert('请输入3-20字符内用户名')
+            return
+          }
+          if (this.password === null) {
+            alert('请输入密码')
+            return
+          }
+          if (this.password.length < 6 || this.password.length > 16) {
+            alert("请输入6-16位的密码")
+            return
+          }
           service('post', '/user/register', {
             userName: this.userName,
             password: md5(this.password)
