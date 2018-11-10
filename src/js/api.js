@@ -5,12 +5,14 @@ import axios from 'axios'
 import qs from 'qs'
 
 export function service(method, url, params = {}) {
+  if (url === '/user/register') {
+    return doRequest(method, url, params)
+  }
   if (url !== '/user/login') {
     return axios({
       url: '/api/user/isLogin',
       method: 'get'
     }).then(response => {
-      console.log(response.data.data);
       if (!response.data.data) {
         app.$router.replace('/login');
       } else {

@@ -5,7 +5,9 @@ import Home from '@/page/index/Home'
 import Find from '@/page/index/Find'
 import Play from '@/page/index/Play'
 import My from '@/page/index/My'
+import Ore from '@/page/Ore'
 import Login from '@/page/Login'
+import Register from '@/page/Register'
 
 Vue.use(Router);
 
@@ -41,9 +43,19 @@ export default new Router({
       ]
     },
     {
+      path: '/ore',
+      name: 'Ore',
+      component: Ore
+    },
+    {
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
     }
   ]
 })
