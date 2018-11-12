@@ -56,7 +56,7 @@
             return
           }
           if (this.secondPassword === null) {
-            alert('')
+            alert('请输入确认密码')
             return
           }
           if (this.secondPassword.length < 6 || this.secondPassword.length > 16) {
@@ -201,15 +201,6 @@
     /*box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);*/
     color: #fff;
     font-size: 0.5rem;
-  }
-
-  .help-text {
-    width: 100%;
-    text-align: center;
-    color: #7f7f7f;
-    position: absolute;
-    bottom: 50px;
-    cursor: pointer;
   }
 
 </style>
