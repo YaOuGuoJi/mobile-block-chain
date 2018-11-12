@@ -4,14 +4,11 @@
       <img src="../../assets/imgs/backgroud.jpg" id="background"/>
     </div>
     <div id="content">
-      <div id="ww">
-        <common-header :title="title" :showback="false"></common-header>
-      </div>
       <div id="w">
         <div id="powerAll">
           <table id="power">
             <tr>
-              <td></td>
+              <td><a href="http://localhost:8080/ore" id="qq"></a></td>
               <td></td>
             </tr>
           </table>
@@ -55,16 +52,18 @@
         </div>
         <div id="bottom" class="swiper-container">
           <div class="swiper-wrapper">
-            <div id="first" class="swiper-slide"><a href="http://localhost:8080/Home"><img
-              src="../../assets/imgs/picture.jpg"/></a></div>
-            <div id="second" class="swiper-slide"><a href="http://localhost:8080/Home"><img
-              src="../../assets/imgs/picture.jpg"/></a></div>
-            <div id="third" class="swiper-slide"><a href="http://localhost:8080/Home"><img
-              src="../../assets/imgs/picture.jpg"/></a></div>
-            <div id="fourth" class="swiper-slide"><a href="http://localhost:8080/Home"><img
-              src="../../assets/imgs/picture.jpg"/></a></div>
-            <div id="fifth" class="swiper-slide"><a href="http://localhost:8080/Home"><img
-              src="../../assets/imgs/picture.jpg"/></a></div>
+            <div class="swiper-slide"><a href="http://localhost:8080/Home"><img
+              src="../../assets/imgs/a.png"/></a></div>
+            <div class="swiper-slide"><a href="http://localhost:8080/Home"><img
+              src="../../assets/imgs/b.png"/></a></div>
+            <div class="swiper-slide"><a href="http://localhost:8080/Home"><img
+              src="../../assets/imgs/c.png"/></a></div>
+            <div class="swiper-slide"><a href="http://localhost:8080/Home"><img
+              src="../../assets/imgs/d.png"/></a></div>
+            <div class="swiper-slide"><a href="http://localhost:8080/Home"><img
+              src="../../assets/imgs/e.png"/></a></div>
+            <div class="swiper-slide"><a href="http://localhost:8080/Home"><img
+              src="../../assets/imgs/f.png"/></a></div>
           </div>
         </div>
       </div>
@@ -83,6 +82,7 @@
       return {
         title: '首页',
         num: 0,
+        photoPath: ["../../../static/image/one.png","../../../static/image/two.png","../../../static/image/three.png","../../../static/image/four.png","../../../static/image/five.png","../../../static/image/six.png","../../../static/image/seven.png","../../../static/image/eight.png"]
       }
     },
     components: {
@@ -92,21 +92,14 @@
       this.getInitialise()
       let mySwiper = new Swiper(".swiper-container", {
         loop: "true",
-        effect : 'coverflow',
-        slidesPerView: 3,
-        centeredSlides: true,
-        watchSlidesProgress: true,
-        allowTouchMove: true,
-        navigation: {
-          prevEl: '.swiper-button-prev',
-          nextEl: '.swiper-button-next',
-        }
+        // effect : 'coverflow',
+        slidesPerView: 2,
+        centeredSlides: false,
+        watchSlidesProgress: true
       });
     },
     methods: {
       getInitialise() {
-        service("post", "/user/login", {userId: 100001, password: "2198d45569dbbd23dce3a48c77497b59"}).then(data => {
-        })
         service("get", "/user/oreNumber").then(data => {
           if (data.code != 200) {
             alert(data.message)
@@ -115,7 +108,8 @@
             let power = document.getElementById("power");
             power.rows[0].cells[0].width = 80;
             if (data.data.oreNumber) {
-              power.rows[0].cells[0].innerHTML = "财富:" + data.data.oreNumber;
+              // power.rows[0].cells[0].innerHTML = "财富:" + data.data.oreNumber;
+              document.getElementById("qq").innerText="财富:" + data.data.oreNumber;
             }
             else {
               power.rows[0].cells[0].innerHTML = "财富:0.0000";
@@ -148,6 +142,7 @@
         })
       },
       getUnreceive(unreceive) {
+        let photo=["../../../static/image/one.png","../../../static/image/two.png","../../../static/image/three.png","../../../static/image/four.png","../../../static/image/five.png","../../../static/image/six.png","../../../static/image/seven.png","../../../static/image/eight.png"];
         if (unreceive.length > 0) {
           let numOfReceive = unreceive.length
           for (let i in unreceive) {
@@ -159,27 +154,31 @@
               col = Math.floor(Math.random() * 6);
             }
             oreTable.rows[row].cells[col].width = 47;
-            oreTable.rows[row].cells[col].innerHTML = unreceive[i].ore;
+            oreTable.rows[row].cells[col].height = 47;
+            oreTable.rows[row].cells[col].innerHTML="<table><tr><td><img width='100%' height='10%' src='"+this.photoPath[Math.floor(Math.random() * 8)]+"' alt='加载中'/></td></tr></table>"+ unreceive[i].ore
             oreTable.rows[row].cells[col].value = unreceive[i].id;
             oreTable.rows[row].cells[col].onclick = function () {
-              service("get", "user/received/ore", {oreId: this.value}).then(data => {
+              let inner=this.innerHTML;
+              let value=this.value;
+              this.innerHTML='';
+              this.value='';
+              this.onclick='';
+              numOfReceive -= 1;
+              if (!numOfReceive) {
+                let oreTable = document.getElementById("oreId")
+                oreTable.rows[1].cells[3].width = 47;
+                oreTable.rows[1].cells[3].height = 47;
+                document.getElementById("oreId").rows[0].cells[2].innerHTML ="<table><tr><td><img width='25%' height='10%' src='"+photo[Math.floor(Math.random() * 8)]+"' alt='加载中'/></td></tr></table>"+"财富生成中";
+              }
+              service("get", "user/received/ore", {oreId: value}).then(data => {
                 if (data.code != 200) {
                   alert(data.message)
                 }
                 if (data.code == 200) {
-                  let wealthStr = document.getElementById("power").rows[0].cells[0].innerHTML
-                  let wealth = parseFloat(wealthStr.substr(wealthStr.indexOf(":") + 1)) + parseFloat(this.innerHTML)
-                  document.getElementById("power").rows[0].cells[0].width = 80
+                  let wealthStr = document.getElementById("power").rows[0].cells[0].innerHTML;
+                  let wealth = parseFloat(wealthStr.substr(wealthStr.indexOf(":") + 1)) + parseFloat(inner.substr(inner.lastIndexOf(">") + 1))
+                  document.getElementById("power").rows[0].cells[0].width = 80;
                   document.getElementById("power").rows[0].cells[0].innerHTML = wealthStr.substr(0, wealthStr.indexOf(":") + 1) + wealth;
-                }
-                this.innerHTML = '';
-                this.value = '';
-                this.onclick = "";
-                numOfReceive -= 1;
-                if (!numOfReceive) {
-                  let oreTable = document.getElementById("oreId")
-                  oreTable.rows[1].cells[3].width = 47;
-                  document.getElementById("oreId").rows[1].cells[3].innerHTML = "<img src='../../assets/imgs/water.png'/>财富生成中";
                 }
               })
             }
@@ -188,7 +187,8 @@
         else {
           let oreTable = document.getElementById("oreId")
           oreTable.rows[1].cells[3].width = 47;
-          document.getElementById("oreId").rows[1].cells[3].innerHTML = "<img src='../../assets/imgs/water.png'/>财富生成中";
+          oreTable.rows[1].cells[3].height = 47;
+          document.getElementById("oreId").rows[0].cells[2].innerHTML = "<table><tr><td><img width='25%' height='10%' src='"+photo[Math.floor(Math.random() * 8)]+"' alt='加载中'/></td></tr></table>"+"财富生成中";
         }
       }
     }
@@ -210,17 +210,11 @@
   #background {
     height: 100%;
     width: 100%;
-    padding-top: 7%;
-  }
-
-  #bottom img {
-    height: 100%;
-    width: 100%;
   }
 
   #content {
     position: absolute;
-    z-index: 3;
+    z-index: 9;
     width: 100%;
     height: 100%;
   }
@@ -228,7 +222,6 @@
   #w {
     height: 100%;
     width: 100%;
-    padding-top: 55px;
     padding-bottom: 50px;
     font-size: x-small;
   }
@@ -258,10 +251,9 @@
   }
 
   #bottom {
-    margin-top: 5%;
+    margin-top: 2%;
     width: 100%;
-    height: 30%;
-    touch-action: none;
+    height: 35%;
   }
 
   #powerAll {
@@ -276,10 +268,14 @@
     padding-left: 0;
   }
 
-  .swiper-slide {
-    padding: 0.5%;
-    width: 40%;
+  .swiper-slide img {
+    /*padding: 1%;*/
+    width: 100%;
     height: 100%;
-    padding-bottom: 10%;
+  }
+
+  #oreId img {
+    height: 5%;
+    width: 10%;
   }
 </style>
