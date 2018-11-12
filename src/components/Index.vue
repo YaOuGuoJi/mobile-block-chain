@@ -53,6 +53,11 @@
   @import "../styles/index.less";
   @import "../styles/variable.less";
 
+  .page {
+    background-image: url("../assets/background.jpg");
+    background-size: 100%, 100%;
+  }
+
   .nav-footer {
     position: fixed;
     left: 0px;
