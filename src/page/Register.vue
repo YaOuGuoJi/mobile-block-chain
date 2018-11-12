@@ -1,5 +1,5 @@
 <template>
-  <div class="mobile-wrapper" style="background:url('../../static/image/register.jpg');background-size: contain;">
+  <div class="mobile-wrapper">
     <div class="left-icon">
       <span class="icon-back" @click="back">Back</span>
     </div>
@@ -7,8 +7,6 @@
       <div class="brand-logo">
         <span>Sign Up For Free</span>
       </div>
-      <!--<div>-->
-      <!--</div>-->
       <div class="form-wrapper">
         <div class="input-group">
           <input v-model="userName" type="text" placeholder="Set An UserName 4-20 character">
@@ -19,7 +17,7 @@
         <div class="input-group">
           <input v-model="secondPassword" type="password" placeholder="Confirm Password">
         </div>
-        <button v-on:click="register" style="background: url('../../static/image/button.png'); background-size: contain">Register</button>
+        <button v-on:click="register" style="background: url('../../static/image/button.png'); background-size: 100% 100%">Register</button>
       </div>
     </div>
   </div>
@@ -59,6 +57,7 @@
           }
           if (this.secondPassword === null) {
             alert('')
+            return
           }
           if (this.secondPassword.length < 6 || this.secondPassword.length > 16) {
             alert('请输入6-16位的密码')
@@ -127,8 +126,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #1c485c;
     box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.25), 0 5px 15px 0 rgba(0, 0, 0, 0.25);
+    background: #1c485c url("../../static/image/register.jpg");
+    background-size: 100% 100%;
   }
 
   .mobile-wrapper img {
