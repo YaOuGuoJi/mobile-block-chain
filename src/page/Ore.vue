@@ -10,9 +10,14 @@
       </div>
       <br/>
       <div>
-        <div class="ore-number">{{oreNumber}}
-        </div>
-        <div class="ore-exchange">兑换</div>
+        <div class="ore-number">{{oreNumber}}</div>
+
+        <router-link tag="a" :to="'/'">
+          <div class="ore-exchange">
+            <div class="ore-come" style=""></div>
+            兑换
+          </div>
+        </router-link>
       </div>
     </div>
     <div style="height: 15px"></div>
@@ -33,7 +38,8 @@
     </div>
   </div>
 </template>
-git<script>
+git
+<script>
   import commonHeader from '../components/common-header'
   import {service} from '../js/api'
 
@@ -161,11 +167,18 @@ git<script>
     background-size: cover;
   }
 
+  .ore-come {
+    height: 28px;
+    width: 28px;
+    float: right;
+    background: url(../assets/imgs/input.png) no-repeat left center;
+  }
+
   .ore-exchange {
     font-size: 20px;
     color: white;
     text-align: right;
-    width: 40%;
+    width: 20%;
     float: right;
     margin-right: 5%;
   }
