@@ -28,8 +28,7 @@
           <div class="oreList-source">{{ record.source }}</div>
           <div>
             <div class="oreList-time">{{ buildDate(record.addTime) }}</div>
-            <div class="oreList-Number">+{{ record.ore }}
-            </div>
+            <div class="oreList-Number">+{{ record.ore }}</div>
           </div>
         </div>
         <hr>
@@ -38,7 +37,6 @@
     </div>
   </div>
 </template>
-git
 <script>
   import commonHeader from '../components/common-header'
   import {service} from '../js/api'
@@ -205,13 +203,15 @@ git
     text-align: left;
     width: 90%;
     margin-left: 5%;
-    height: 50px;
+    height: 44px;
     font-size: 16px;
   }
 
   hr {
     background-color: #fffbf9;
     height: 0.5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   .oreList-source {
