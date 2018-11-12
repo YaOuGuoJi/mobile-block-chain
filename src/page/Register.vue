@@ -14,7 +14,10 @@
           <input v-model="userName" type="text" placeholder="Set An UserName 4-20 character">
         </div>
         <div class="input-group">
-          <input v-model="password" type="password" placeholder="Set A Password 8-16 character">
+          <input v-model="firstPassword" type="password" placeholder="Set A Password 8-16 character">
+        </div>
+        <div class="input-group">
+          <input v-model="secondPassword" type="password" placeholder="Confirm Password">
         </div>
         <button v-on:click="register" style="background: url('../../static/image/button.png'); background-size: contain">Register</button>
       </div>
@@ -32,7 +35,8 @@
       data() {
         return {
           userName: null,
-          password: null
+          firstPassword: null,
+          secondPassword:null
         }
       },
       methods: {
@@ -45,17 +49,28 @@
             alert('请输入3-20字符内用户名')
             return
           }
-          if (this.password === null) {
+          if (this.firstPassword === null) {
             alert('请输入密码')
             return
           }
-          if (this.password.length < 6 || this.password.length > 16) {
+          if (this.firstPassword.length < 6 || this.firstPassword.length > 16) {
             alert("请输入6-16位的密码")
+            return
+          }
+          if (this.secondPassword === null) {
+            alert('')
+          }
+          if (this.secondPassword.length < 6 || this.secondPassword.length > 16) {
+            alert('请输入6-16位的密码')
+            return
+          }
+          if (this.firstPassword !== this.secondPassword) {
+            alert('两次密码输入不一致')
             return
           }
           service('post', '/user/register', {
             userName: this.userName,
-            password: md5(this.password)
+            password: md5(this.secondPassword)
           }).then(data => {
             if (data.code !== 200 || !data.data) {
               alert(data.message)
