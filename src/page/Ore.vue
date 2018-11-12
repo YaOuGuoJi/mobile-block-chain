@@ -11,7 +11,6 @@
       <br/>
       <div>
         <div class="ore-number">{{oreNumber}}</div>
-
         <router-link tag="a" :to="'/'">
           <div class="ore-exchange">
             <div class="ore-come" style=""></div>
@@ -35,6 +34,7 @@
         </div>
         <hr>
       </div>
+      <label class="last-trip">loading...</label>
     </div>
   </div>
 </template>
@@ -65,18 +65,12 @@ git
     mounted() {
       this.getOreNumber();
       this.getOreRecord(this.pageNum);
-      if (this.nextPage) {
-        window.addEventListener('scroll', () => {
-          if (this.getScrollTop() + this.getWindowHeight() == this.getScrollHeight()) {
-            if (this.nextPage) {
-              this.nextPage = false;
-              this.pageNum++;
-              this.getOreRecord();
-              this.nextPage = true;
-            }
-          }
-        });
-      }
+      window.addEventListener('scroll', () => {
+        if (this.getScrollTop() + this.getWindowHeight() == this.getScrollHeight()) {
+          this.pageNum++;
+          this.getOreRecord();
+        }
+      });
     },
     methods: {
       getOreNumber() {
@@ -97,6 +91,7 @@ git
           console.log(this.pageInfo)
           if (!this.pageInfo.hasNextPage) {
             this.nextPage = false
+            document.getElementsByClassName('last-trip')[0].innerHTML = "到底啦，求求你别拉了。"
           }
           for (let ore in this.pageInfo.list) {
             this.oreList.push(this.pageInfo.list[ore]);
@@ -165,6 +160,11 @@ git
     width: 100%;
     background: url(../assets/imgs/oreBackImg.jpg) no-repeat left top;
     background-size: cover;
+  }
+
+  .last-trip {
+    font-size: 10px;
+    color: #b3b3b3;
   }
 
   .ore-come {
