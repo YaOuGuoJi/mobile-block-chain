@@ -5,6 +5,22 @@ import axios from 'axios'
 import qs from 'qs'
 
 export function service(method, url, params = {}) {
+  if (url !== '/user/login') {
+    return axios({
+      url: '/api/user/isLogin',
+      method: 'get'
+    }).then(response => {
+      if (!response.data.data) {
+        app.$router.replace('/login');
+      } else {
+        return doRequest(method, url, params);
+      }
+    });
+  }
+  return doRequest(method, url, params);
+}
+
+function doRequest(method, url, params) {
   return axios({
     url: '/api' + url,
     method: method,
@@ -21,6 +37,5 @@ export function service(method, url, params = {}) {
     },
     error => {
       console.log(error);
-      app.$router.replace('/login');
     })
 }
