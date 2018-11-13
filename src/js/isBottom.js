@@ -37,3 +37,18 @@ function getWindowHeight() {
   }
   return windowHeight;
 }
+//时间解析
+export function buildDate(str) {
+  let date = new Date(str),
+    year = date.getFullYear(),
+    // 月份从0开始，需要+1
+    month = date.getMonth() + 1,
+    day = date.getDate(),
+    hour = date.getHours(),
+    min = date.getMinutes()
+  return year + '-' +
+    (month < 10 ? '0' + month : month) + '-' +
+    (day < 10 ? '0' + day : day) + ' ' +
+    (hour < 10 ? '0' + hour : hour) + ':' +
+    (min < 10 ? '0' + min : min)
+}

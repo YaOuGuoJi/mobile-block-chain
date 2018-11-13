@@ -27,7 +27,7 @@
         <div class="ore-List">
           <div class="oreList-source">{{ record.source }}</div>
           <div>
-            <div class="oreList-time">{{ buildDate(record.addTime) }}</div>
+            <div class="oreList-time">{{ buildTime(record.addTime) }}</div>
             <div class="oreList-Number">+{{ record.ore }}</div>
           </div>
         </div>
@@ -41,6 +41,7 @@
   import commonHeader from '../components/common-header'
   import {service} from '../js/api'
   import {isDown} from '../js/isBottom'
+  import {buildDate} from '../js/isBottom'
   export default {
     data() {
       return {
@@ -71,6 +72,9 @@
       });
     },
     methods: {
+      buildTime(str){
+        return buildDate(str)
+      },
       getOreNumber() {
         service('get', '/user/oreNumber', {}).then(data => {
           this.oreNumber = data.data.oreNumber
@@ -96,21 +100,6 @@
         })
       },
 
-      //时间解析
-      buildDate: function (str) {
-        let date = new Date(str),
-          year = date.getFullYear(),
-          // 月份从0开始，需要+1
-          month = date.getMonth() + 1,
-          day = date.getDate(),
-          hour = date.getHours(),
-          min = date.getMinutes()
-        return year + '-' +
-          (month < 10 ? '0' + month : month) + '-' +
-          (day < 10 ? '0' + day : day) + ' ' +
-          (hour < 10 ? '0' + hour : hour) + ':' +
-          (min < 10 ? '0' + min : min)
-      }
     }
   }
 </script>
