@@ -10,9 +10,13 @@
       </div>
       <br/>
       <div>
-        <div class="ore-number">{{oreNumber}}
-        </div>
-        <div class="ore-exchange">兑换</div>
+        <div class="ore-number">{{oreNumber}}</div>
+        <router-link tag="a" :to="'/'">
+          <div class="ore-exchange">
+            <div class="ore-come" style=""></div>
+            兑换
+          </div>
+        </router-link>
       </div>
     </div>
     <div style="height: 15px"></div>
@@ -24,16 +28,16 @@
           <div class="oreList-source">{{ record.source }}</div>
           <div>
             <div class="oreList-time">{{ buildDate(record.addTime) }}</div>
-            <div class="oreList-Number">+{{ record.ore }}
-            </div>
+            <div class="oreList-Number">+{{ record.ore }}</div>
           </div>
         </div>
         <hr>
       </div>
+      <label class="last-trip">loading...</label>
     </div>
   </div>
 </template>
-git<script>
+<script>
   import commonHeader from '../components/common-header'
   import {service} from '../js/api'
 
@@ -59,18 +63,12 @@ git<script>
     mounted() {
       this.getOreNumber();
       this.getOreRecord(this.pageNum);
-      if (this.nextPage) {
-        window.addEventListener('scroll', () => {
-          if (this.getScrollTop() + this.getWindowHeight() == this.getScrollHeight()) {
-            if (this.nextPage) {
-              this.nextPage = false;
-              this.pageNum++;
-              this.getOreRecord();
-              this.nextPage = true;
-            }
-          }
-        });
-      }
+      window.addEventListener('scroll', () => {
+        if (this.getScrollTop() + this.getWindowHeight() == this.getScrollHeight()) {
+          this.pageNum++;
+          this.getOreRecord();
+        }
+      });
     },
     methods: {
       getOreNumber() {
@@ -91,6 +89,7 @@ git<script>
           console.log(this.pageInfo)
           if (!this.pageInfo.hasNextPage) {
             this.nextPage = false
+            document.getElementsByClassName('last-trip')[0].innerHTML = "到底啦，求求你别拉了。"
           }
           for (let ore in this.pageInfo.list) {
             this.oreList.push(this.pageInfo.list[ore]);
@@ -161,11 +160,23 @@ git<script>
     background-size: cover;
   }
 
+  .last-trip {
+    font-size: 10px;
+    color: #b3b3b3;
+  }
+
+  .ore-come {
+    height: 28px;
+    width: 28px;
+    float: right;
+    background: url(../assets/imgs/input.png) no-repeat left center;
+  }
+
   .ore-exchange {
     font-size: 20px;
     color: white;
     text-align: right;
-    width: 40%;
+    width: 20%;
     float: right;
     margin-right: 5%;
   }
@@ -192,13 +203,15 @@ git<script>
     text-align: left;
     width: 90%;
     margin-left: 5%;
-    height: 50px;
+    height: 44px;
     font-size: 16px;
   }
 
   hr {
     background-color: #fffbf9;
     height: 0.5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   .oreList-source {

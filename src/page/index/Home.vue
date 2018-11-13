@@ -6,12 +6,14 @@
     <div id="content">
       <div id="w">
         <div id="powerAll">
-          <table id="power">
-            <tr>
-              <td><a href="http://localhost:8080/ore" id="qq"></a></td>
-              <td></td>
-            </tr>
-          </table>
+          <!--<table id="power">-->
+            <!--<tr>-->
+              <!--<td></td>-->
+              <!--<td></td>-->
+            <!--</tr>-->
+          <!--</table>-->
+          <div id="newWealth"></div>
+          <div id="newPower"></div>
         </div>
         <div id="news"></div>
         <div id="ore">
@@ -94,6 +96,7 @@
         loop: "true",
         // effect : 'coverflow',
         slidesPerView: 2,
+        freeMode : true,
         centeredSlides: false,
         watchSlidesProgress: true
       });
@@ -105,14 +108,11 @@
             alert(data.message)
           }
           else {
-            let power = document.getElementById("power");
-            power.rows[0].cells[0].width = 80;
             if (data.data.oreNumber) {
-              // power.rows[0].cells[0].innerHTML = "财富:" + data.data.oreNumber;
-              document.getElementById("qq").innerText="财富:" + data.data.oreNumber;
+              document.getElementById("newWealth").innerHTML="<span>财富:"+data.data.oreNumber.toFixed(5)+"</span>"
             }
             else {
-              power.rows[0].cells[0].innerHTML = "财富:0.0000";
+              document.getElementById("newWealth").innerHTML="<span>财富:0.00000</span>"
             }
           }
         })
@@ -121,12 +121,10 @@
             alert(data.message)
           }
           else {
-            let power = document.getElementById("power");
-            power.rows[0].cells[1].width = 80;
             if (data.data.validPowerSum) {
-              power.rows[0].cells[1].innerHTML = "力量:" + data.data.validPowerSum
+              document.getElementById("newPower").innerHTML="<span>力量:"+data.data.validPowerSum.toFixed(0)+"</span>"
             } else {
-              power.rows[0].cells[1].innerHTML = "力量:0.00000"
+              document.getElementById("newPower").innerHTML = "<span>力量:0.00000</span>"
             }
           }
         })
@@ -166,8 +164,8 @@
               numOfReceive -= 1;
               if (!numOfReceive) {
                 let oreTable = document.getElementById("oreId")
-                oreTable.rows[1].cells[3].width = 47;
-                oreTable.rows[1].cells[3].height = 47;
+                oreTable.rows[0].cells[0].width = 47;
+                oreTable.rows[0].cells[0].height = 47;
                 document.getElementById("oreId").rows[0].cells[2].innerHTML ="<table><tr><td><img width='25%' height='10%' src='"+photo[Math.floor(Math.random() * 8)]+"' alt='加载中'/></td></tr></table>"+"财富生成中";
               }
               service("get", "user/received/ore", {oreId: value}).then(data => {
@@ -175,10 +173,9 @@
                   alert(data.message)
                 }
                 if (data.code == 200) {
-                  let wealthStr = document.getElementById("power").rows[0].cells[0].innerHTML;
-                  let wealth = parseFloat(wealthStr.substr(wealthStr.indexOf(":") + 1)) + parseFloat(inner.substr(inner.lastIndexOf(">") + 1))
-                  document.getElementById("power").rows[0].cells[0].width = 80;
-                  document.getElementById("power").rows[0].cells[0].innerHTML = wealthStr.substr(0, wealthStr.indexOf(":") + 1) + wealth;
+                  let wealthStr = document.getElementById("newWealth").innerHTML;
+                  let wealth = (parseFloat(wealthStr.substr(wealthStr.indexOf(":") + 1)) + parseFloat(inner.substr(inner.lastIndexOf(">") + 1))).toFixed(5)
+                  document.getElementById("newWealth").innerHTML = "<span>"+wealthStr.substring(wealthStr.indexOf('>')+1, wealthStr.indexOf(':')+1 ) + wealth+"</span>"
                 }
               })
             }
@@ -257,15 +254,9 @@
   }
 
   #powerAll {
+    font-size: 180%;
     width: 100%;
     height: 7%;
-  }
-
-  #power {
-    width: 55%;
-    height: 100%;
-    margin-left: 0;
-    padding-left: 0;
   }
 
   .swiper-slide img {
@@ -277,5 +268,28 @@
   #oreId img {
     height: 5%;
     width: 10%;
+  }
+  #newWealth{
+    padding-top: 3%;
+    color: #d2d017;
+    margin-top: 1%;
+    margin-left: 3%;
+    height: 100%;
+    width: 40%;
+    float: left;
+    background-color: rgba(	255,165,0,0.3);
+    border-radius: 5%;
+  }
+  #newPower{
+    padding-top: 3%;
+    color: #d2d017;
+    margin-top: 1%;
+    margin-left: 3%;
+    height: 100%;
+    width: 35%;
+    float: left;
+    /*background-color: rgba(	255,165,0,0.3);*/
+    border-radius: 5%;
+    background: url("../../assets/imgs/power.png") no-repeat left top;
   }
 </style>
