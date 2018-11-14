@@ -1,7 +1,4 @@
 <template>
-  <div>
-    <common-header :title="title" :showback="false"></common-header>
-  </div>
 </template>
 
 <script>
@@ -10,7 +7,6 @@
   export default {
     data() {
       return {
-        title: '玩转',
         num: 0
       }
     },
@@ -19,3 +15,10 @@
     }
   }
 </script>
+<style scoped>
+  #max{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,165,0,0.5);
+  }
+</style>
