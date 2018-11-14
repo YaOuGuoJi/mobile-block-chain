@@ -5,6 +5,9 @@ import axios from 'axios'
 import qs from 'qs'
 
 export function service(method, url, params = {}) {
+  if (url === '/user/register') {
+    return doRequest(method, url, params)
+  }
   if (url !== '/user/login') {
     return axios({
       url: '/api/user/isLogin',

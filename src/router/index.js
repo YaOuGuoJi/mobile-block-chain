@@ -7,7 +7,9 @@ import Play from '@/page/index/Play'
 import My from '@/page/index/My'
 import PowerRecord from '@/page/PowerRecord'
 
+import Ore from '@/page/Ore'
 import Login from '@/page/Login'
+import Register from '@/page/Register'
 
 Vue.use(Router);
 
@@ -39,16 +41,26 @@ export default new Router({
           path: '/my',
           name: 'My',
           component: My
-        },
-        {
-          path: '/login',
-          name: 'Login',
-          component: Login
         }
       ]
     },
     {
-      path: "/powerRecord",
+      path: '/ore',
+      name: 'Ore',
+      component: Ore
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
+        },
+    {
+      path: "/power",
       name: 'powerRecord',
       component: PowerRecord
     }
