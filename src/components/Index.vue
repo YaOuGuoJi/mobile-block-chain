@@ -55,6 +55,7 @@
 
   .nav-footer {
     position: fixed;
+    z-index: 1000;
     left: 0px;
     bottom: 0px;
     width: 100%;
