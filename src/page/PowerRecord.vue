@@ -11,8 +11,8 @@
     </div>
     <div>
       <div class="valid_record">
-        <div class="valid_title"><span v-on:click="this.pageNum = 1;getPowerRecord()">生效中的算力值</span></div>
-        <div class="not_valid_title"><span v-on:click="this.pageNum = 1;getExpiredPowerRecord()">已失效的算力值</span></div>
+        <div class="valid_title"><span v-on:click="pageNum = 1;pageNum.hasNextPage == true;getPowerRecord()">生效中的算力值</span></div>
+        <div class="not_valid_title"><span v-on:click="pageNum = 1;pageNum.hasNextPage == true;getExpiredPowerRecord()">已失效的算力值</span></div>
       </div>
       <div class="hr_type"></div>
       <div class="record_list">
@@ -20,19 +20,21 @@
           <ul class="list-group" id="add_id">
             <li class="list-group-item" v-for="power in powerList">
               <span class="source_class">{{power.source}}</span>
-              <span class="time_class">{{buildDate(power.addTime)}}生效</span>
+              <span class="time_class">{{buildTime(power.addTime)}}生效</span>
               <span class="power_class">算力值+{{power.power}}</span>
             </li>
           </ul>
+          <label class="last-trip">loading...</label>
         </div>
         <div id="not_valid_record_table" v-if="expiredPowerList" v-show="this.type=='notValid'">
           <ul class="list-group" id="add">
             <li class="list-group-item" v-for="power in expiredPowerList">
               <span class="source_class">{{power.source}}</span>
-              <span class="time_class">{{buildDate(power.updateTime)}}生效</span>
+              <span class="time_class">{{buildTime(power.updateTime)}}生效</span>
               <span class="power_class">算力值-{{power.power}}</span>
             </li>
           </ul>
+          <label class="last-trips">loading...</label>
         </div>
       </div>
     </div>
@@ -41,6 +43,8 @@
 <script>
   import commonHeader from '../components/common-header'
   import {service} from '../js/api'
+  import {isDown} from '../js/isBottom'
+  import {buildDate} from '../js/isBottom'
 
   export default {
     data() {
@@ -54,21 +58,20 @@
         expiredPowerList: [],
         pageNum: 1,
         pageSize: 13,
-        nextPage: true,
-        type: null
+        type: null,
+        pageInfo: null,
+        pageInfos: null
       }
     },
     mounted() {
       this.getPowerSum();
-     window.addEventListener('scroll', () => {
-        if (this.getScrollTop() + this.getWindowHeight() >= this.getScrollHeight()) {
-          if(this.type=="valid"){
-            console.log(121212);
-            this.pageNum++;
+      this.getPowerRecord();
+      window.addEventListener('scroll', () => {
+        if (isDown()) {
+          this.pageNum++;
+          if (this.type==="valid") {
             this.getPowerRecord();
           }else{
-            console.log(131313);
-            this.pageNum++;
             this.getExpiredPowerRecord();
           }
         }
@@ -83,24 +86,21 @@
       },
       getPowerRecord() {
         this.type = "valid";
-        this.pageNum = 1;
         service('get', '/user/power/valid', {
           pageNum: this.pageNum,
           pageSize: this.pageSize
         }).then(data => {
-          if (data.code != 200) {
-//            alert(data.message);
+          if (data.code !== 200) {
             return;
           }
           this.pageInfo = data.data;
-          console.log(data.data);
+          console.log(this.pageInfo.pageNum);
+          if (this.pageInfo.hasNextPage===false) {
+            document.getElementsByClassName('last-trip')[0].innerHTML = "到底啦，求求你别拉了。"
+          }
           for (let power in this.pageInfo.list) {
             this.powerList.push(this.pageInfo.list[power]);
           }
-          if (this.pageInfo.isLastPage==true) {
-            this.powerList.push({source:'没有更多了~~~'});
-          }
-          console.log(this.powerList);
         })
       },
       getExpiredPowerRecord() {
@@ -112,62 +112,19 @@
           if (data.code !== 200) {
             return;
           }
-          this.pageInfo = data.data;
-          console.log(this.pageInfo);
-          for (let expiredPower in this.pageInfo.list) {
-            this.expiredPowerList.push(this.pageInfo.list[expiredPower]);
+          this.pageInfos = data.data;
+          console.log(this.pageInfos.pageNum);
+          if (this.pageInfos.hasNextPage===false) {
+            document.getElementsByClassName('last-trips')[0].innerHTML = "到底啦，求求你别拉了。"
+          }
+          for (let expiredPower in this.pageInfos.list) {
+            this.expiredPowerList.push(this.pageInfos.list[expiredPower]);
           }
         })
       },
-      //滚动条在Y轴上的滚动距离
-      getScrollTop() {
-        let scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
-        if (document.body) {
-          bodyScrollTop = document.body.scrollTop;
-        }
-        if (document.documentElement) {
-          documentScrollTop = document.documentElement.scrollTop;
-        }
-        scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
-        return scrollTop;
+      buildTime(str){
+        return buildDate(str)
       },
-      //文档的总高度
-      getScrollHeight() {
-        let scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
-        if (document.body) {
-          bodyScrollHeight = document.body.scrollHeight;
-        }
-        if (document.documentElement) {
-          documentScrollHeight = document.documentElement.scrollHeight;
-        }
-        scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
-        return scrollHeight;
-      },
-      //浏览器视口的高度
-      getWindowHeight() {
-        let windowHeight = 0;
-        if (document.compatMode === "CSS1Compat") {
-          windowHeight = document.documentElement.clientHeight;
-        } else {
-          windowHeight = document.body.clientHeight;
-        }
-        return windowHeight;
-      },
-      //时间解析
-      buildDate: function (str) {
-        let date = new Date(str),
-          year = date.getFullYear(),
-          // 月份从0开始，需要+1
-          month = date.getMonth() + 1,
-          day = date.getDate(),
-          hour = date.getHours(),
-          min = date.getMinutes()
-        return year + '-' +
-          (month < 10 ? '0' + month : month) + '-' +
-          (day < 10 ? '0' + day : day) + ' ' +
-          (hour < 10 ? '0' + hour : hour) + ':' +
-          (min < 10 ? '0' + min : min)
-      }
     },
     components: {
       commonHeader

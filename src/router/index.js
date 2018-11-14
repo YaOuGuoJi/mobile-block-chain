@@ -10,6 +10,9 @@ import PowerRecord from '@/page/PowerRecord'
 import Ore from '@/page/Ore'
 import Login from '@/page/Login'
 import Register from '@/page/Register'
+import Order from '@/page/Order'
+import PowerBase from '@/page/PowerBase'
+import UserInfo from '@/page/UserInfo'
 
 Vue.use(Router);
 
@@ -63,6 +66,21 @@ export default new Router({
       path: "/power",
       name: 'powerRecord',
       component: PowerRecord
+    },
+    {
+      path: '/order',
+      name: 'Order',
+      component: Order
+    },
+    {
+      path: '/userInfo',
+      name: 'UserInfo',
+      component: UserInfo
+    },
+    {
+      path: '/powerBase',
+      name: 'PowerBase',
+      component: PowerBase
     }
   ]
 })

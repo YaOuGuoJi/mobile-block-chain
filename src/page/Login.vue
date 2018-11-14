@@ -1,7 +1,5 @@
 <template>
-  <!--style="background:url('../../static/image/register.jpg') no-repeat;background-size: contain;"-->
   <div class="mobile-wrapper">
-    <!--<img src="https://preview.ibb.co/dktKWL/bg-1.jpg">-->
     <div class="login-wrapper">
       <div class="brand-logo">
         <span>Mall Fun</span>
@@ -13,7 +11,7 @@
         <div class="input-group">
           <input v-model="password" type="password" placeholder="password">
         </div>
-        <button id="btn" v-on:click="login" style="background-image: url('../../static/image/button.png'); background-size: contain">LOGIN</button>
+        <button id="btn" v-on:click="login" style="background-image: url('../../static/image/button.png'); background-size: 100% 100%">LOGIN</button>
       </div>
     </div>
     <div class="help-text">
