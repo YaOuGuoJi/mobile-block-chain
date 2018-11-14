@@ -16,6 +16,24 @@ import UserInfo from '@/page/UserInfo'
 
 Vue.use(Router);
 
+Router.prototype.togo = function (path) {
+  this.isleft = true;
+  this.isright = false;
+  this.push(path)
+};
+// 需要右方向动画的路由用this.$router.goRight('****')
+Router.prototype.goRight = function (path) {
+  this.isright = true;
+  this.isleft = false;
+  this.push(path)
+};
+// 需要返回按钮动画的路由用this.$router.goBack()，返回上一个路由
+Router.prototype.goBack = function () {
+  this.isright = true;
+  this.isleft = false;
+  this.go(-1)
+};
+
 export default new Router({
   mode: 'history',
   routes: [
