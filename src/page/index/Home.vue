@@ -6,16 +6,11 @@
     <div id="content">
       <div id="w">
         <div id="powerAll">
-          <!--<table id="power">-->
-            <!--<tr>-->
-              <!--<td></td>-->
-              <!--<td></td>-->
-            <!--</tr>-->
-          <!--</table>-->
           <div id="newWealth"></div>
           <div id="newPower"></div>
         </div>
-        <div id="news"></div>
+        <div id="news">
+        </div>
         <div id="ore">
           <table id="oreId">
             <tr>
@@ -54,17 +49,17 @@
         </div>
         <div id="bottom" class="swiper-container">
           <div class="swiper-wrapper">
-            <div class="swiper-slide"><a href="http://localhost:8080/Home"><img
+            <div class="swiper-slide"><a href="http://www.tmall.com"><img
               src="../../assets/imgs/a.png"/></a></div>
-            <div class="swiper-slide"><a href="http://localhost:8080/Home"><img
+            <div class="swiper-slide"><a href="http://www.17k.com"><img
               src="../../assets/imgs/b.png"/></a></div>
-            <div class="swiper-slide"><a href="http://localhost:8080/Home"><img
+            <div class="swiper-slide"><a href="http://www.4399.com"><img
               src="../../assets/imgs/c.png"/></a></div>
-            <div class="swiper-slide"><a href="http://localhost:8080/Home"><img
+            <div class="swiper-slide"><a href="http://www.toutiao.com"><img
               src="../../assets/imgs/d.png"/></a></div>
-            <div class="swiper-slide"><a href="http://localhost:8080/Home"><img
+            <div class="swiper-slide"><a href="http://www.youku.com"><img
               src="../../assets/imgs/e.png"/></a></div>
-            <div class="swiper-slide"><a href="http://localhost:8080/Home"><img
+            <div class="swiper-slide"><a href="https://baijiahao.baidu.com/s?id=1560564881754264&wfr=spider&for=pc"><img
               src="../../assets/imgs/f.png"/></a></div>
           </div>
         </div>
@@ -138,6 +133,12 @@
             }
           }
         })
+        document.getElementById("newWealth").onclick=function () {
+          window.location.href="/ore"
+        }
+        document.getElementById("newPower").onclick=function () {
+          window.location.href="/power"
+        }
       },
       getUnreceive(unreceive) {
         let photo=["../../../static/image/one.png","../../../static/image/two.png","../../../static/image/three.png","../../../static/image/four.png","../../../static/image/five.png","../../../static/image/six.png","../../../static/image/seven.png","../../../static/image/eight.png"];
@@ -166,7 +167,7 @@
                 let oreTable = document.getElementById("oreId")
                 oreTable.rows[0].cells[0].width = 47;
                 oreTable.rows[0].cells[0].height = 47;
-                document.getElementById("oreId").rows[0].cells[2].innerHTML ="<table><tr><td><img width='25%' height='10%' src='"+photo[Math.floor(Math.random() * 8)]+"' alt='加载中'/></td></tr></table>"+"财富生成中";
+                document.getElementById("oreId").rows[0].cells[2].innerHTML ="<table><tr><td><img width='30%' height='10%' src='"+photo[Math.floor(Math.random() * 8)]+"' alt='加载中'/></td></tr></table>"+"财富生成中";
               }
               service("get", "user/received/ore", {oreId: value}).then(data => {
                 if (data.code != 200) {
@@ -223,11 +224,6 @@
     font-size: x-small;
   }
 
-  #power {
-    font-size: 200%;
-    color: #ff6d1f;
-  }
-
   #oreId {
     width: 100%;
     height: 100%;
@@ -241,9 +237,10 @@
   }
 
   #news {
+    margin-left: 0;
+    padding-left: 0;
     margin-top: 5%;
-    margin-left: 10%;
-    width: 80%;
+    width: 100%;
     height: 10%;
   }
 
@@ -288,8 +285,7 @@
     height: 100%;
     width: 35%;
     float: left;
-    /*background-color: rgba(	255,165,0,0.3);*/
+    background-color: rgba(	255,165,0,0.3);
     border-radius: 5%;
-    background: url("../../assets/imgs/power.png") no-repeat left top;
   }
 </style>
