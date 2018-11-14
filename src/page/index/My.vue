@@ -8,45 +8,35 @@
     <div class="detail">
       <div class="user-property">
         <span class="property">我的资产</span>
-        <router-link to='/ore'>
-          <div class="wallet">
-            <span>我的钱包</span>
-          </div>
-        </router-link>
-        <router-link to="/power">
-          <div class="power">
-            <span>我的算力</span>
-          </div>
-        </router-link>
+        <div class="wallet" @click="toOre">
+          <span>我的钱包</span>
+        </div>
+        <div class="power" @click="toPower">
+          <span>我的算力</span>
+        </div>
       </div>
       <div class="profiles">
         <div class="line-div">
         </div>
-        <router-link to='/order' class="my-order">
-          <div class="function-detail">
-            <img class="icon" src="../../assets/order.png"/>
-            <span>我的订单</span>
-            <img class="more" src="../../assets/to.png"/>
-          </div>
-        </router-link>
+        <div class="function-detail" @click="toOrder">
+          <img class="icon" src="../../assets/order.png"/>
+          <span>我的订单</span>
+          <img class="more" src="../../assets/to.png"/>
+        </div>
         <div class="line-div">
         </div>
-        <router-link to='/userInfo' class="my-order">
-          <div class="function-detail">
-            <img class="icon" src="../../assets/share.png"/>
-            <span>我的信息</span>
-            <img class="more" src="../../assets/to.png"/>
-          </div>
-        </router-link>
+        <div class="function-detail" @click="toUserInfo">
+          <img class="icon" src="../../assets/share.png"/>
+          <span>我的信息</span>
+          <img class="more" src="../../assets/to.png"/>
+        </div>
         <div class="line-div">
         </div>
-        <router-link to='/powerBase' class="my-order">
-          <div class="function-detail">
-            <img class="icon" src="../../assets/world.png"/>
-            <span>算力基地</span>
-            <img class="more" src="../../assets/to.png"/>
-          </div>
-        </router-link>
+        <div class="function-detail" @click="toPowerBase">
+          <img class="icon" src="../../assets/world.png"/>
+          <span>算力基地</span>
+          <img class="more" src="../../assets/to.png"/>
+        </div>
       </div>
       <div class="line-div">
       </div>
@@ -58,7 +48,6 @@
 </template>
 
 <script>
-  import app from '../../main.js'
   import commonHeader from '../../components/common-header'
   import {service} from "@/js/api";
 
@@ -79,13 +68,28 @@
       })
     },
     methods: {
-      logout () {
+      logout() {
         service('post', '/user/logout', {}).then(response => {
           if (response.code !== 200) {
             alert(response.message);
           }
-          app.$router.replace('/login');
+          this.$router.togo('/login');
         })
+      },
+      toOre() {
+        this.$router.togo('/ore')
+      },
+      toPower() {
+        this.$router.togo('/power')
+      },
+      toOrder() {
+        this.$router.togo('/order')
+      },
+      toUserInfo() {
+        this.$router.togo('/userInfo')
+      },
+      toPowerBase() {
+        this.$router.togo('/powerBase')
       }
     },
     components: {
