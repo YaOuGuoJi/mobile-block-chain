@@ -5,6 +5,8 @@ import Home from '@/page/index/Home'
 import Find from '@/page/index/Find'
 import Play from '@/page/index/Play'
 import My from '@/page/index/My'
+import PowerRecord from '@/page/PowerRecord'
+
 import Ore from '@/page/Ore'
 import Login from '@/page/Login'
 import Register from '@/page/Register'
@@ -77,6 +79,11 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
+        },
+    {
+      path: "/power",
+      name: 'powerRecord',
+      component: PowerRecord
     },
     {
       path: '/order',
