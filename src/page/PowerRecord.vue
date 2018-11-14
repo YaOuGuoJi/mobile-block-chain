@@ -11,17 +11,16 @@
     </div>
     <div>
       <div class="valid_record">
-        <div class="valid_title"><span v-on:click="pageNum = 1;pageNum.hasNextPage == true;getPowerRecord()">生效中的算力值</span></div>
-        <div class="not_valid_title"><span v-on:click="pageNum = 1;pageNum.hasNextPage == true;getExpiredPowerRecord()">已失效的算力值</span></div>
+        <div class="valid_title"><span v-on:click="pageNum = 1;getPowerRecord()">生效中的算力值</span></div>
+        <div class="not_valid_title"><span v-on:click="pageNum = 1;getExpiredPowerRecord()">已失效的算力值</span></div>
       </div>
       <div class="hr_type"></div>
       <div class="record_list">
         <div id="valid_record_table" v-if="powerList" v-show="this.type=='valid'">
           <ul class="list-group" id="add_id">
             <li class="list-group-item" v-for="power in powerList">
-              <span class="source_class">{{power.source}}</span>
-              <span class="time_class">{{buildTime(power.addTime)}}生效</span>
-              <span class="power_class">算力值+{{power.power}}</span>
+              <p class="list-group-item-text">{{power.source}}<br/>{{buildTime(power.addTime)}}生效</p>
+              <span class="pull-right">算力值+{{power.power}}</span>
             </li>
           </ul>
           <label class="last-trip">loading...</label>
@@ -29,9 +28,8 @@
         <div id="not_valid_record_table" v-if="expiredPowerList" v-show="this.type=='notValid'">
           <ul class="list-group" id="add">
             <li class="list-group-item" v-for="power in expiredPowerList">
-              <span class="source_class">{{power.source}}</span>
-              <span class="time_class">{{buildTime(power.updateTime)}}生效</span>
-              <span class="power_class">算力值-{{power.power}}</span>
+              <p class="list-group-item-text">{{power.source}}<br/>{{buildTime(power.updateTime)}}失效</p>
+              <span class="pull-right">算力值：{{power.power}}</span>
             </li>
           </ul>
           <label class="last-trips">loading...</label>
@@ -58,14 +56,14 @@
         expiredPowerList: [],
         pageNum: 1,
         pageSize: 13,
-        type: null,
+        type: "valid",
         pageInfo: null,
         pageInfos: null
       }
     },
     mounted() {
       this.getPowerSum();
-      this.getPowerRecord();
+      this.getPowerRecord(this.pageNum);
       window.addEventListener('scroll', () => {
         if (isDown()) {
           this.pageNum++;
@@ -86,6 +84,8 @@
       },
       getPowerRecord() {
         this.type = "valid";
+        document.getElementById('add').innerHTML = '';
+        document.getElementsByClassName('last-trips')[0].innerHTML = "loading...";
         service('get', '/user/power/valid', {
           pageNum: this.pageNum,
           pageSize: this.pageSize
@@ -105,6 +105,8 @@
       },
       getExpiredPowerRecord() {
         this.type = "notValid";
+        document.getElementById('add_id').innerHTML = '';
+        document.getElementsByClassName('last-trip')[0].innerHTML = "loading...";
         service('get', '/user/power/expired', {
           pageNum: this.pageNum,
           pageSize: this.pageSize
@@ -135,6 +137,7 @@
   .top_header{
     display: block;
   }
+
   .top_banner {
     width: 100%;
     height: 210px;
@@ -179,8 +182,19 @@
     height: 30px;
     width: 200px;
   }
+  .valid_title:link{
+    border-bottom: 4px solid #e3337c;
+  }
+
+  .valid_title:visited{
+    border-bottom: 4px solid #e3337c;
+  }
 
   .valid_title:hover{
+    border-bottom: 4px solid #e3337c;
+  }
+
+  .valid_title:active{
     border-bottom: 4px solid #e3337c;
   }
 
@@ -229,13 +243,20 @@
     margin-left: 40px;
   }
 
-  .power_class{
+  .pull-right{
+    float: left;
+    font-family: verdana, arial, sans-serif;
+    font-size: 16px;
     color: #c94a4a;
-    font-size: 10px;
   }
 
   .list-group-item{
-    height: 44px;
+    height: 60px;
   }
 
+  .list-group-item-text{
+    float: left;
+    font-family: verdana, arial, sans-serif;
+    font-size: 14px;
+  }
 </style>
