@@ -198,7 +198,7 @@
       vertical-align: middle;
     }
     .title-up {
-      font-size: large;
+      font-size: small;
       color: black;
       vertical-align: middle;
     }
