@@ -111,8 +111,6 @@
 
 <style lang="less" scoped>
 
-  /*@import "../../styles/index.less";*/
-
   .find-page {
     width: 100%;
     height: 90%;
