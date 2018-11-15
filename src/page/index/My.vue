@@ -4,6 +4,7 @@
       <span class="user-name">{{ userName }}</span>
       <span class="user-called">比斯特新人</span>
       <img class="head-border" src="../../assets/header.jpg">
+      <button id="button-style" v-on:click="signIn()">签到</button>
     </div>
     <div class="detail">
       <div class="user-property">
@@ -59,6 +60,7 @@
       }
     },
     created() {
+      this.gudgeSign();
       service('get', '/user/detail', {}).then(data => {
         if (data.code !== 200 || !data.data) {
           alert(data.message);
@@ -90,6 +92,28 @@
       },
       toPowerBase() {
         this.$router.togo('/powerBase')
+      },
+      signIn(){
+        service('get','/user/power/getPowerBySignIn',{}).then(data=>{
+          if (data.code !== 200) {
+            alert(data.message);
+          }
+        });
+        document.getElementById("button-style").innerHTML="已签到";
+      },
+      gudgeSign(){
+        service('get','/user/power/judgeSignIn',{}).then(data=>{
+          if (data.code !== 200) {
+            alert(data.message);
+          }
+          let isSignIn = data.data.isSignIn;
+          console.log(isSignIn);
+          if (isSignIn === 1){
+            document.getElementById("button-style").innerHTML="已签到";
+          }else{
+            document.getElementById("button-style").innerHTML="签到";
+          }
+        })
       }
     },
     components: {
@@ -132,6 +156,17 @@
     font-size: 14px;
     background-color: #e4ad26;
     border-radius: 20px;
+  }
+
+  #button-style{
+    width: 80px;
+    height: 30px;
+    position: fixed;
+    top: 165px;
+    background-color: #e4ad26;
+    border-radius: 20px;
+    border-color: #EDEFF2;
+    left: 10%;
   }
 
   .head-border {

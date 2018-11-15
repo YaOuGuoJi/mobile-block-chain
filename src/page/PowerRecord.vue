@@ -94,7 +94,6 @@
             return;
           }
           this.pageInfo = data.data;
-          console.log(this.pageInfo.pageNum);
           if (this.pageInfo.hasNextPage===false) {
             document.getElementsByClassName('last-trip')[0].innerHTML = "到底啦，求求你别拉了。"
           }
@@ -115,7 +114,6 @@
             return;
           }
           this.pageInfos = data.data;
-          console.log(this.pageInfos.pageNum);
           if (this.pageInfos.hasNextPage===false) {
             document.getElementsByClassName('last-trips')[0].innerHTML = "到底啦，求求你别拉了。"
           }
@@ -182,19 +180,8 @@
     height: 30px;
     width: 200px;
   }
-  .valid_title:link{
-    border-bottom: 4px solid #e3337c;
-  }
-
-  .valid_title:visited{
-    border-bottom: 4px solid #e3337c;
-  }
 
   .valid_title:hover{
-    border-bottom: 4px solid #e3337c;
-  }
-
-  .valid_title:active{
     border-bottom: 4px solid #e3337c;
   }
 
