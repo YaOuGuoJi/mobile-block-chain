@@ -74,7 +74,7 @@
             if (data.code !== 200 || !data.data) {
               alert(data.message)
             } else {
-              this.$router.push({path: '/login'})
+              this.$router.push({path: '/home'})
             }
           })
         },

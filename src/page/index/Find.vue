@@ -112,11 +112,13 @@
 <style lang="less" scoped>
 
   .find-page {
+    background: url("../../assets/imgs/oreBackImg.jpg") no-repeat left top;
     width: 100%;
     height: 90%;
   }
 
   .overview {
+    display: none;
     width: 100%;
     height: 200px;
     background: url("../../assets/imgs/oreBackImg.jpg");
@@ -155,8 +157,12 @@
   }
 
   .content {
-    height: 70%;
+    display: none;
+    width: 100%;
+    height: 80%;
     background-color: white;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
   }
 
   .content-title {
