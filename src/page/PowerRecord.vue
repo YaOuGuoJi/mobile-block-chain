@@ -24,7 +24,7 @@
             </li>
           </ul>
         </div>
-        <label class="last-trip">{{ alertMessage }}</label>
+        <label id="last-trip"></label>
       </div>
     </div>
   </div>
@@ -48,7 +48,6 @@
         type: null,
         pageInfo: null,
         powerList: [],
-        alertMessage: 'loading...'
       }
     },
     mounted() {
@@ -80,6 +79,7 @@
           this.powerList = [];
         }
         this.type = "valid";
+        document.getElementById('last-trip').innerText = 'loading...';
         service('get', '/user/power/valid', {
           pageNum: this.pageNum,
           pageSize: this.pageSize
@@ -93,6 +93,7 @@
           this.powerList = [];
         }
         this.type = "notValid";
+        document.getElementById('last-trip').innerText = 'loading...';
         service('get', '/user/power/expired', {
           pageNum: this.pageNum,
           pageSize: this.pageSize
@@ -104,15 +105,15 @@
           return;
         }
         if (data.code === 404) {
-          this.alertMessage = '没有记录';
+          document.getElementById('last-trip').innerText = '没有记录';
           return;
         }
         this.pageInfo = data.data;
-        if (!this.pageInfo || !this.pageInfo.hasNextPage) {
-          this.alertMessage = '到底了';
-        }
         for (let power in this.pageInfo.list) {
           this.powerList.push(this.pageInfo.list[power]);
+        }
+        if (!this.pageInfo.hasNextPage) {
+          document.getElementById('last-trip').innerText = '我是有底线的';
         }
       },
       buildTime(power) {
@@ -176,19 +177,8 @@
     height: 30px;
     width: 200px;
   }
-  .valid_title:link{
-    border-bottom: 4px solid #e3337c;
-  }
-
-  .valid_title:visited{
-    border-bottom: 4px solid #e3337c;
-  }
 
   .valid_title:hover{
-    border-bottom: 4px solid #e3337c;
-  }
-
-  .valid_title:active{
     border-bottom: 4px solid #e3337c;
   }
 
@@ -247,5 +237,9 @@
     float: left;
     font-family: verdana, arial, sans-serif;
     font-size: 14px;
+  }
+
+  #last-trip {
+    color: #b3b3b3;
   }
 </style>
