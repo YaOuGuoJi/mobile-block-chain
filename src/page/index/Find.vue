@@ -2,19 +2,19 @@
   <div class="find-page">
     <div class="overview">
       <p class="text">
-        <span id="main-title">发现原力</span>
+        <span id="main-title">发现算力</span>
         <br/>
-        <span>贡献越多原力越多，矿石生长越快</span>
+        <span>贡献越多算力越多，矿石生长越快</span>
       </p>
       <p class="power">
         <span id="userPower">{{userPower}}</span>
-        <span id="powerText">原力值</span>
+        <span id="powerText">算力值</span>
         <a class="lottery" href="http://www.baidu.com">抽奖大富翁</a>
       </p>
     </div>
     <div class="content">
       <div class="content-title">
-        <h4>原力分类</h4>
+        <h4>算力分类</h4>
       </div>
       <div class="classify">
         <a href="http://www.taobao.com"><img class="classify-img" src="../../assets/imgs/shopping-cart.png"/></a>
@@ -24,7 +24,7 @@
       </div>
       <div class="recommend">
         <div>
-          <h4>推荐原力</h4>
+          <h4>推荐算力</h4>
         </div>
         <div class="recommend">
           <div class="recommend-sub">
