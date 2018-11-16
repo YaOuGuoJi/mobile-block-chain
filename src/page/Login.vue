@@ -2,14 +2,14 @@
   <div class="mobile-wrapper">
     <div class="login-wrapper">
       <div class="brand-logo">
-        <span>Mall Fun</span>
+        <span>Mall Fan</span>
       </div>
       <div class="form-wrapper">
         <div class="input-group">
           <input v-model="userName" type="text" placeholder="userName">
         </div>
         <div class="input-group">
-          <input v-model="password" type="password" placeholder="password">
+          <input v-model="password" type="password" placeholder="password" @keyup.enter="login">
         </div>
         <button id="btn" v-on:click="login" style="background-image: url('../../static/image/button.png'); background-size: 100% 100%">LOGIN</button>
       </div>
