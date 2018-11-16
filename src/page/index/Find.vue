@@ -2,33 +2,74 @@
   <div class="find-page">
     <div class="overview">
       <p class="text">
-        <span id="main-title">发现原力</span>
+        <span id="main-title">发现算力</span>
         <br/>
-        <span>贡献越多原力越多，矿石生长越快</span>
+        <span>贡献越多算力越多，矿石生长越快</span>
       </p>
       <p class="power">
         <span id="userPower">{{userPower}}</span>
-        <span id="powerText">原力值</span>
+        <span id="powerText">算力值</span>
         <a class="lottery" href="http://www.baidu.com">抽奖大富翁</a>
       </p>
     </div>
     <div class="content">
       <div class="content-title">
-        <p>原力分类</p>
+        <h4>算力分类</h4>
       </div>
-      <div id="classify">
+      <div class="classify">
+        <a href="http://www.taobao.com"><img class="classify-img" src="../../assets/imgs/shopping-cart.png"/></a>
+        <a href="https://www.marvel.com"><img class="classify-img" src="../../assets/imgs/entertainment.png"/></a>
+        <a href="https://www.battlenet.com.cn/zh/"><img class="classify-img" src="../../assets/imgs/game.png"/></a>
+        <a href="http://www.dangdang.com/"><img class="classify-img" src="../../assets/imgs/health.png"/></a>
+      </div>
+      <div class="recommend">
         <div>
-          <a class="" href="http://www.baidu.com"><img src="../../assets/imgs/shopping-cart.png"
-                                                       style="width: 15%; height: 15%"/></a>
+          <h4>推荐算力</h4>
         </div>
-        <div>
-          <img class="" src="../../assets/imgs/entertainment.png" style="width: 15%; height: 15%"/>
+        <div class="recommend">
+          <div class="recommend-sub">
+            <a href="http://www.baidu.com">
+              <img class="title-img" src="../../assets/imgs/fiction-li.png"/>
+              <span class="title-up">看小说,叱咤风云、称霸武林</span>
+            </a>
+          </div>
+          <div class="div-interval"></div>
         </div>
-        <div>
-          <img src="../../assets/imgs/game.png" style="width: 15%; height: 15%"/>
+        <div class="recommend">
+          <div class="recommend-sub">
+            <a href="http://www.baidu.com">
+              <img class="title-img" src="../../assets/imgs/game-li.png"/>
+              <span class="title-up">跟好友一起玩游戏</span>
+            </a>
+          </div>
+          <div class="div-interval"></div>
         </div>
-        <div>
-          <img src="../../assets/imgs/book.png" style="width: 15%; height: 15%"/>
+        <div class="recommend">
+          <div class="recommend-sub">
+            <a href="http://www.baidu.com">
+              <img class="title-img" src="../../assets/imgs/invite-li.png"/>
+              <span class="title-up">邀请好友</span>
+            </a>
+          </div>
+          <div class="div-interval"></div>
+        </div>
+        <div class="recommend">
+          <div class="recommend-sub">
+            <a href="http://www.baidu.com">
+              <img class="title-img" src="../../assets/imgs/news-li.png"/>
+              <span class="title-up">看新闻，了解最新时事动态</span>
+            </a>
+          </div>
+          <div class="div-interval"></div>
+        </div>
+        <div class="recommend">
+          <div class="recommend-sub">
+            <a href="http://www.baidu.com">
+              <img class="title-img" src="../../assets/imgs/weChat-li.png"/>
+              <span class="title-up">关注微信公众号</span>
+            </a>
+          </div>
+          <div class="div-interval"></div>
         </div>
       </div>
     </div>
@@ -71,7 +112,9 @@
 <style lang="less" scoped>
 
   .find-page {
+    background: url("../../assets/imgs/oreBackImg.jpg") no-repeat left top;
     width: 100%;
+    height: 90%;
   }
 
   .overview {
@@ -86,6 +129,7 @@
     padding-left: 5%;
     padding-top: 10%;
     text-align: left;
+    color: white;
   }
 
   #main-title {
@@ -98,6 +142,7 @@
     position: absolute;
     bottom: -5px;
     text-align: left;
+    color: white;
   }
 
   #userPower {
@@ -107,6 +152,15 @@
   .lottery {
     padding-left: 50%;
     font-size: large;
+    color: white;
+  }
+
+  .content {
+    width: 100%;
+    height: 80%;
+    background-color: white;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
   }
 
   .content-title {
@@ -117,95 +171,49 @@
   }
 
   .classify {
-    float: left;
-    width: 100%;
-    /*display: flex;*/
-    /*justify-content: space-around;*/
-    /*align-items: center;*/
+    height: 70px;
   }
 
-  /*.classify img {*/
-    /*position: relative;*/
-  /*}*/
+  .classify-img {
+    width: 20%;
+    height: 100%;
+    float: left;
+    margin-left: 4%;
+  }
 
-  /*.classify img {*/
-  /*width: 15%;*/
-  /*height: 15%;*/
-  /*}*/
+  .recommend h4 {
+    text-align: left;
+    padding-left: 5%;
+    padding-top: 1%;
+    font-size: large;
+  }
 
-  /*.find-page {*/
+  .recommend {
+    text-align: left;
+  }
 
-  /*}*/
+  .recommend-sub {
+    width: 100%;
+    height: 60px;
+    .title-img {
+      width: 20%;
+      height: 90%;
+      padding-left: 5%;
+      vertical-align: middle;
+    }
+    .title-up {
+      font-size: small;
+      color: black;
+      vertical-align: middle;
+    }
+  }
 
-  /*.find-header {*/
+  .div-interval {
+    width: 90%;
+    height: 1px;
+    background-color: #c6c6c6;
+    margin: 0 auto;
+  }
 
-  /*}*/
-
-  /*.overview {*/
-  /*display: block;*/
-  /*width: 100%;*/
-  /*height: 200px;*/
-  /*!*float: left;*!*/
-  /*background: url("../../assets/imgs/oreBackImg.jpg");*/
-  /*background-size: 100% 100%;*/
-  /*}*/
-
-  /*#main-title {*/
-  /*font-size: x-large;*/
-  /*float: left;*/
-  /*padding-left: 5%;*/
-  /*padding-top: 5%;*/
-  /*padding-bottom: -5%;*/
-  /*}*/
-
-  /*#subtitle {*/
-  /*font-size: small;*/
-  /*float: left;*/
-  /*padding-left: 5%;*/
-  /*}*/
-
-  /*#userPower {*/
-  /*font-size: xx-large;*/
-  /*}*/
-
-  /*#powerText {*/
-  /*font-size: small;*/
-  /*}*/
-
-  /*#power {*/
-  /*padding-left: 5%;*/
-  /*padding-bottom: 5%;*/
-  /*text-align: left;*/
-  /*}*/
-
-  /*#lottery {*/
-  /*float: right;*/
-  /*font-size: large;*/
-  /*padding-top: 5%;*/
-  /*padding-right: 5%;*/
-  /*}*/
-
-  /*.content {*/
-  /*width: 100%;*/
-  /*!*height: 400px;*!*/
-  /*}*/
-
-  /*#classify {*/
-  /*width: 100%;*/
-  /*display: flex;*/
-  /*justify-content: space-around;*/
-  /*align-items:center;*/
-  /*}*/
-
-  /*#classify img {*/
-  /*width: 15%;*/
-  /*height: 15%;*/
-  /*vertical-align: bottom;*/
-  /*}*/
-
-  /*#classify a {*/
-  /*text-decoration: none;*/
-  /*display: inline-block;*/
-  /*}*/
 
 </style>

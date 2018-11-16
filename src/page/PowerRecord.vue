@@ -16,24 +16,15 @@
       </div>
       <div class="hr_type"></div>
       <div class="record_list">
-        <div id="valid_record_table" v-if="powerList" v-show="this.type=='valid'">
-          <ul class="list-group" id="add_id">
+        <div id="record-table" v-if="powerList.length > 0">
+          <ul class="list-group">
             <li class="list-group-item" v-for="power in powerList">
-              <p class="list-group-item-text">{{power.source}}<br/>{{buildTime(power.addTime)}}生效</p>
-              <span class="pull-right">算力值+{{power.power}}</span>
+              <p class="list-group-item-text">{{power.source}}<br/>{{ buildTime(power)}}</p>
+              <span class="pull-right">算力值{{type === 'valid' ? '+' : '-'}}{{power.power}}</span>
             </li>
           </ul>
-          <label class="last-trip">loading...</label>
         </div>
-        <div id="not_valid_record_table" v-if="expiredPowerList" v-show="this.type=='notValid'">
-          <ul class="list-group" id="add">
-            <li class="list-group-item" v-for="power in expiredPowerList">
-              <p class="list-group-item-text">{{power.source}}<br/>{{buildTime(power.updateTime)}}失效</p>
-              <span class="pull-right">算力值：{{power.power}}</span>
-            </li>
-          </ul>
-          <label class="last-trips">loading...</label>
-        </div>
+        <label class="last-trip">{{ alertMessage }}</label>
       </div>
     </div>
   </div>
@@ -52,13 +43,12 @@
         notValidMessage: "已失效算力值",
         validPowerSum: 0,
         notValidPowerSum: 0,
-        powerList: [],
-        expiredPowerList: [],
         pageNum: 1,
         pageSize: 13,
-        type: "valid",
+        type: null,
         pageInfo: null,
-        pageInfos: null
+        powerList: [],
+        alertMessage: 'loading...'
       }
     },
     mounted() {
@@ -83,54 +73,58 @@
         });
       },
       getPowerRecord() {
+        if (this.type === 'valid' && this.pageInfo && !this.pageInfo.hasNextPage) {
+          return;
+        }
+        if (this.pageNum === 1) {
+          this.powerList = [];
+        }
         this.type = "valid";
-        document.getElementById('add').innerHTML = '';
-        document.getElementsByClassName('last-trips')[0].innerHTML = "loading...";
         service('get', '/user/power/valid', {
           pageNum: this.pageNum,
           pageSize: this.pageSize
-        }).then(data => {
-          if (data.code !== 200) {
-            return;
-          }
-          this.pageInfo = data.data;
-          console.log(this.pageInfo.pageNum);
-          if (this.pageInfo.hasNextPage===false) {
-            document.getElementsByClassName('last-trip')[0].innerHTML = "到底啦，求求你别拉了。"
-          }
-          for (let power in this.pageInfo.list) {
-            this.powerList.push(this.pageInfo.list[power]);
-          }
-        })
+        }).then(data => this.buildPowerRecord(data))
       },
       getExpiredPowerRecord() {
+        if (this.type === 'notValid' && this.pageInfo && !this.pageInfo.hasNextPage) {
+          return;
+        }
+        if (this.pageNum === 1) {
+          this.powerList = [];
+        }
         this.type = "notValid";
-        document.getElementById('add_id').innerHTML = '';
-        document.getElementsByClassName('last-trip')[0].innerHTML = "loading...";
         service('get', '/user/power/expired', {
           pageNum: this.pageNum,
           pageSize: this.pageSize
-        }).then(data => {
-          if (data.code !== 200) {
-            return;
-          }
-          this.pageInfos = data.data;
-          console.log(this.pageInfos.pageNum);
-          if (this.pageInfos.hasNextPage===false) {
-            document.getElementsByClassName('last-trips')[0].innerHTML = "到底啦，求求你别拉了。"
-          }
-          for (let expiredPower in this.pageInfos.list) {
-            this.expiredPowerList.push(this.pageInfos.list[expiredPower]);
-          }
-        })
+        }).then(data => this.buildPowerRecord(data))
       },
-      buildTime(str){
-        return buildDate(str)
+      buildPowerRecord(data) {
+        if (data.code !== 200 && data.code !== 404) {
+          alert(data.message);
+          return;
+        }
+        if (data.code === 404) {
+          this.alertMessage = '没有记录';
+          return;
+        }
+        this.pageInfo = data.data;
+        if (!this.pageInfo || !this.pageInfo.hasNextPage) {
+          this.alertMessage = '到底了';
+        }
+        for (let power in this.pageInfo.list) {
+          this.powerList.push(this.pageInfo.list[power]);
+        }
       },
+      buildTime(power) {
+        if (this.type === 'valid') {
+          return buildDate(power.addTime) + '生效';
+        }
+        return buildDate(power.updateTime) + '失效';
+      }
     },
     components: {
       commonHeader
-    },
+    }
   }
 </script>
 <style scoped="scoped">
@@ -182,19 +176,8 @@
     height: 30px;
     width: 200px;
   }
-  .valid_title:link{
-    border-bottom: 4px solid #e3337c;
-  }
-
-  .valid_title:visited{
-    border-bottom: 4px solid #e3337c;
-  }
 
   .valid_title:hover{
-    border-bottom: 4px solid #e3337c;
-  }
-
-  .valid_title:active{
     border-bottom: 4px solid #e3337c;
   }
 
@@ -215,12 +198,7 @@
     width: 100%;
   }
 
-  #valid_record_table {
-    margin-top: 30px;
-    width: 100%;
-  }
-
-  #not_valid_record_table {
+  #record-table {
     margin-top: 30px;
     width: 100%;
   }
