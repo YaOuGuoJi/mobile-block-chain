@@ -12,7 +12,7 @@
           <input v-model="userName" type="text" placeholder="Set An UserName 4-20 character">
         </div>
         <div class="input-group">
-          <input v-model="firstPassword" type="password" placeholder="Set A Password 8-16 character">
+          <input v-model="firstPassword" type="password" placeholder="Set A Password 6-16 character">
         </div>
         <div class="input-group">
           <input v-model="secondPassword" type="password" placeholder="Confirm Password">
