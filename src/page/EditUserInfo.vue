@@ -5,9 +5,9 @@
         <router-link tag="a" :to="'/userInfo'">
           <span style="color: #ffa252;font-size: 16px;line-height:40px;float: left;margin-left: 5%">返回</span>
         </router-link>
-        <apan style="color: #ff8f47;text-align: center;font-size: 16px;line-height:40px;">
+        <span style="color: #ff8f47;text-align: center;font-size: 16px;line-height:40px;">
           资料编辑
-        </apan>
+        </span>
       </div>
       <hr style="background-color: #eef5ed;width: 100%;height: 1px;margin-top: 0;margin-bottom: 0">
       <div style="height: 20px;"></div>
