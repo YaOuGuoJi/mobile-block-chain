@@ -118,7 +118,6 @@
   }
 
   .overview {
-    display: none;
     width: 100%;
     height: 200px;
     background: url("../../assets/imgs/oreBackImg.jpg");
@@ -157,7 +156,6 @@
   }
 
   .content {
-    display: none;
     width: 100%;
     height: 80%;
     background-color: white;
