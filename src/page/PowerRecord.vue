@@ -177,19 +177,8 @@
     height: 30px;
     width: 200px;
   }
-  .valid_title:link{
-    border-bottom: 4px solid #e3337c;
-  }
-
-  .valid_title:visited{
-    border-bottom: 4px solid #e3337c;
-  }
 
   .valid_title:hover{
-    border-bottom: 4px solid #e3337c;
-  }
-
-  .valid_title:active{
     border-bottom: 4px solid #e3337c;
   }
 

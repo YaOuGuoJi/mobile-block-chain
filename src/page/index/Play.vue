@@ -5,27 +5,29 @@
       <h5 id="title_h5" style="color: #EDEFF2">多种玩法，赢矿石、拿现金、享权益</h5>
     </div>
     <div class="ore_active">
-      <h4 id="active_h4" style="color: #EDEFF2">黑钻活动</h4>
+      <h4 id="active_h4" style="color: #EDEFF2">矿石活动</h4>
       <h5 id="active_h5" style="color: #EDEFF2" v-on:click="getMore()">更多<img class="more" src="../../assets/to.png" style="width: 18px"/></h5>
     </div>
     <div class="active_div">
-      <ul class="active_ul">
-        <li>111</li>
-        <li>222</li>
-        <li>333</li>
-      </ul>
+      <div class="active_ul">
+        <div class="active_a1"><a href="http://www.tmall.com"><img src="../../assets/imgs/play-1.png" style="width: 100px; height: 110px;"/></a></div>
+        <div class="active_a2"><a href="http://www.toutiao.com"><img src="../../assets/imgs/play-2.png" style="width: 100px; height: 110px;"/></a></div>
+        <div class="active_a3"><a href="http://www.4399.com"><img src="../../assets/imgs/play-3.png" style="width: 100px; height: 110px;"/></a></div>
+      </div>
     </div>
     <div class="market">
       <h4 style="color: #EDEFF2" id="market_h4">小镇集市</h4>
       <h5 style="color: #EDEFF2" id="market_h5">算力达到350方可参与兑换</h5>
     </div>
     <div class="goods_list">
-      <div class="item"></div>
-      <div class="item"></div>
-      <div class="item"></div>
-      <div class="item"></div>
+      <div class="item"><a><img src="../../assets/imgs/play-4.png" style="width: 190px; height: 250px"/></a></div>
+      <div class="item"><a><img src="../../assets/imgs/play-5.png" style="width: 190px; height: 250px"/></a></div>
+      <div class="item"><a><img src="../../assets/imgs/play-6.png" style="width: 190px; height: 250px"/></a></div>
+      <div class="item"><a><img src="../../assets/imgs/play-6.png" style="width: 190px; height: 250px"/></a></div>
     </div>
-    <label class="last-trips">~矿石免费换物~</label>
+    <div class="bottom-div">
+      <label class="last-trips">~矿石免费换物~</label>
+    </div>
   </div>
 </template>
 
@@ -54,7 +56,7 @@
   .body {
     margin-top: -20px;
     width: 100%;
-    background: url("../../assets/imgs/background-play.jpg") no-repeat;
+    background: url("../../assets/imgs/background-play.jpg") no-repeat center left;
   }
   .top_title{
     width: 100%;
@@ -81,16 +83,27 @@
   }
   .active_div{
     width: 100%;
-    height: 100px;
+    height: 120px;
     border-bottom: 1px solid #e3337c;
   }
   .active_ul li{
     text-decoration: none;  /*去掉前面的圆点*/
     list-style: none;
     float: left;
-    border: 1px solid #FFFFFF;
-    background-color: #30DDEB;
-    margin-left: 50px;
+    border-radius: 10px;
+    margin-left: 8px;
+  }
+  .active_a1{
+    float: left;
+    margin-left: 3%;
+  }
+  .active_a2{
+    float: left;
+    margin-left: 11%;
+  }
+  .active_a3{
+    float: right;
+    margin-right: 3%;
   }
   .market{
     width: 100%;
@@ -112,19 +125,20 @@
   }
   .goods_list{
     width: 100%;
-    height: 1000px;
+    height: 570px;
   }
   .item{
     float: left;
     width: 46%;
     height: 250px;
-    border: 1px solid #F00;
-    border-radius: 20px;
     margin-left: 2.7%;
     margin-top: 10px;
   }
+  .bottom-div{
+    width: 100%;
+    height: 70px;
+  }
   .last-trips {
     font-size: 10px;
-    color: #b3b3b3;
   }
 </style>
