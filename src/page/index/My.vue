@@ -135,10 +135,10 @@
   }
 
   .user-name {
-    font-size: 50px;
+    font-size: 30px;
     position: fixed;
     .left(70);
-    top: 40px;
+    top: 50px;
     color: @base-font-color;
   }
 
@@ -146,7 +146,7 @@
     width: 90px;
     position: fixed;
     .left(70);
-    top: 110px;
+    top: 100px;
     color: @base-font-color;
     font-size: 14px;
     background-color: #e4ad26;
