@@ -13,6 +13,7 @@ import Register from '@/page/Register'
 import Order from '@/page/Order'
 import PowerBase from '@/page/PowerBase'
 import UserInfo from '@/page/UserInfo'
+import EditUserInfo from '@/page/EditUserInfo'
 
 Vue.use(Router);
 
@@ -79,7 +80,7 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
-        },
+    },
     {
       path: "/power",
       name: 'powerRecord',
@@ -99,6 +100,11 @@ export default new Router({
       path: '/powerBase',
       name: 'PowerBase',
       component: PowerBase
+    },
+    {
+      path: '/editUserInfo',
+      name: 'EditUserInfo',
+      component: EditUserInfo
     }
   ]
 })

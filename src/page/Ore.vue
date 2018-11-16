@@ -87,10 +87,13 @@
         }).then(data => {
           if (data.code !== 200) {
             //window.alert(data.message);
+            if(data.code === 404){
+              document.getElementsByClassName('last-trip')[0].innerHTML = "你还没有纪录，慢慢积累吧。"
+            }
             return;
           }
           this.pageInfo = data.data.oreRecordDTOPageInfo;
-          if (!this.pageInfo.hasNextPage) {
+          if (data.code === 200 && !this.pageInfo.hasNextPage) {
             this.nextPage = false
             document.getElementsByClassName('last-trip')[0].innerHTML = "到底啦，求求你别拉了。"
           }
