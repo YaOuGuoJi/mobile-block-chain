@@ -16,8 +16,8 @@
       </div>
       <div class="hr_type"></div>
       <div class="record_list">
-        <div id="valid_record_table" v-if="powerList" v-show="this.type=='valid'">
-          <ul class="list-group" id="add_id">
+        <div id="valid_record_table" v-if="powerList" v-show="this.type='valid'">
+          <ul class="list-group">
             <li class="list-group-item" v-for="power in powerList">
               <p class="list-group-item-text">{{power.source}}<br/>{{buildTime(power.addTime)}}生效</p>
               <span class="pull-right">算力值+{{power.power}}</span>
@@ -25,8 +25,8 @@
           </ul>
           <label class="last-trip">loading...</label>
         </div>
-        <div id="not_valid_record_table" v-if="expiredPowerList" v-show="this.type=='notValid'">
-          <ul class="list-group" id="add">
+        <div id="not_valid_record_table" v-if="expiredPowerList" v-show="this.type='notValid'">
+          <ul class="list-group">
             <li class="list-group-item" v-for="power in expiredPowerList">
               <p class="list-group-item-text">{{power.source}}<br/>{{buildTime(power.updateTime)}}失效</p>
               <span class="pull-right">算力值：{{power.power}}</span>
@@ -56,7 +56,7 @@
         expiredPowerList: [],
         pageNum: 1,
         pageSize: 13,
-        type: "valid",
+        type: null,
         pageInfo: null,
         pageInfos: null
       }
@@ -84,8 +84,8 @@
       },
       getPowerRecord() {
         this.type = "valid";
-        document.getElementById('add').innerHTML = '';
-        document.getElementsByClassName('last-trips')[0].innerHTML = "loading...";
+        this.expiredPowerList = [];
+//        document.getElementsByClassName('last-trips')[0].innerHTML = "loading...";
         service('get', '/user/power/valid', {
           pageNum: this.pageNum,
           pageSize: this.pageSize
@@ -103,9 +103,9 @@
         })
       },
       getExpiredPowerRecord() {
-        this.type = "notValid";
-        document.getElementById('add_id').innerHTML = '';
-        document.getElementsByClassName('last-trip')[0].innerHTML = "loading...";
+        this.type = 'notValid';
+        this.powerList = [];
+//        document.getElementsByClassName('last-trip')[0].innerHTML = "loading...";
         service('get', '/user/power/expired', {
           pageNum: this.pageNum,
           pageSize: this.pageSize
@@ -115,7 +115,7 @@
           }
           this.pageInfos = data.data;
           if (this.pageInfos.hasNextPage===false) {
-            document.getElementsByClassName('last-trips')[0].innerHTML = "到底啦，求求你别拉了。"
+            document.getElementsByClassName('last-trips')[0].innerHTML = "到底啦，求求你别拉了.....。"
           }
           for (let expiredPower in this.pageInfos.list) {
             this.expiredPowerList.push(this.pageInfos.list[expiredPower]);
