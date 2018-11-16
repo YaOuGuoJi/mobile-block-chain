@@ -264,7 +264,7 @@
 
   #oreId img {
     height: 5%;
-    width: 10%;
+    width: 5%;
   }
   #newWealth{
     padding-top: 3%;
