@@ -4,7 +4,7 @@
       <span class="user-name">{{ userName }}</span>
       <span class="user-called">比斯特新人</span>
       <img class="head-border" src="../../assets/header.jpg">
-      <button id="button-style" v-on:click="signIn()">签到</button>
+      <button id="button-style" v-on:click="signIn()">{{ isSignIn ? '已签到' : '签到'}}</button>
     </div>
     <div class="detail">
       <div class="user-property">
@@ -56,7 +56,8 @@
     data() {
       return {
         title: '我的',
-        userName: ''
+        userName: '',
+        isSignIn: 0
       }
     },
     created() {
@@ -99,19 +100,14 @@
             alert(data.message);
           }
         });
-        document.getElementById("button-style").innerHTML="已签到";
+        this.isSignIn = 1;
       },
       gudgeSign(){
         service('get','/user/power/judgeSignIn',{}).then(data=>{
           if (data.code !== 200) {
             alert(data.message);
           }
-          let isSignIn = data.data.isSignIn;
-          if (isSignIn === 1){
-            document.getElementById("button-style").innerHTML="已签到";
-          }else{
-            document.getElementById("button-style").innerHTML="签到";
-          }
+          this.isSignIn = data.data.isSignIn;
         })
       }
     },
