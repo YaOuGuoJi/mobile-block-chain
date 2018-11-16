@@ -32,7 +32,7 @@
               <span class="pull-right">算力值：{{power.power}}</span>
             </li>
           </ul>
-          <label class="last-trips">loading...</label>
+          <label class="lasts-trips">loading...</label>
         </div>
       </div>
     </div>
@@ -56,7 +56,7 @@
         expiredPowerList: [],
         pageNum: 1,
         pageSize: 13,
-        type: null,
+        type: "valid",
         pageInfo: null,
         pageInfos: null
       }
@@ -69,7 +69,7 @@
           this.pageNum++;
           if (this.type==="valid") {
             this.getPowerRecord();
-          }else{
+          }else if(this.type==="notValid"){
             this.getExpiredPowerRecord();
           }
         }
@@ -85,7 +85,7 @@
       getPowerRecord() {
         this.type = "valid";
         this.expiredPowerList = [];
-//        document.getElementsByClassName('last-trips')[0].innerHTML = "loading...";
+        document.getElementsByClassName('lasts-trips')[0].innerHTML = "loading...";
         service('get', '/user/power/valid', {
           pageNum: this.pageNum,
           pageSize: this.pageSize
@@ -103,9 +103,9 @@
         })
       },
       getExpiredPowerRecord() {
-        this.type = 'notValid';
+        this.type = "notValid";
         this.powerList = [];
-//        document.getElementsByClassName('last-trip')[0].innerHTML = "loading...";
+        document.getElementsByClassName('last-trip')[0].innerHTML = "loading...";
         service('get', '/user/power/expired', {
           pageNum: this.pageNum,
           pageSize: this.pageSize
@@ -115,7 +115,7 @@
           }
           this.pageInfos = data.data;
           if (this.pageInfos.hasNextPage===false) {
-            document.getElementsByClassName('last-trips')[0].innerHTML = "到底啦，求求你别拉了.....。"
+            document.getElementsByClassName('lasts-trips')[0].innerHTML = "到底啦，求求你别拉了.....。"
           }
           for (let expiredPower in this.pageInfos.list) {
             this.expiredPowerList.push(this.pageInfos.list[expiredPower]);

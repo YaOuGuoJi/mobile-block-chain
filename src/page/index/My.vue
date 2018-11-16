@@ -107,7 +107,6 @@
             alert(data.message);
           }
           let isSignIn = data.data.isSignIn;
-          console.log(isSignIn);
           if (isSignIn === 1){
             document.getElementById("button-style").innerHTML="已签到";
           }else{
