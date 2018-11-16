@@ -15,7 +15,7 @@
           <input v-model="firstPassword" type="password" placeholder="Set A Password 6-16 character">
         </div>
         <div class="input-group">
-          <input v-model="secondPassword" type="password" placeholder="Confirm Password">
+          <input v-model="secondPassword" type="password" placeholder="Confirm Password" @keyup.enter="register">
         </div>
         <button v-on:click="register" style="background: url('../../static/image/button.png'); background-size: 100% 100%">Register</button>
       </div>
