@@ -13,6 +13,7 @@ import Register from '@/page/Register'
 import Order from '@/page/Order'
 import PowerBase from '@/page/PowerBase'
 import UserInfo from '@/page/UserInfo'
+import FindLink from '@/page/FindLink'
 
 Vue.use(Router);
 
@@ -27,6 +28,11 @@ Router.prototype.goRight = function (path) {
   this.isleft = false;
   this.push(path)
 };
+Router.prototype.goLeft = function (path, query) {
+  this.isright = false;
+  this.isleft = true;
+  this.push(path, query)
+}
 // 需要返回按钮动画的路由用this.$router.goBack()，返回上一个路由
 Router.prototype.goBack = function () {
   this.isright = true;
@@ -99,6 +105,11 @@ export default new Router({
       path: '/powerBase',
       name: 'PowerBase',
       component: PowerBase
+    },
+    {
+      path: '/find-link',
+      name: 'FindLink',
+      component: FindLink
     }
   ]
 })
