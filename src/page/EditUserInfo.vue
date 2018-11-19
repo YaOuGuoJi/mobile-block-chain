@@ -1,9 +1,9 @@
 <template>
   <div class="user-info">
     <div>
-      <div style="background-color:#ffffff;width:100%;height:40px;vertical-align: center">
+      <div class="header-back-color">
         <router-link tag="a" :to="'/userInfo'">
-          <span style="color: #ffa252;font-size: 16px;line-height:40px;float: left;margin-left: 5%">返回</span>
+          <span class="header-back">返回</span>
         </router-link>
         <span style="color: #ff8f47;text-align: center;font-size: 16px;line-height:40px;">
           资料编辑
@@ -13,34 +13,36 @@
       <div style="height: 20px;"></div>
       <div style="text-align:left;width: 100%;">
         <div class="show-text"><label>用户名：</label>
-          <input id="userName" type="text" v-model="userName"/><br/></div>
+          <input id="userName" type="text" v-model="userName" readonly="readonly"/>
+          <span class="userName-point"></span><br/></div>
         <div style="height: 20px;"></div>
-        <div class="show-text" ><label> 性别：</label>
+        <div class="show-text"><label> 性别：</label>
           <input class="user-sex-boy" type="radio" name="sex" value="1"/>
-            <span style="">男</span>
+          <span style="">男</span>
           <input class="user-sex-girl" type="radio" name="sex" value="2"/>
-            <span>女</span>
+          <span>女</span>
         </div>
         <div style="height: 20px;"></div>
         <div class="show-text"><label>生日：</label>
           <input id="birthday" type="date" v-model="birthday"/><br/></div>
         <div style="height: 35px;"></div>
         <div class="show-text"><label>电话：</label>
-          <input id="phone" type="text" v-model="phone"/><br/></div>
+          <input id="phone" name="phone" type="text" v-model="phone" value="" @blur.prevent="check_phone()"/><span
+            class="judgePhone"></span><br/></div>
         <div style="height: 20px;"></div>
         <div class="show-text"><label>邮箱：</label>
-          <input id="email" type="text" v-model="email"/><br/></div>
+          <input id="email" type="text" v-model="email" @blur.prevent="check_email()"/><br/></div>
         <div style="height: 20px;"></div>
         <div class="show-text"><label>地址：</label>
-          <input id="address" type="text" v-model="address"/><br/></div>
+          <input id="address" type="text" v-model="address" @blur.prevent="checkText('address')"/><br/></div>
         <div style="height: 20px;"></div>
         <div class="show-text"><label>工作：</label>
-          <input id="job" type="text" v-model="job"/><br/></div>
+          <input id="job" type="text" v-model="job" @blur.prevent="checkText('job')"/><br/></div>
       </div>
       <div class="userInfo">
         <!--{{ userInfo }}-->
         <div style="height: 20px;"></div>
-        <button class="raise" v-on:click="insertUser()" style="color: black;font-size: 16px">保存</button>
+        <button class="raise" v-on:click="updateUserInfo()" style="">保存</button>
 
       </div>
     </div>
@@ -68,6 +70,8 @@
 
       }
     },
+
+
     created() {
       service('get', 'user/detail', {}).then(response => {
         if (response.code !== 200 || !response.data) {
@@ -83,7 +87,6 @@
           sexInput[0].checked = true
         } else {
           sexInput[1].checked = true
-
         }
         this.phone = this.userInfo.phone
         this.email = this.userInfo.email;
@@ -95,6 +98,77 @@
       commonHeader
     },
     methods: {
+      //验证手机号
+      check_phone() {
+        let phone = document.getElementById("phone").value;
+        let regPhone = /[13,15,18]\d{9}/;
+        if (phone == "" || phone.trim() == "") {
+          document.getElementById("err_phone").innerHTML = "请输入手机号";
+          return false;
+        } else if (!regPhone.test(phone)) {
+          document.getElementById("err_phone").innerHTML = "手机号由11位数字组成，且以13,15,18开头";
+          return false;
+        } else {
+          document.getElementById("err_phone").innerHTML = "ok!!!";
+          return true;
+        }
+      },
+      //验证邮箱
+      check_email() {
+        let email = document.getElementById("email").value;
+        let regEmail = /^\w+@\w+((\.\w+)+)$/;
+        if (email == "" || email.trim() == "") {
+          document.getElementById("err_email").innerHTML = "请输入邮箱";
+          return false;
+        } else if (!regEmail.test(email)) {
+          document.getElementById("err_email").innerHTML = "邮箱账号@域名。如good@tom.com、whj@sina.com.cn";
+          return false;
+        } else {
+          document.getElementById("err_email").innerHTML = "ok!!!";
+          return true;
+        }
+      },
+
+      checkText(obj) {
+        let context = document.getElementById(obj).value;
+        if (obj === "phone") {
+          if (context === '') {
+            alert("phone为空");
+            return
+          } else if (this.isPhoneAvailable(context)) {
+            alert("手机号不合法！");
+            return;
+          }
+        }
+        if (obj === "email") {
+          if (context === "") {
+            alert("email为空");
+            return
+          } else if (this.isPhoneAvailable(context)) {
+
+            return;
+          }
+        }
+        if (name === "address") {
+          if (context === "") {
+            alert("address为空");
+            return
+          } else if (this.isPhoneAvailable(context)) {
+
+            return
+          }
+        }
+        if (name === "job") {
+          if (context === "") {
+            alert("job为空");
+            return
+          } else if (this.isPhoneAvailable(context)) {
+
+            return
+          }
+        }
+      },
+
       getSex() {
         let radio = document.getElementsByName("sex")
         for (let i = 0; i < radio.length; i++) {
@@ -103,7 +177,7 @@
           }
         }
       },
-      insertUser() {
+      updateUserInfo() {
         service('post', '/user/updateInfo', {
           userId: this.userId,
           birthday: this.birthday,
@@ -136,6 +210,26 @@
 </script>
 
 <style scoped>
+  .header-back {
+    color: #ffa252;
+    font-size: 16px;
+    line-height: 40px;
+    float: left;
+    margin-left: 5%
+  }
+
+  .header-back-color {
+    background-color: #ffffff;
+    width: 100%;
+    height: 40px;
+    vertical-align: center
+  }
+
+  .raise {
+    color: black;
+    font-size: 16px
+  }
+
   .show-text {
     background-color: aliceblue;
     border-top: 1px solid #b3b3b3;

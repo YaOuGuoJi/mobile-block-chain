@@ -18,21 +18,21 @@
         <div>
           <img class="user-info-down-user-img" src="../assets/imgs/default.jpg"/>
           <br>
-          <label style="font-size: 30px" v-model="userName">{{userInfo.userName}}</label><br/>
-          <label style="font-size: 20px">会员等级{{userInfo.vip}}</label><br/>
+          <label style="font-size: 30px" v-model="userName">{{userInfo !== null ? userInfo.userName : ""}}</label><br/>
+          <label style="font-size: 20px">会员等级{{userInfo !== null ?userInfo.vip :""}}</label><br/>
         </div>
       </div>
       <hr style="">
       <div class="user-info-all">
         <span>个人简介：</span><br>
-        <span v-model="birthday">生日：{{buildBirth(userInfo.birthday)}}</span><br/>
-        <span v-model="sex">性别：{{userInfo.sex === 1 ? "男":"女"}}</span><br/>
-        <span v-model="phone">电话：{{userInfo.phone}}</span><br/>
-        <span v-model="email">邮箱：{{userInfo.email}}</span><br/>
-        <span v-model="job">工作：{{userInfo.job}}</span><br/>
-        <span v-model="address">地址：{{userInfo.address}}</span><br/>
-        <span v-model="motto">人生格言:</span>
-        <span>江山如此多娇，引无数英雄竞折腰</span>
+        <span >生日：{{buildBirth(userInfo !== null ? userInfo.birthday:"")}}</span><br/>
+        <span >性别：{{userInfo === null ? "man" : (userInfo.sex === 1 ? "男":"女")}}</span><br/>
+        <span >电话：{{userInfo !== null ? userInfo.phone:""}}</span><br/>
+        <span >邮箱：{{userInfo !== null ? userInfo.email:""}}</span><br/>
+        <span >工作：{{userInfo !== null ? userInfo.job:""}}</span><br/>
+        <span >地址：{{userInfo !== null ? userInfo.address:""}}</span><br/>
+        <span >人生格言:</span>
+        <span>{{motto}}</span>
       </div>
       <div class="userInfo">
 
@@ -57,7 +57,7 @@
         phone: null,
         email: null,
         job: null,
-        motto: null
+        motto: "江山如此多娇，引无数英雄竞折腰"
 
       }
     },
