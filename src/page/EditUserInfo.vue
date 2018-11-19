@@ -27,14 +27,16 @@
           <input id="birthday" type="date" v-model="birthday"/><br/></div>
         <div style="height: 35px;"></div>
         <div class="show-text"><label>电话：</label>
-          <input id="phone" name="phone" type="text" v-model="phone" value="" @blur.prevent="check_phone()"/><span
-            class="judgePhone"></span><br/></div>
+          <input id="phone" name="phone" type="text" v-model="phone" @blur.prevent="check_phone()"/><span
+            id="err_phone"></span><br/></div>
         <div style="height: 20px;"></div>
         <div class="show-text"><label>邮箱：</label>
-          <input id="email" type="text" v-model="email" @blur.prevent="check_email()"/><br/></div>
+          <input id="email" name="email" type="text" v-model="email" @blur.prevent="check_email()"/><span
+            id="err_email"></span><br/></div>
         <div style="height: 20px;"></div>
         <div class="show-text"><label>地址：</label>
-          <input id="address" type="text" v-model="address" @blur.prevent=""/><br/></div>
+          <input id="address" type="text" v-model="address" @blur.prevent=""/><span
+            id=""></span><br/></div>
         <div style="height: 20px;"></div>
         <div class="show-text"><label>工作：</label>
           <input id="job" type="text" v-model="job" @blur.prevent=""/><br/></div>
@@ -101,11 +103,14 @@
         let phone = document.getElementById("phone").value;
         let regPhone = /[13,15,18]\d{9}/;
         if (phone == "" || phone.trim() == "") {
+          document.getElementById("err_phone").innerHTML = "*输入手机号";
           return false;
         } else if (!regPhone.test(phone)) {
-          alert("手机号由11位数字组成，且以13,15,18开头");
+          document.getElementById("err_phone").innerHTML = "*不合法";
+          document.getElementById("phone").focus();
           return false;
         } else {
+          document.getElementById("err_phone").innerHTML = "ok!!!";
           return true;
         }
       },
@@ -114,11 +119,14 @@
         let email = document.getElementById("email").value;
         let regEmail = /^\w+@\w+((\.\w+)+)$/;
         if (email == "" || email.trim() == "") {
+          document.getElementById("err_email").innerHTML = "*输入邮箱";
           return false;
         } else if (!regEmail.test(email)) {
-          alert("邮箱账号@域名。如good@tom.com、whj@sina.com.cn");
+          document.getElementById("err_email").innerHTML = "*邮箱不合理";
+          document.getElementById("email").focus();
           return false;
         } else {
+          document.getElementById("err_email").innerHTML = "ok!!!";
           return true;
         }
       },
@@ -143,6 +151,7 @@
         }).then(response => {
           if (response.code !== 200 || !response.data) {
             alert(response.message);
+            window.location.href = "/editUserInfo"
           }
           window.location.href = "/userInfo"
         })
@@ -181,6 +190,16 @@
   .raise {
     color: black;
     font-size: 16px
+  }
+
+  #err_phone {
+    font-size: 10px;
+    color: #af2e29;
+  }
+
+  #err_email {
+    font-size: 10px;
+    color: #af2e29;
   }
 
   .show-text {
