@@ -34,10 +34,10 @@
           <input id="email" type="text" v-model="email" @blur.prevent="check_email()"/><br/></div>
         <div style="height: 20px;"></div>
         <div class="show-text"><label>地址：</label>
-          <input id="address" type="text" v-model="address" @blur.prevent="checkText('address')"/><br/></div>
+          <input id="address" type="text" v-model="address" @blur.prevent=""/><br/></div>
         <div style="height: 20px;"></div>
         <div class="show-text"><label>工作：</label>
-          <input id="job" type="text" v-model="job" @blur.prevent="checkText('job')"/><br/></div>
+          <input id="job" type="text" v-model="job" @blur.prevent=""/><br/></div>
       </div>
       <div class="userInfo">
         <!--{{ userInfo }}-->
@@ -70,8 +70,6 @@
 
       }
     },
-
-
     created() {
       service('get', 'user/detail', {}).then(response => {
         if (response.code !== 200 || !response.data) {
@@ -103,13 +101,11 @@
         let phone = document.getElementById("phone").value;
         let regPhone = /[13,15,18]\d{9}/;
         if (phone == "" || phone.trim() == "") {
-          document.getElementById("err_phone").innerHTML = "请输入手机号";
           return false;
         } else if (!regPhone.test(phone)) {
-          document.getElementById("err_phone").innerHTML = "手机号由11位数字组成，且以13,15,18开头";
+          alert("手机号由11位数字组成，且以13,15,18开头");
           return false;
         } else {
-          document.getElementById("err_phone").innerHTML = "ok!!!";
           return true;
         }
       },
@@ -118,57 +114,14 @@
         let email = document.getElementById("email").value;
         let regEmail = /^\w+@\w+((\.\w+)+)$/;
         if (email == "" || email.trim() == "") {
-          document.getElementById("err_email").innerHTML = "请输入邮箱";
           return false;
         } else if (!regEmail.test(email)) {
-          document.getElementById("err_email").innerHTML = "邮箱账号@域名。如good@tom.com、whj@sina.com.cn";
+          alert("邮箱账号@域名。如good@tom.com、whj@sina.com.cn");
           return false;
         } else {
-          document.getElementById("err_email").innerHTML = "ok!!!";
           return true;
         }
       },
-
-      checkText(obj) {
-        let context = document.getElementById(obj).value;
-        if (obj === "phone") {
-          if (context === '') {
-            alert("phone为空");
-            return
-          } else if (this.isPhoneAvailable(context)) {
-            alert("手机号不合法！");
-            return;
-          }
-        }
-        if (obj === "email") {
-          if (context === "") {
-            alert("email为空");
-            return
-          } else if (this.isPhoneAvailable(context)) {
-
-            return;
-          }
-        }
-        if (name === "address") {
-          if (context === "") {
-            alert("address为空");
-            return
-          } else if (this.isPhoneAvailable(context)) {
-
-            return
-          }
-        }
-        if (name === "job") {
-          if (context === "") {
-            alert("job为空");
-            return
-          } else if (this.isPhoneAvailable(context)) {
-
-            return
-          }
-        }
-      },
-
       getSex() {
         let radio = document.getElementsByName("sex")
         for (let i = 0; i < radio.length; i++) {
