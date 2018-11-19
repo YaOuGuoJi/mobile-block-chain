@@ -9,11 +9,9 @@
       <h5 id="active_h5" style="color: #EDEFF2" v-on:click="getMore()">更多<img class="more" src="../../assets/to.png" style="width: 18px"/></h5>
     </div>
     <div class="active_div">
-      <div class="active_ul">
-        <div class="active_a1"><a href="http://www.tmall.com"><img src="../../assets/imgs/play-1.png" style="width: 100px; height: 110px;"/></a></div>
-        <div class="active_a2"><a href="http://www.toutiao.com"><img src="../../assets/imgs/play-2.png" style="width: 100px; height: 110px;"/></a></div>
-        <div class="active_a3"><a href="http://www.4399.com"><img src="../../assets/imgs/play-3.png" style="width: 100px; height: 110px;"/></a></div>
-      </div>
+      <a href="http://www.taobao.com"><img class="classify-img" src="../../assets/imgs/play-1.png"/></a>
+      <a href="https://www.marvel.com"><img class="classify-img" src="../../assets/imgs/play-2.png"/></a>
+      <a href="https://www.battlenet.com.cn/zh/"><img class="classify-img" src="../../assets/imgs/play-3.png"/></a>
     </div>
     <div class="market">
       <h4 style="color: #EDEFF2" id="market_h4">小镇集市</h4>
@@ -82,28 +80,14 @@
     float: right;
   }
   .active_div{
-    width: 100%;
-    height: 120px;
+    height: 125px;
     border-bottom: 1px solid #e3337c;
   }
-  .active_ul li{
-    text-decoration: none;  /*去掉前面的圆点*/
-    list-style: none;
+  .classify-img {
+    width: 25%;
+    height: 120px;
     float: left;
-    border-radius: 10px;
-    margin-left: 8px;
-  }
-  .active_a1{
-    float: left;
-    margin-left: 3%;
-  }
-  .active_a2{
-    float: left;
-    margin-left: 11%;
-  }
-  .active_a3{
-    float: right;
-    margin-right: 3%;
+    margin-left: 6.2%;
   }
   .market{
     width: 100%;
