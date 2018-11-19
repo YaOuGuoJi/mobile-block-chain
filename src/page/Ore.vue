@@ -11,7 +11,7 @@
       <br/>
       <div>
         <div class="ore-number">{{oreNumber}}</div>
-        <router-link tag="a" :to="'/'">
+        <router-link tag="a" :to="'/Play'">
           <div class="ore-exchange">
             <div class="ore-come" style=""></div>
             兑换
