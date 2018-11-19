@@ -26,50 +26,14 @@
         <div>
           <h4>推荐算力</h4>
         </div>
-        <div class="recommend">
-          <div class="recommend-sub">
-            <a href="http://www.baidu.com">
-              <img class="title-img" src="../../assets/imgs/fiction-li.png"/>
-              <span class="title-up">看小说,叱咤风云、称霸武林</span>
-            </a>
+        <div class="recommend-li">
+          <div v-for="item in webAddress">
+            <div class="recommend-sub" @click="showIframe(item)">
+              <img class="title-img" :src="item.img"/>
+              <span class="title-up">{{item.name}}</span>
+            </div>
+            <div class="div-interval"></div>
           </div>
-          <div class="div-interval"></div>
-        </div>
-        <div class="recommend">
-          <div class="recommend-sub">
-            <a href="http://www.baidu.com">
-              <img class="title-img" src="../../assets/imgs/game-li.png"/>
-              <span class="title-up">跟好友一起玩游戏</span>
-            </a>
-          </div>
-          <div class="div-interval"></div>
-        </div>
-        <div class="recommend">
-          <div class="recommend-sub">
-            <a href="http://www.baidu.com">
-              <img class="title-img" src="../../assets/imgs/invite-li.png"/>
-              <span class="title-up">邀请好友</span>
-            </a>
-          </div>
-          <div class="div-interval"></div>
-        </div>
-        <div class="recommend">
-          <div class="recommend-sub">
-            <a href="http://www.baidu.com">
-              <img class="title-img" src="../../assets/imgs/news-li.png"/>
-              <span class="title-up">看新闻，了解最新时事动态</span>
-            </a>
-          </div>
-          <div class="div-interval"></div>
-        </div>
-        <div class="recommend">
-          <div class="recommend-sub">
-            <a href="http://www.baidu.com">
-              <img class="title-img" src="../../assets/imgs/weChat-li.png"/>
-              <span class="title-up">关注微信公众号</span>
-            </a>
-          </div>
-          <div class="div-interval"></div>
         </div>
       </div>
     </div>
@@ -79,13 +43,46 @@
 <script>
   import commonHeader from '../../components/common-header'
   import {service} from "../../js/api";
+  import fiction from '../../assets/imgs/fiction-li.png'
+  import game from '../../assets/imgs/game-li.png'
+  import invite from '../../assets/imgs/invite-li.png'
+  import news from '../../assets/imgs/news-li.png'
+  import weChat from '../../assets/imgs/weChat-li.png'
+
 
   export default {
     data() {
       return {
         title: '发现',
         num: 0,
-        userPower: null
+        userPower: null,
+        webAddress: [
+          {
+            name: '看小说',
+            link: 'http://www.baidu.com',
+            img: fiction
+          },
+          {
+            name: '游戏',
+            link: 'http://www.baidu.com',
+            img: game
+          },
+          {
+            name: '邀请好友',
+            link: 'http://www.baidu.com',
+            img: invite
+          },
+          {
+            name: '新闻',
+            link: 'http://www.baidu.com',
+            img: news
+          },
+          {
+            name: '关注微信公众号',
+            link: 'http://www.baidu.com',
+            img: weChat
+          }
+        ]
       }
     },
     components: {
@@ -104,6 +101,14 @@
             this.userPower = data.data
           }
         })
+      },
+      showIframe: function (item) {
+        this.$router.goLeft({
+          path: '/find-link', query: {
+            pageTitle: item.name,
+            findLink: item.link
+          }
+        });
       }
     }
   }
@@ -190,6 +195,7 @@
 
   .recommend {
     text-align: left;
+    height: 500px;
   }
 
   .recommend-sub {

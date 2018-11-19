@@ -11,7 +11,7 @@
       <br/>
       <div>
         <div class="ore-number">{{oreNumber}}</div>
-        <router-link tag="a" :to="'/'">
+        <router-link tag="a" :to="'/Play'">
           <div class="ore-exchange">
             <div class="ore-come" style=""></div>
             兑换
@@ -40,8 +40,8 @@
 <script>
   import commonHeader from '../components/common-header'
   import {service} from '../js/api'
-  import {isDown} from '../js/isBottom'
-  import {buildDate} from '../js/isBottom'
+  import {buildDate, isDown} from '../js/isBottom'
+
   export default {
     data() {
       return {
@@ -55,6 +55,7 @@
         oreList: [],
         pageNum: 1,
         pageSize: 15,
+        address:null,
         nextPage: true,
       }
     },
@@ -72,7 +73,7 @@
       });
     },
     methods: {
-      buildTime(str){
+      buildTime(str) {
         return buildDate(str)
       },
       getOreNumber() {
@@ -85,12 +86,15 @@
           pageNum: this.pageNum,
           pageSize: this.pageSize
         }).then(data => {
-          if (data.code !== 200) {
+          if (data.code !== 200 && data.code !== 400) {
             //window.alert(data.message);
-            return;
+            return
+          }
+          if (data.code === 404) {
+            document.getElementsByClassName('last-trip')[0].innerHTML = "你还没有纪录，慢慢积累吧。"
           }
           this.pageInfo = data.data.oreRecordDTOPageInfo;
-          if (!this.pageInfo.hasNextPage) {
+          if (!this.pageInfo || !this.pageInfo.hasNextPage) {
             this.nextPage = false
             document.getElementsByClassName('last-trip')[0].innerHTML = "到底啦，求求你别拉了。"
           }
