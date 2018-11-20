@@ -9,7 +9,7 @@
     <div class="user-info-down">
       <div class="top_photo" style="width: 100%;">
         <div>
-          <img class="user-info-down-user-img" src="../assets/imgs/default.jpg"/>
+          <img class="user-info-down-user-img" src="../assets/header.jpg"/>
           <br>
           <label style="font-size: 30px" v-model="userName">{{userInfo !== null ? userInfo.userName : ""}}</label><br/>
           <label style="font-size: 18px">会员等级:{{userInfo !== null && userInfo.vip === 0 ? '普通会员' : '金牌会员'}}</label><br/>
