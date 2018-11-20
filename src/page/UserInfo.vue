@@ -1,20 +1,13 @@
 <template>
   <div class="user-info">
+    <div class="top_header">
+      <common-header :title="title" :showback="true"></common-header>
+    </div>
     <div class="user-info-header">
       <img src="../assets/imgs/background-play.jpg" style="width: 100%"/>
     </div>
     <div class="user-info-down">
-      <div>
-        <router-link tag="a" :to="'/my'">
-          <img class="user-info-down-img" src="../assets/imgs/w-back.svg"/>
-        </router-link>
-      </div>
-      <div class="user-info-down-edit">
-        <router-link tag="a" :to="'/editUserInfo'">
-          <div style="color: #b3b3b3">编辑</div>
-        </router-link>
-      </div>
-      <div style="width: 100%;">
+      <div class="top_photo" style="width: 100%;">
         <div>
           <img class="user-info-down-user-img" src="../assets/imgs/default.jpg"/>
           <br>
@@ -35,8 +28,7 @@
         <span>{{motto}}</span>
       </div>
       <div class="userInfo">
-
-
+        <button id="button-style" v-on:click="toMy()">编辑</button>
       </div>
     </div>
   </div>
@@ -81,6 +73,9 @@
         return (month < 10 ? '0' + month : month) + '月' +
           (day < 10 ? '0' + day : day) + '号'
 
+      },
+      toMy(){
+        this.$router.togo('/EditUserInfo')
       }
     }
   }
@@ -104,21 +99,7 @@
   .user-info-down {
     position: absolute;
     z-index: 1;
-  }
-
-  .user-info-down-img {
-    width: 20px;
-    height: 20px;
-    float: left;
-    margin-left: 16px;
-    margin-top: 20px
-  }
-
-  .user-info-down-edit {
-    text-align: right;
-    margin-right: 20px;
-    margin-top: 23px;
-    font-size: 20%;
+    top: 80px;
   }
 
   .user-info-down-user-img {
@@ -126,6 +107,13 @@
     height: 40%;
     border-radius: 50%
   }
+
+  #button-style{
+     width: 80px;
+     height: 30px;
+     background-color: darkorange;
+     border-radius: 11px;
+   }
 
   .userInfo {
     position: relative;
