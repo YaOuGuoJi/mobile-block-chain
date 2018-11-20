@@ -1,49 +1,41 @@
 <template>
   <div class="user-info">
+    <div class="top_header">
+      <common-header :title="title" :showback="true"></common-header>
+    </div>
     <div>
-      <div class="header-back-color">
-        <router-link tag="a" :to="'/userInfo'">
-          <span class="header-back">返回</span>
-        </router-link>
-        <span style="color: #ff8f47;text-align: center;font-size: 16px;line-height:40px;">
-          资料编辑
-        </span>
-      </div>
-      <hr style="background-color: #eef5ed;width: 100%;height: 1px;margin-top: 0;margin-bottom: 0">
-      <div style="height: 20px;"></div>
-      <div style="text-align:left;width: 100%;">
+      <div style="text-align:left;width: 100%;" id="user_info_edit">
         <div class="show-text"><label>用户名：</label>
           <input id="userName" type="text" v-model="userName" readonly="readonly"/>
           <span class="userName-point"></span><br/></div>
         <div style="height: 20px;"></div>
-        <div class="show-text"><label> 性别：</label>
+        <div class="show-text"><label> 性&nbsp;&nbsp;&nbsp;&nbsp;别：</label>
           <input class="user-sex-boy" type="radio" name="sex" value="1"/>
           <span style="">男</span>
           <input class="user-sex-girl" type="radio" name="sex" value="2"/>
           <span>女</span>
         </div>
         <div style="height: 20px;"></div>
-        <div class="show-text"><label>生日：</label>
+        <div class="show-text"><label>生&nbsp;&nbsp;&nbsp;&nbsp;日：</label>
           <input id="birthday" type="date" v-model="birthday"/><br/></div>
         <div style="height: 35px;"></div>
-        <div class="show-text"><label>电话：</label>
-          <input id="phone" name="phone" type="text" v-model="phone" value="" @blur.prevent="check_phone()"/><span
-            class="judgePhone"></span><br/></div>
+        <div class="show-text"><label>电&nbsp;&nbsp;&nbsp;&nbsp;话：</label>
+          <input id="phone" name="phone" type="text" v-model="phone" @blur.prevent="check_phone()"/><span
+            id="err_phone"></span><br/></div>
         <div style="height: 20px;"></div>
-        <div class="show-text"><label>邮箱：</label>
-          <input id="email" type="text" v-model="email" @blur.prevent="check_email()"/><br/></div>
+        <div class="show-text"><label>邮&nbsp;&nbsp;&nbsp;&nbsp;箱：</label>
+          <input id="email" name="email" type="text" v-model="email" @blur.prevent="check_email()"/><span
+            id="err_email"></span><br/></div>
         <div style="height: 20px;"></div>
-        <div class="show-text"><label>地址：</label>
-          <input id="address" type="text" v-model="address" @blur.prevent=""/><br/></div>
+        <div class="show-text"><label>地&nbsp;&nbsp;&nbsp;&nbsp;址：</label>
+          <input id="address" type="text" v-model="address" @blur.prevent=""/><span
+            id=""></span><br/></div>
         <div style="height: 20px;"></div>
-        <div class="show-text"><label>工作：</label>
+        <div class="show-text"><label>工&nbsp;&nbsp;&nbsp;&nbsp;作：</label>
           <input id="job" type="text" v-model="job" @blur.prevent=""/><br/></div>
       </div>
       <div class="userInfo">
-        <!--{{ userInfo }}-->
-        <div style="height: 20px;"></div>
         <button class="raise" v-on:click="updateUserInfo()" style="">保存</button>
-
       </div>
     </div>
   </div>
@@ -56,7 +48,7 @@
   export default {
     data() {
       return {
-        title: '我的信息',
+        title: '编辑',
         userInfo: null,
         userId: null,
         userName: null,
@@ -101,11 +93,14 @@
         let phone = document.getElementById("phone").value;
         let regPhone = /[13,15,18]\d{9}/;
         if (phone == "" || phone.trim() == "") {
+          document.getElementById("err_phone").innerHTML = "*输入手机号";
           return false;
         } else if (!regPhone.test(phone)) {
-          alert("手机号由11位数字组成，且以13,15,18开头");
+          document.getElementById("err_phone").innerHTML = "*不合法";
+          document.getElementById("phone").focus();
           return false;
         } else {
+          document.getElementById("err_phone").innerHTML = "ok!!!";
           return true;
         }
       },
@@ -114,11 +109,14 @@
         let email = document.getElementById("email").value;
         let regEmail = /^\w+@\w+((\.\w+)+)$/;
         if (email == "" || email.trim() == "") {
+          document.getElementById("err_email").innerHTML = "*输入邮箱";
           return false;
         } else if (!regEmail.test(email)) {
-          alert("邮箱账号@域名。如good@tom.com、whj@sina.com.cn");
+          document.getElementById("err_email").innerHTML = "*邮箱不合理";
+          document.getElementById("email").focus();
           return false;
         } else {
+          document.getElementById("err_email").innerHTML = "ok!!!";
           return true;
         }
       },
@@ -141,10 +139,12 @@
           address: this.address,
           job: this.job
         }).then(response => {
-          if (response.code !== 200 || !response.data) {
+          console.log(response);
+          if (response.code !== 200) {
             alert(response.message);
+            return;
           }
-          window.location.href = "/userInfo"
+          this.$router.goBack()
         })
       },
       buildBirth(str) {
@@ -163,30 +163,39 @@
 </script>
 
 <style scoped>
-  .header-back {
-    color: #ffa252;
-    font-size: 16px;
-    line-height: 40px;
-    float: left;
-    margin-left: 5%
+  .user-info{
+    background: url("../assets/imgs/background-play.jpg") no-repeat bottom center;
   }
 
-  .header-back-color {
-    background-color: #ffffff;
-    width: 100%;
-    height: 40px;
-    vertical-align: center
+  #user_info_edit{
+    position: fixed;
+    top: 70px;
   }
 
   .raise {
-    color: black;
-    font-size: 16px
+    width: 80px;
+    height: 30px;
+    border-radius: 10px;
+  }
+
+  #err_phone {
+    font-size: 11px;
+    color: #af2e29;
+  }
+
+  #err_email {
+    font-size: 10px;
+    color: #af2e29;
   }
 
   .show-text {
-    background-color: aliceblue;
+    background-color: khaki;
     border-top: 1px solid #b3b3b3;
     border-bottom: 1px solid #b3b3b3;
+  }
+
+  input{
+    background-color: lightgrey;
   }
 
   .user-sex-boy {
@@ -199,8 +208,9 @@
   }
 
   .userInfo {
-    position: relative;
-    top: 20%;
+    position: fixed;
+    left: 41%;
+    bottom: 30px;
   }
 
   label {
