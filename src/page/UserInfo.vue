@@ -28,7 +28,7 @@
         <span>{{motto}}</span>
       </div>
       <div class="userInfo">
-        <button id="button-style" v-on:click="toMy()">编辑</button>
+        <button id="button-style" v-on:click="toEdit()">编辑</button>
       </div>
     </div>
   </div>
@@ -74,7 +74,7 @@
           (day < 10 ? '0' + day : day) + '号'
 
       },
-      toMy(){
+      toEdit(){
         this.$router.togo('/EditUserInfo')
       }
     }
