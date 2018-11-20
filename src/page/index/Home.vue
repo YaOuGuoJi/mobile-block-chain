@@ -135,9 +135,11 @@
         })
         document.getElementById("newWealth").onclick=function () {
           window.location.href="/ore"
+          // this.$router.togo('/ore');
         }
         document.getElementById("newPower").onclick=function () {
           window.location.href="/power"
+          // this.$router.togo('/power');
         }
       },
       getUnreceive(unreceive) {
