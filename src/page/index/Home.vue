@@ -6,8 +6,8 @@
     <div id="content">
       <div id="w">
         <div id="powerAll">
-          <div id="newWealth"></div>
-          <div id="newPower"></div>
+          <div id="newWealth" @click="getWealth()"></div>
+          <div id="newPower" @click="getPower()"></div>
         </div>
         <div id="news">
         </div>
@@ -49,18 +49,25 @@
         </div>
         <div id="bottom" class="swiper-container">
           <div class="swiper-wrapper">
-            <div class="swiper-slide"><a href="http://www.tmall.com"><img
-              src="../../assets/imgs/a.png"/></a></div>
-            <div class="swiper-slide"><a href="http://www.17k.com"><img
-              src="../../assets/imgs/b.png"/></a></div>
-            <div class="swiper-slide"><a href="http://www.4399.com"><img
-              src="../../assets/imgs/c.png"/></a></div>
-            <div class="swiper-slide"><a href="http://www.toutiao.com"><img
-              src="../../assets/imgs/d.png"/></a></div>
-            <div class="swiper-slide"><a href="http://www.youku.com"><img
-              src="../../assets/imgs/e.png"/></a></div>
-            <div class="swiper-slide"><a href="https://baijiahao.baidu.com/s?id=1560564881754264&wfr=spider&for=pc"><img
-              src="../../assets/imgs/f.png"/></a></div>
+            <div class="swiper-slide">
+              <img src="../../assets/imgs/a.png" @click="getOutLink({name:'逛天猫' ,link:'http://www.tmall.com'})"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="../../assets/imgs/b.png" @click="getOutLink({name:'看小说' ,link:'http://www.17k.com'})"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="../../assets/imgs/c.png" @click="getOutLink({name:'玩游戏' ,link:'http://www.4399.com'})"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="../../assets/imgs/d.png" @click="getOutLink({name:'看新闻' ,link:'http://www.toutiao.com'})"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="../../assets/imgs/e.png" @click="getOutLink({name:'看视频' ,link:'http://www.youku.com'})"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="../../assets/imgs/f.png"
+                   @click="getOutLink({name:'来赌博' ,link:'https://baijiahao.baidu.com/s?id=1560564881754264&wfr=spider&for=pc'})"/>
+            </div>
           </div>
         </div>
       </div>
@@ -69,7 +76,6 @@
 </template>
 
 <script>
-  import commonHeader from '../../components/common-header'
   import {service} from '../../js/api.js'
   import Swiper from 'swiper';
   import 'swiper/dist/css/swiper.min.css';
@@ -79,20 +85,18 @@
       return {
         title: '首页',
         num: 0,
-        photoPath: ["../../../static/image/one.png","../../../static/image/two.png","../../../static/image/three.png","../../../static/image/four.png","../../../static/image/five.png","../../../static/image/six.png","../../../static/image/seven.png","../../../static/image/eight.png"]
+        photoPath: ["../../../static/image/one.png", "../../../static/image/two.png", "../../../static/image/three.png", "../../../static/image/four.png", "../../../static/image/five.png", "../../../static/image/six.png", "../../../static/image/seven.png", "../../../static/image/eight.png"]
       }
     },
-    components: {
-      commonHeader
-    },
+
     mounted() {
       this.getInitialise()
       let mySwiper = new Swiper(".swiper-container", {
         loop: "true",
         // effect : 'coverflow',
         slidesPerView: 2,
-        freeMode : true,
-        centeredSlides: false,
+        freeMode: true,
+        centeredSlides: true,
         watchSlidesProgress: true
       });
     },
@@ -104,10 +108,10 @@
           }
           else {
             if (data.data.oreNumber) {
-              document.getElementById("newWealth").innerHTML="<span>财富:"+data.data.oreNumber.toFixed(5)+"</span>"
+              document.getElementById("newWealth").innerHTML = "<span>财富:" + data.data.oreNumber.toFixed(5) + "</span>"
             }
             else {
-              document.getElementById("newWealth").innerHTML="<span>财富:0.00000</span>"
+              document.getElementById("newWealth").innerHTML = "<span>财富:0.00000</span>"
             }
           }
         })
@@ -117,7 +121,7 @@
           }
           else {
             if (data.data.validPowerSum) {
-              document.getElementById("newPower").innerHTML="<span>力量:"+data.data.validPowerSum.toFixed(0)+"</span>"
+              document.getElementById("newPower").innerHTML = "<span>力量:" + data.data.validPowerSum.toFixed(0) + "</span>"
             } else {
               document.getElementById("newPower").innerHTML = "<span>力量:0.00000</span>"
             }
@@ -133,17 +137,31 @@
             }
           }
         })
-        document.getElementById("newWealth").onclick=function () {
-          window.location.href="/ore"
-          // this.$router.togo('/ore');
-        }
-        document.getElementById("newPower").onclick=function () {
-          window.location.href="/power"
-          // this.$router.togo('/power');
-        }
+        // document.getElementById("newWealth").onclick = function () {
+        //   window.location.href = "/ore"
+        // }
+        // document.getElementById("newPower").onclick = function () {
+        //   window.location.href = "/power"
+        //   // this.$router.togo('/power')
+        // }
+      },
+      getOutLink(item) {
+        this.$router.goLeft({
+            path: '/find-link', query: {
+              pageTitle: item.name,
+              findLink: item.link
+            }
+          }
+        )
+      },
+      getWealth(){
+        this.$router.togo("/ore")
+      },
+      getPower(){
+        this.$router.togo("/power")
       },
       getUnreceive(unreceive) {
-        let photo=["../../../static/image/one.png","../../../static/image/two.png","../../../static/image/three.png","../../../static/image/four.png","../../../static/image/five.png","../../../static/image/six.png","../../../static/image/seven.png","../../../static/image/eight.png"];
+        let photo = ["../../../static/image/one.png", "../../../static/image/two.png", "../../../static/image/three.png", "../../../static/image/four.png", "../../../static/image/five.png", "../../../static/image/six.png", "../../../static/image/seven.png", "../../../static/image/eight.png"];
         if (unreceive.length > 0) {
           let numOfReceive = unreceive.length
           for (let i in unreceive) {
@@ -156,20 +174,20 @@
             }
             oreTable.rows[row].cells[col].width = 47;
             oreTable.rows[row].cells[col].height = 47;
-            oreTable.rows[row].cells[col].innerHTML="<table><tr><td><img width='100%' height='10%' src='"+this.photoPath[Math.floor(Math.random() * 8)]+"' alt='加载中'/></td></tr></table>"+ unreceive[i].ore
+            oreTable.rows[row].cells[col].innerHTML = "<table><tr><td><img width='100%' height='10%' src='" + this.photoPath[Math.floor(Math.random() * 8)] + "' alt='加载中'/></td></tr></table>" + unreceive[i].ore
             oreTable.rows[row].cells[col].value = unreceive[i].id;
             oreTable.rows[row].cells[col].onclick = function () {
-              let inner=this.innerHTML;
-              let value=this.value;
-              this.innerHTML='';
-              this.value='';
-              this.onclick='';
+              let inner = this.innerHTML;
+              let value = this.value;
+              this.innerHTML = '';
+              this.value = '';
+              this.onclick = '';
               numOfReceive -= 1;
               if (!numOfReceive) {
                 let oreTable = document.getElementById("oreId")
                 oreTable.rows[0].cells[0].width = 47;
                 oreTable.rows[0].cells[0].height = 47;
-                document.getElementById("oreId").rows[0].cells[2].innerHTML ="<table><tr><td><img width='30%' height='10%' src='"+photo[Math.floor(Math.random() * 8)]+"' alt='加载中'/></td></tr></table>"+"财富生成中";
+                document.getElementById("oreId").rows[0].cells[2].innerHTML = "<table><tr><td><img width='30%' height='10%' src='" + photo[Math.floor(Math.random() * 8)] + "' alt='加载中'/></td></tr></table>" + "财富生成中";
               }
               service("get", "user/received/ore", {oreId: value}).then(data => {
                 if (data.code != 200) {
@@ -178,7 +196,7 @@
                 if (data.code == 200) {
                   let wealthStr = document.getElementById("newWealth").innerHTML;
                   let wealth = (parseFloat(wealthStr.substr(wealthStr.indexOf(":") + 1)) + parseFloat(inner.substr(inner.lastIndexOf(">") + 1))).toFixed(5)
-                  document.getElementById("newWealth").innerHTML = "<span>"+wealthStr.substring(wealthStr.indexOf('>')+1, wealthStr.indexOf(':')+1 ) + wealth+"</span>"
+                  document.getElementById("newWealth").innerHTML = "<span>" + wealthStr.substring(wealthStr.indexOf('>') + 1, wealthStr.indexOf(':') + 1) + wealth + "</span>"
                 }
               })
             }
@@ -188,7 +206,7 @@
           let oreTable = document.getElementById("oreId")
           oreTable.rows[1].cells[3].width = 47;
           oreTable.rows[1].cells[3].height = 47;
-          document.getElementById("oreId").rows[0].cells[2].innerHTML = "<table><tr><td><img width='25%' height='10%' src='"+photo[Math.floor(Math.random() * 8)]+"' alt='加载中'/></td></tr></table>"+"财富生成中";
+          document.getElementById("oreId").rows[0].cells[2].innerHTML = "<table><tr><td><img width='25%' height='10%' src='" + photo[Math.floor(Math.random() * 8)] + "' alt='加载中'/></td></tr></table>" + "财富生成中";
         }
       }
     }
@@ -268,7 +286,8 @@
     height: 5%;
     width: 10%;
   }
-  #newWealth{
+
+  #newWealth {
     padding-top: 3%;
     color: #d2d017;
     margin-top: 1%;
@@ -276,10 +295,11 @@
     height: 100%;
     width: 40%;
     float: left;
-    background-color: rgba(	255,165,0,0.3);
+    background-color: rgba(255, 165, 0, 0.3);
     border-radius: 5%;
   }
-  #newPower{
+
+  #newPower {
     padding-top: 3%;
     color: #d2d017;
     margin-top: 1%;
@@ -287,7 +307,7 @@
     height: 100%;
     width: 35%;
     float: left;
-    background-color: rgba(	255,165,0,0.3);
+    background-color: rgba(255, 165, 0, 0.3);
     border-radius: 5%;
   }
 </style>
