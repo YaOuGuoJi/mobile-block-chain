@@ -6,8 +6,8 @@
     <div id="content">
       <div id="w">
         <div id="powerAll">
-          <div id="newWealth" @click="getWealth()"></div>
-          <div id="newPower" @click="getPower()"></div>
+          <div id="newWealth" ></div>
+          <div id="newPower" ></div>
         </div>
         <div id="news">
         </div>
@@ -96,7 +96,7 @@
         // effect : 'coverflow',
         slidesPerView: 2,
         freeMode: true,
-        centeredSlides: true,
+        // centeredSlides: true,
         watchSlidesProgress: true
       });
     },
@@ -137,13 +137,12 @@
             }
           }
         })
-        // document.getElementById("newWealth").onclick = function () {
-        //   window.location.href = "/ore"
-        // }
-        // document.getElementById("newPower").onclick = function () {
-        //   window.location.href = "/power"
-        //   // this.$router.togo('/power')
-        // }
+        document.getElementById("newWealth").onclick = function () {
+          window.location.href = "/ore"
+        }
+        document.getElementById("newPower").onclick = function () {
+          window.location.href = "/power"
+        }
       },
       getOutLink(item) {
         this.$router.goLeft({
@@ -154,12 +153,12 @@
           }
         )
       },
-      getWealth(){
-        this.$router.togo("/ore")
-      },
-      getPower(){
-        this.$router.togo("/power")
-      },
+      // getWealth(){
+      //   this.$router.togo("/ore")
+      // },
+      // getPower(){
+      //   this.$router.togo("/power")
+      // },
       getUnreceive(unreceive) {
         let photo = ["../../../static/image/one.png", "../../../static/image/two.png", "../../../static/image/three.png", "../../../static/image/four.png", "../../../static/image/five.png", "../../../static/image/six.png", "../../../static/image/seven.png", "../../../static/image/eight.png"];
         if (unreceive.length > 0) {
