@@ -17,10 +17,7 @@
         <h4>算力分类</h4>
       </div>
       <div class="classify">
-        <a href="http://www.taobao.com"><img class="classify-img" src="../../assets/imgs/shopping-cart.png"/></a>
-        <a href="https://www.marvel.com"><img class="classify-img" src="../../assets/imgs/entertainment.png"/></a>
-        <a href="https://www.battlenet.com.cn/zh/"><img class="classify-img" src="../../assets/imgs/game.png"/></a>
-        <a href="http://www.dangdang.com/"><img class="classify-img" src="../../assets/imgs/health.png"/></a>
+        <img v-for="item in findClassify" class="classify-img" :src="item.img" @click="showClassifyIgrame(item)"/>
       </div>
       <div class="recommend">
         <div>
@@ -48,7 +45,10 @@
   import invite from '../../assets/imgs/invite-li.png'
   import news from '../../assets/imgs/news-li.png'
   import weChat from '../../assets/imgs/weChat-li.png'
-
+  import shoppingCart from '../../assets/imgs/shopping-cart.png'
+  import entertainment from '../../assets/imgs/entertainment.png'
+  import classifyGame from '../../assets/imgs/game.png'
+  import health from '../../assets/imgs/health.png'
 
   export default {
     data() {
@@ -82,6 +82,28 @@
             link: 'http://www.baidu.com',
             img: weChat
           }
+        ],
+        findClassify: [
+          {
+            name: '购物',
+            link: 'http://www.taobao.com',
+            img: shoppingCart
+          },
+          {
+            name: '娱乐',
+            link: 'https://www.marvel.com',
+            img: entertainment
+          },
+          {
+            name: '游戏',
+            link: 'https://www.battlenet.com.cn/zh/',
+            img: classifyGame
+          },
+          {
+            name: '健康',
+            link: 'http://www.dangdang.com/',
+            img: health
+          }
         ]
       }
     },
@@ -109,6 +131,14 @@
             findLink: item.link
           }
         });
+      },
+      showClassifyIgrame: function (item) {
+        this.$router.goLeft({
+          path: 'find-classify-link', query: {
+            pageTitle: item.name,
+            findClassifyLink: item.link
+          }
+        })
       }
     }
   }
