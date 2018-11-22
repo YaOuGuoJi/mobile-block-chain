@@ -225,7 +225,7 @@
 
   .recommend {
     text-align: left;
-    height: 500px;
+    width: 100%;
   }
 
   .recommend-sub {
