@@ -116,6 +116,9 @@
     methods: {
       getUserPower: function () {
         service('get', '/user/power/all', {}).then(data => {
+          if (data === undefined) {
+            return
+          }
           if (data.code !== 200 || !data.data) {
             alert('请求失败')
             return
