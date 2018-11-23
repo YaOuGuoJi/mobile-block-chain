@@ -83,7 +83,8 @@
         this.$router.togo('/ore')
       },
       toPower() {
-        window.location.href='/power'
+        // this.$router.togo('/power')
+        window.location.href="/power"
       },
       toOrder() {
         this.$router.togo('/order')
