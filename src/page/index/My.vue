@@ -73,6 +73,9 @@
     methods: {
       logout() {
         service('post', '/user/logout', {}).then(response => {
+          if (response === undefined) {
+            return
+          }
           if (response.code !== 200) {
             alert(response.message);
           }
@@ -83,7 +86,6 @@
         this.$router.togo('/ore')
       },
       toPower() {
-        // this.$router.togo('/power')
         window.location.href="/power"
       },
       toOrder() {

@@ -15,6 +15,7 @@ import PowerBase from '@/page/PowerBase'
 import UserInfo from '@/page/UserInfo'
 import EditUserInfo from '@/page/EditUserInfo'
 import FindLink from '@/page/FindLink'
+import FindClassify from '@/page/FindClassify'
 
 Vue.use(Router);
 
@@ -111,6 +112,11 @@ export default new Router({
       path: '/find-link',
       name: 'FindLink',
       component: FindLink
+    },
+    {
+      path: '/find-classify-link',
+      name: 'FindClassify',
+      component: FindClassify
     },
     {
       path: '/editUserInfo',

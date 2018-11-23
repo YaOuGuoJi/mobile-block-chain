@@ -1,5 +1,5 @@
 <template>
-  <div class="body">
+  <div v-show="showPage" class="body">
     <div class="top_title">
       <h3 id="title_h3" style="color: #EDEFF2">玩转矿石</h3>
       <h5 id="title_h5" style="color: #EDEFF2">多种玩法，赢矿石、拿现金、享权益</h5>
@@ -31,13 +31,20 @@
 
 <script>
   import commonHeader from '../../components/common-header'
+  import {service} from "../../js/api";
 
   export default {
     data() {
       return {
         title: '玩转',
-        num: 0
+        num: 0,
+        showPage: false
       }
+    },
+    created() {
+      service('get', '/user/isLogin').then(data => {
+        this.showPage = data
+      })
     },
     components: {
       commonHeader

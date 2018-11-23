@@ -103,6 +103,9 @@
     methods: {
       getInitialise() {
         service("get", "/user/oreNumber").then(data => {
+          if (data === undefined) {
+            return
+          }
           if (data.code != 200) {
             alert(data.message)
           }
@@ -116,6 +119,9 @@
           }
         })
         service("get", "/user/power/isValid").then(data => {
+          if (data === undefined) {
+            return
+          }
           if (data.code != 200) {
             alert(data.message)
           }
@@ -128,6 +134,9 @@
           }
         })
         service("get", "user/unreceived/ore").then(data => {
+          if (data === undefined) {
+            return
+          }
           if (data.code != 200) {
             alert(data.message)
           }
@@ -153,12 +162,6 @@
           }
         )
       },
-      // getWealth(){
-      //   this.$router.togo("/ore")
-      // },
-      // getPower(){
-      //   this.$router.togo("/power")
-      // },
       getUnreceive(unreceive) {
         let photo = ["../../../static/image/one.png", "../../../static/image/two.png", "../../../static/image/three.png", "../../../static/image/four.png", "../../../static/image/five.png", "../../../static/image/six.png", "../../../static/image/seven.png", "../../../static/image/eight.png"];
         if (unreceive.length > 0) {
