@@ -16,6 +16,7 @@ import UserInfo from '@/page/UserInfo'
 import EditUserInfo from '@/page/EditUserInfo'
 import FindLink from '@/page/FindLink'
 import FindClassify from '@/page/FindClassify'
+import getWeChat from '@/page/getWeChat'
 
 Vue.use(Router);
 
@@ -122,6 +123,11 @@ export default new Router({
       path: '/editUserInfo',
       name: 'EditUserInfo',
       component: EditUserInfo
+    },
+    {
+      path: '/getWeChat',
+      name: 'getWeChat',
+      component: getWeChat
     }
   ]
 })

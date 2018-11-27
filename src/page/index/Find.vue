@@ -59,12 +59,12 @@
         webAddress: [
           {
             name: '看小说',
-            link: 'http://www.baidu.com',
+            link: 'http://m.yznnw.com/',
             img: fiction
           },
           {
             name: '游戏',
-            link: 'http://www.baidu.com',
+            link: 'http://www.4399.com',
             img: game
           },
           {
@@ -74,12 +74,12 @@
           },
           {
             name: '新闻',
-            link: 'http://www.baidu.com',
+            link: 'http://www.toutiao.com',
             img: news
           },
           {
             name: '关注微信公众号',
-            link: 'http://www.baidu.com',
+            link: '/getWeChat',
             img: weChat
           }
         ],
@@ -91,17 +91,17 @@
           },
           {
             name: '娱乐',
-            link: 'https://www.marvel.com',
+            link: 'https://music.163.com/',
             img: entertainment
           },
           {
             name: '游戏',
-            link: 'https://www.battlenet.com.cn/zh/',
+            link: 'http://www.4399.com',
             img: classifyGame
           },
           {
             name: '健康',
-            link: 'http://www.dangdang.com/',
+            link: 'https://www.iqiyi.com/lib/',
             img: health
           }
         ]
