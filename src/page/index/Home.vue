@@ -6,8 +6,8 @@
     <div id="content">
       <div id="w">
         <div id="powerAll">
-          <div id="newWealth" ></div>
-          <div id="newPower" ></div>
+          <div id="newWealth"></div>
+          <div id="newPower"></div>
         </div>
         <div id="news">
         </div>
@@ -181,8 +181,14 @@
             oreTable.rows[row].cells[col].onclick = function () {
               let inner = this.innerHTML;
               let value = this.value;
-              this.innerHTML = '';
-              this.value = '';
+              this.className += 'not-received-ore'
+              function sleep(milliseconds) {
+                return new Promise(resolve => setTimeout(resolve, milliseconds))
+              }
+              sleep(1000).then(() => {
+                this.innerHTML = '';
+                this.value = '';
+              })
               this.onclick = '';
               numOfReceive -= 1;
               if (!numOfReceive) {
@@ -215,6 +221,50 @@
   }
 </script>
 <style scoped>
+
+  .not-received-ore {
+    animation: slideOut 1s;
+    -moz-animation: slideOut 1s;
+    -webkit-animation: slideOut 1s;
+    -o-animation: slideOut 1s;
+  }
+
+  @keyframes slideOut {
+    from {
+      transform: translateY(0px);
+    }
+    to {
+      transform: translateY(-400px);
+    }
+  }
+
+  @-moz-keyframes slideOut {
+    from {
+      transform: translateY(0px);
+    }
+    to {
+      transform: translateY(-100px);
+    }
+  }
+
+  @-webkit-keyframes slideOut {
+    from {
+      transform: translateY(0px);
+    }
+    to {
+      transform: translateY(-100px);
+    }
+  }
+
+  @-o-keyframes slideOut {
+    from {
+      transform: translateY(0px);
+    }
+    to {
+      transform: translateY(-100px);
+    }
+  }
+
   #max {
     height: 100%;
     width: 100%;
