@@ -9,9 +9,9 @@
       <h5 id="active_h5" style="color: #EDEFF2" v-on:click="getMore()">更多<img class="more" src="../../assets/to.png" style="width: 18px"/></h5>
     </div>
     <div class="active_div">
-      <a href="http://www.taobao.com"><img class="classify-img" src="../../assets/imgs/play-1.png"/></a>
-      <a href="https://www.marvel.com"><img class="classify-img" src="../../assets/imgs/play-2.png"/></a>
-      <a href="https://www.battlenet.com.cn/zh/"><img class="classify-img" src="../../assets/imgs/play-3.png"/></a>
+      <a><img class="classify-img" src="../../assets/imgs/play-1.png" @click="showIframe1()"/></a>
+      <a><img class="classify-img" src="../../assets/imgs/play-2.png" @click="showIframe2()"/></a>
+      <a><img class="classify-img" src="../../assets/imgs/play-3.png" @click="showIframe3()"/></a>
     </div>
     <div class="market">
       <h4 style="color: #EDEFF2" id="market_h4">小镇集市</h4>
@@ -52,7 +52,31 @@
     methods: {
       getMore(){
         alert("敬请期待！")
-      }
+      },
+      showIframe1() {
+        this.$router.goLeft({
+          path: '/find-link', query: {
+            pageTitle: '挖宝',
+            findLink: 'http://www.taobao.com'
+          }
+        });
+      },
+      showIframe2() {
+        this.$router.goLeft({
+          path: '/find-link', query: {
+            pageTitle: '抽奖',
+            findLink: 'http://www.taobao.com'
+          }
+        });
+      },
+      showIframe3() {
+        this.$router.goLeft({
+          path: '/find-link', query: {
+            pageTitle: '联赛竞猜',
+            findLink: 'http://www.taobao.com'
+          }
+        });
+      },
     }
   }
 </script>
