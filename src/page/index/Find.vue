@@ -69,7 +69,7 @@
           },
           {
             name: '邀请好友',
-            link: 'http://www.baidu.com',
+            link: '/invite',
             img: invite
           },
           {

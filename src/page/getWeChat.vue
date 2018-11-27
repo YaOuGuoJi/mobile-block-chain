@@ -26,8 +26,6 @@
 
 </template>
 <script>
-  import commonHeader from '../components/common-header'
-
   export default {
     data() {
       return {
@@ -55,10 +53,6 @@
         }
         txts[0].removeAttribute("readonly");
       }
-    },
-
-    components: {
-      commonHeader
     }
   }
 
