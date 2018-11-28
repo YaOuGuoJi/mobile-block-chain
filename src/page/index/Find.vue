@@ -9,7 +9,7 @@
       <p class="power">
         <span id="userPower">{{userPower}}</span>
         <span id="powerText">算力值</span>
-        <a class="lottery" href="http://www.baidu.com">抽奖大富翁</a>
+        <span class="lottery" @click="lotteryPage(lottery)">{{lottery.name}}</span>
       </p>
     </div>
     <div class="content">
@@ -66,6 +66,10 @@
         title: '发现',
         num: 0,
         userPower: null,
+        lottery: {
+          name: '幸运大礼包',
+          link: 'http://www.baidu.com'
+        },
         webAddress: [
           {
             name: '看小说',
@@ -124,6 +128,14 @@
             return
           } else {
             this.userPower = data.data
+          }
+        })
+      },
+      lotteryPage: function(lottery) {
+        this.$router.goLeft({
+          path: '/find-link', query: {
+            pageTitle: lottery.name,
+            findLink: lottery.link
           }
         })
       },
