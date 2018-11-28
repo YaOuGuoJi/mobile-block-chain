@@ -178,10 +178,11 @@
             oreTable.rows[row].cells[col].height = 47;
             oreTable.rows[row].cells[col].innerHTML = "<table><tr><td><img width='100%' height='10%' src='" + this.photoPath[Math.floor(Math.random() * 8)] + "' alt='加载中'/></td></tr></table>" + unreceive[i].ore
             oreTable.rows[row].cells[col].value = unreceive[i].id;
+            oreTable.rows[row].cells[col].className="move"
             oreTable.rows[row].cells[col].onclick = function () {
               let inner = this.innerHTML;
               let value = this.value;
-              this.className += 'not-received-ore';
+              this.className = 'not-received-ore';
 
               function sleep(milliseconds) {
                 return new Promise(resolve => setTimeout(resolve, milliseconds))
@@ -199,6 +200,7 @@
                   oreTable.rows[0].cells[0].width = 47;
                   oreTable.rows[0].cells[0].height = 47;
                   document.getElementById("oreId").rows[0].cells[2].innerHTML = "<table><tr><td><img width='30%' height='10%' src='" + photo[Math.floor(Math.random() * 8)] + "' alt='加载中'/></td></tr></table>" + "矿石生长中";
+                  document.getElementById("oreId").rows[0].cells[2].className="move";
                 })
               }
               service("get", "user/received/ore", {oreId: value}).then(data => {
@@ -219,6 +221,7 @@
           oreTable.rows[1].cells[3].width = 47;
           oreTable.rows[1].cells[3].height = 47;
           document.getElementById("oreId").rows[0].cells[2].innerHTML = "<table><tr><td><img width='25%' height='10%' src='" + photo[Math.floor(Math.random() * 8)] + "' alt='加载中'/></td></tr></table>" + "财富生成中";
+          document.getElementById("oreId").rows[0].cells[2].className="move";
         }
       },
       togoPlay() {
@@ -234,6 +237,25 @@
     -moz-animation: slideOut 1s;
     -webkit-animation: slideOut 1s;
     -o-animation: slideOut 1s;
+  }
+    .move{
+    position:relative;
+    animation:float ease-in-out 3s infinite;
+    }
+
+  @keyframes float {
+    0% {
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
+    50% {
+      -webkit-transform: translateY(10px);
+      transform: translateY(10px);
+    }
+    100% {
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
   }
 
   @keyframes slideOut {

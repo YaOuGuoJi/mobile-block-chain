@@ -17,6 +17,9 @@
         <div class="input-group">
           <input v-model="secondPassword" type="password" placeholder="Confirm Password" @keyup.enter="register">
         </div>
+        <div class="input-group">
+          <input v-model="inviteCode" type="text" placeholder="Input Invitation Code"/>
+        </div>
         <button v-on:click="register" style="background: url('../../static/image/button.png'); background-size: 100% 100%">Register</button>
       </div>
     </div>
@@ -34,7 +37,8 @@
         return {
           userName: null,
           firstPassword: null,
-          secondPassword:null
+          secondPassword:null,
+          inviteCode: null
         }
       },
       methods: {
@@ -67,9 +71,17 @@
             alert('两次密码输入不一致')
             return
           }
+          if (this.inviteCode !== null){
+            let telRex =/^[A-Z]{6}$/;
+            if (this.inviteCode.length !== 6 || !telRex.test(this.inviteCode)){
+              alert('输入的邀请码错误,请确认后再输入')
+              return
+            }
+          }
           service('post', '/user/register', {
             userName: this.userName,
-            password: md5(this.secondPassword)
+            password: md5(this.secondPassword),
+            inviteCode: this.inviteCode === null ? "" : this.inviteCode
           }).then(data => {
             if (data.code !== 200 || !data.data) {
               alert(data.message)
