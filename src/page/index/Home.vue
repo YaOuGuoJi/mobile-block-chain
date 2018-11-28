@@ -6,8 +6,8 @@
     <div id="content">
       <div id="w">
         <div id="powerAll">
-          <div id="newWealth" ></div>
-          <div id="newPower" ></div>
+          <div id="newWealth"></div>
+          <div id="newPower"></div>
         </div>
         <div id="news">
         </div>
@@ -111,10 +111,10 @@
           }
           else {
             if (data.data.oreNumber) {
-              document.getElementById("newWealth").innerHTML = "<span>财富:" + data.data.oreNumber.toFixed(5) + "</span>"
+              document.getElementById("newWealth").innerHTML = "<span>矿石:" + data.data.oreNumber.toFixed(5) + "</span>"
             }
             else {
-              document.getElementById("newWealth").innerHTML = "<span>财富:0.00000</span>"
+              document.getElementById("newWealth").innerHTML = "<span>矿石:0.00000</span>"
             }
           }
         })
@@ -127,9 +127,9 @@
           }
           else {
             if (data.data.validPowerSum) {
-              document.getElementById("newPower").innerHTML = "<span>力量:" + data.data.validPowerSum.toFixed(0) + "</span>"
+              document.getElementById("newPower").innerHTML = "<span>算力:" + data.data.validPowerSum.toFixed(0) + "</span>"
             } else {
-              document.getElementById("newPower").innerHTML = "<span>力量:0.00000</span>"
+              document.getElementById("newPower").innerHTML = "<span>算力:0.00000</span>"
             }
           }
         })
@@ -181,15 +181,24 @@
             oreTable.rows[row].cells[col].onclick = function () {
               let inner = this.innerHTML;
               let value = this.value;
-              this.innerHTML = '';
-              this.value = '';
-              this.onclick = '';
+              this.className += 'not-received-ore';
+
+              function sleep(milliseconds) {
+                return new Promise(resolve => setTimeout(resolve, milliseconds))
+              }
+
+              sleep(900).then(() => {
+                this.innerHTML = '';
+                this.value = '';
+              })
               numOfReceive -= 1;
               if (!numOfReceive) {
-                let oreTable = document.getElementById("oreId")
-                oreTable.rows[0].cells[0].width = 47;
-                oreTable.rows[0].cells[0].height = 47;
-                document.getElementById("oreId").rows[0].cells[2].innerHTML = "<table><tr><td><img width='30%' height='10%' src='" + photo[Math.floor(Math.random() * 8)] + "' alt='加载中'/></td></tr></table>" + "财富生成中";
+                sleep(1000).then(() => {
+                  let oreTable = document.getElementById("oreId")
+                  oreTable.rows[0].cells[0].width = 47;
+                  oreTable.rows[0].cells[0].height = 47;
+                  document.getElementById("oreId").rows[0].cells[2].innerHTML = "<table><tr><td><img width='30%' height='10%' src='" + photo[Math.floor(Math.random() * 8)] + "' alt='加载中'/></td></tr></table>" + "矿石生长中";
+                })
               }
               service("get", "user/received/ore", {oreId: value}).then(data => {
                 if (data.code != 200) {
@@ -215,6 +224,50 @@
   }
 </script>
 <style scoped>
+
+  .not-received-ore {
+    animation: slideOut 1s;
+    -moz-animation: slideOut 1s;
+    -webkit-animation: slideOut 1s;
+    -o-animation: slideOut 1s;
+  }
+
+  @keyframes slideOut {
+    from {
+      transform: translateY(0px);
+    }
+    to {
+      transform: translateY(-400px);
+    }
+  }
+
+  @-moz-keyframes slideOut {
+    from {
+      transform: translateY(0px);
+    }
+    to {
+      transform: translateY(-100px);
+    }
+  }
+
+  @-webkit-keyframes slideOut {
+    from {
+      transform: translateY(0px);
+    }
+    to {
+      transform: translateY(-100px);
+    }
+  }
+
+  @-o-keyframes slideOut {
+    from {
+      transform: translateY(0px);
+    }
+    to {
+      transform: translateY(-100px);
+    }
+  }
+
   #max {
     height: 100%;
     width: 100%;

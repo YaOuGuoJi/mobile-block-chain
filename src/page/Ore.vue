@@ -27,7 +27,7 @@
         <div class="ore-List">
           <div class="oreList-source">{{ record.source }}</div>
           <div>
-            <div class="oreList-time">{{ buildTime(record.addTime) }}</div>
+            <div class="oreList-time">{{ buildTime(record.updateTime) }}</div>
             <div class="oreList-Number">+{{ record.ore }}</div>
           </div>
         </div>
