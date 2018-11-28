@@ -191,6 +191,7 @@
                 this.innerHTML = '';
                 this.value = '';
               })
+              this.onclick = '';
               numOfReceive -= 1;
               if (!numOfReceive) {
                 sleep(1000).then(() => {
