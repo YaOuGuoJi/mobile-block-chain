@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="top_header">
+      <common-header :title="title" :showback="true"></common-header>
+    </div>
     <div class="message">
       <h4 id="message_h4" style="color: #EDEFF2">按照以下步骤完成关注微信公众号<br/>即可获取10个临时算力</h4>
       <div class="message_h5">
@@ -26,6 +29,7 @@
 
 </template>
 <script>
+  import commonHeader from '../components/common-header'
   export default {
     data() {
       return {
@@ -53,6 +57,9 @@
         }
         txts[0].removeAttribute("readonly");
       }
+    },
+    components: {
+      commonHeader
     }
   }
 
@@ -62,17 +69,20 @@
     width: 100%;
     height:240px;
     background: url("../assets/imgs/background-play.jpg") no-repeat right top;
+    position: fixed;
+    top: 45px;
   }
   #message_h4{
     width: 300px;
     text-align: center;
     position: fixed;
     left: 14%;
+    top: 55px;
   }
   .message_h5{
     text-align: left;
     position: fixed;
-    top: 10%;
+    top: 15%;
     left: 5%;
     margin-top: 5px;
   }
@@ -81,7 +91,7 @@
   }
   #message_hr{
     position: fixed;
-    top: 150px;
+    top: 200px;
     height:10px;
     width: 100%;
     border:none;
@@ -89,7 +99,7 @@
   }
   #message_h5{
     position: fixed;
-    top: 180px;
+    top: 230px;
     left: 5%;
     color: #EDEFF2;
   }

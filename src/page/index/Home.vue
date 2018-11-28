@@ -66,7 +66,7 @@
             </div>
             <div class="swiper-slide">
               <img src="../../assets/imgs/f.png"
-                   @click="getOutLink({name:'来赌博' ,link:'https://baijiahao.baidu.com/s?id=1560564881754264&wfr=spider&for=pc'})"/>
+                   @click="togoPlay()"/>
             </div>
           </div>
         </div>
@@ -219,6 +219,9 @@
           oreTable.rows[1].cells[3].height = 47;
           document.getElementById("oreId").rows[0].cells[2].innerHTML = "<table><tr><td><img width='25%' height='10%' src='" + photo[Math.floor(Math.random() * 8)] + "' alt='加载中'/></td></tr></table>" + "财富生成中";
         }
+      },
+      togoPlay() {
+        this.$router.togo('/Play')
       }
     }
   }

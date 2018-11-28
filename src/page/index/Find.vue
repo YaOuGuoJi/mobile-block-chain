@@ -31,6 +31,18 @@
             </div>
             <div class="div-interval"></div>
           </div>
+          <div>
+            <div class="recommend-sub" @click="togoInvite()">
+              <img class="title-img" src="../../assets/imgs/invite-li.png"/>
+              <span class="title-up">邀请好友</span>
+              <div class="div-interval"></div>
+            </div>
+            <div class="recommend-sub" @click="togoWeChat()">
+              <img class="title-img" src="../../assets/imgs/invite-li.png"/>
+              <span class="title-up">关注微信公众号</span>
+              <div class="div-interval"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -68,20 +80,20 @@
             img: game
           },
           {
-            name: '邀请好友',
-            link: '/invite',
-            img: invite
-          },
-          {
             name: '新闻',
             link: 'http://www.toutiao.com',
             img: news
-          },
-          {
-            name: '关注微信公众号',
-            link: '/getWeChat',
-            img: weChat
           }
+//          {
+//            name: '邀请好友',
+//            link: '/invite',
+//            img: invite
+//          },
+//          {
+//            name: '关注微信公众号',
+//            link: '/getWeChat',
+//            img: weChat
+//          }
         ],
         findClassify: [
           {
@@ -142,6 +154,12 @@
             findClassifyLink: item.link
           }
         })
+      },
+      togoInvite() {
+        this.$router.togo('/invite')
+      },
+      togoWeChat() {
+        this.$router.togo('/getWeChat')
       }
     }
   }
