@@ -17,6 +17,7 @@ import EditUserInfo from '@/page/EditUserInfo'
 import FindLink from '@/page/FindLink'
 import FindClassify from '@/page/FindClassify'
 import getWeChat from '@/page/getWeChat'
+import invite from '@/page/invite'
 
 Vue.use(Router);
 
@@ -128,6 +129,11 @@ export default new Router({
       path: '/getWeChat',
       name: 'getWeChat',
       component: getWeChat
+    },
+    {
+      path: '/invite',
+      name: 'invite',
+      component: invite
     }
   ]
 })
