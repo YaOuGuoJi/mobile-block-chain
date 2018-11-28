@@ -38,7 +38,7 @@
               <div class="div-interval"></div>
             </div>
             <div class="recommend-sub" @click="togoWeChat()">
-              <img class="title-img" src="../../assets/imgs/invite-li.png"/>
+              <img class="title-img" src="../../assets/imgs/weChat-li.png"/>
               <span class="title-up">关注微信公众号</span>
               <div class="div-interval"></div>
             </div>
@@ -54,9 +54,7 @@
   import {service} from "../../js/api";
   import fiction from '../../assets/imgs/fiction-li.png'
   import game from '../../assets/imgs/game-li.png'
-  import invite from '../../assets/imgs/invite-li.png'
   import news from '../../assets/imgs/news-li.png'
-  import weChat from '../../assets/imgs/weChat-li.png'
   import shoppingCart from '../../assets/imgs/shopping-cart.png'
   import entertainment from '../../assets/imgs/entertainment.png'
   import classifyGame from '../../assets/imgs/game.png'
@@ -84,16 +82,6 @@
             link: 'http://www.toutiao.com',
             img: news
           }
-//          {
-//            name: '邀请好友',
-//            link: '/invite',
-//            img: invite
-//          },
-//          {
-//            name: '关注微信公众号',
-//            link: '/getWeChat',
-//            img: weChat
-//          }
         ],
         findClassify: [
           {
