@@ -58,7 +58,7 @@
   import shoppingCart from '../../assets/imgs/shopping-cart.png'
   import entertainment from '../../assets/imgs/entertainment.png'
   import classifyGame from '../../assets/imgs/game.png'
-  import health from '../../assets/imgs/health.png'
+  import video from '../../assets/imgs/video.png'
 
   export default {
     data() {
@@ -100,9 +100,9 @@
             img: classifyGame
           },
           {
-            name: '健康',
+            name: '视频',
             link: 'https://www.iqiyi.com/lib/',
-            img: health
+            img: video
           }
         ]
       }
