@@ -235,10 +235,11 @@
     width: 100%;
     height: 60px;
     .title-img {
-      width: 20%;
-      height: 90%;
+      width: 15%;
+      height: 55%;
       padding-left: 5%;
       vertical-align: middle;
+      margin-top: 20px;
     }
     .title-up {
       font-size: small;
