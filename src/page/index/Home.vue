@@ -182,7 +182,7 @@
             oreTable.rows[row].cells[col].onclick = function () {
               let inner = this.innerHTML;
               let value = this.value;
-              this.className += 'not-received-ore';
+              this.className = 'not-received-ore';
 
               function sleep(milliseconds) {
                 return new Promise(resolve => setTimeout(resolve, milliseconds))
