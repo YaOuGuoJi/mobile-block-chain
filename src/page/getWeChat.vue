@@ -18,10 +18,10 @@
         <h3>请输入4位验证码</h3>
       </div>
       <div class="code_div" id="wrap">
-        <input type='text' name='code[]' class='now' maxlength="1"/>
-        <input type='text' name='code[]' class='now' maxlength="1"/>
-        <input type='text' name='code[]' class='now' maxlength="1"/>
-        <input type='text' name='code[]' class='now' maxlength="1"/>
+        <input type='text' class='now' maxlength="1"/>
+        <input type='text' class='now' maxlength="1"/>
+        <input type='text' class='now' maxlength="1"/>
+        <input type='text' class='now' maxlength="1"/>
       </div>
       <button class="code_button" id="button_style">确定</button>
     </div>
