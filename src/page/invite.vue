@@ -10,10 +10,10 @@
     <div>
       <div class="invite">
         <h3 id="invite_h3">您的邀请码</h3>
-        <div id="invite_codes">{{invite_code}}</div>
+        <div id="invite_codes">{{inviteCode}}</div>
         <button id="invite_button" @click="copyToClipboard()">复制</button>
-        <h5 id="invite_h5">剩余邀请次数{{count}}次</h5>
-        <p id="invite_p">您的邀请码总次数50次</p>
+        <h5 id="invite_h5">剩余邀请次数{{remainTimes}}次</h5>
+        <p id="invite_p">您的邀请码总次数{{allowedTimes}}次</p>
         <div id="QR_code">
           <img src="../assets/imgs/QR-code.png"/>
         </div>
@@ -23,14 +23,29 @@
   </div>
 </template>
 <script>
+  import {service} from "../js/api";
+
   import commonHeader from '../components/common-header'
   export default {
     data() {
       return{
+        inviteCode: '',
+        remainTimes: 0,
+        allowedTimes: 10
         invite_code: 'AAAAAAAA',
         count: 50,
         title: '邀请好友'
       }
+    },
+    mounted () {
+      service('get', '/user/inviteCode', {}).then(response => {
+        if (response.code !== 200) {
+          alert("请求失败")
+        }
+        this.inviteCode = response.data.inviteCode;
+        this.remainTimes = response.data.remainTimes;
+        this.allowedTimes = response.data.allowedTimes;
+      })
     },
     methods: {
       copyToClipboard(){
