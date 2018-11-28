@@ -31,9 +31,7 @@
       return{
         inviteCode: '',
         remainTimes: 0,
-        allowedTimes: 10
-        invite_code: 'AAAAAAAA',
-        count: 50,
+        allowedTimes: 10,
         title: '邀请好友'
       }
     },
