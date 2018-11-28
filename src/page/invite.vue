@@ -1,16 +1,19 @@
 <template>
   <div class="body">
+    <div class="top_header">
+      <common-header :title="title" :showback="true"></common-header>
+    </div>
     <div>
-      <h3><img src="../assets/imgs/invite-top.png" style="width: 200px; height: 50px"/></h3>
+      <h3><img id="top_img" src="../assets/imgs/invite-top.png"/></h3>
       <h5>亚欧国际小镇，等你来</h5>
     </div>
     <div>
       <div class="invite">
         <h3 id="invite_h3">您的邀请码</h3>
-        <div id="invite_codes">{{invite_code}}</div>
+        <div id="invite_codes">{{inviteCode}}</div>
         <button id="invite_button" @click="copyToClipboard()">复制</button>
-        <h5 id="invite_h5">剩余邀请次数{{count}}次</h5>
-        <p id="invite_p">您的邀请码总次数50次</p>
+        <h5 id="invite_h5">剩余邀请次数{{remainTimes}}次</h5>
+        <p id="invite_p">您的邀请码总次数{{allowedTimes}}次</p>
         <div id="QR_code">
           <img src="../assets/imgs/QR-code.png"/>
         </div>
@@ -20,12 +23,27 @@
   </div>
 </template>
 <script>
+  import {service} from "../js/api";
+
+  import commonHeader from '../components/common-header'
   export default {
     data() {
       return{
-        invite_code: 'AAAAAAAA',
-        count: 50
+        inviteCode: '',
+        remainTimes: 0,
+        allowedTimes: 10,
+        title: '邀请好友'
       }
+    },
+    mounted () {
+      service('get', '/user/inviteCode', {}).then(response => {
+        if (response.code !== 200) {
+          alert("请求失败")
+        }
+        this.inviteCode = response.data.inviteCode;
+        this.remainTimes = response.data.remainTimes;
+        this.allowedTimes = response.data.allowedTimes;
+      })
     },
     methods: {
       copyToClipboard(){
@@ -42,6 +60,9 @@
           alert("复制失败")
         }
       }
+    },
+    components: {
+      commonHeader
     }
   }
 </script>
@@ -50,6 +71,11 @@
     width: 100%;
     height: 100%;
     background: url("../assets/imgs/background-play.jpg") no-repeat center left;
+  }
+  #top_img {
+    width: 200px;
+    height: 50px;
+    margin-top: 50px;
   }
   .invite{
     background: url("../assets/imgs/invite-center.png") no-repeat;
@@ -61,11 +87,11 @@
   #invite_h3{
     position: fixed;
     margin-left: 20%;
-    top: 130px;
+    top: 170px;
   }
   #invite_codes{
     position: fixed;
-    top: 200px;
+    top: 230px;
     width: 200px;
     height: 50px;
     margin-left: 12%;
@@ -75,7 +101,7 @@
   }
   #invite_button{
     position: fixed;
-    top: 250px;
+    top: 290px;
     margin-left: -15%;
     width: 80px;
     height: 30px;
@@ -85,23 +111,23 @@
   }
   #invite_h5{
     position: fixed;
-    top: 300px;
+    top: 330px;
     margin-left: 22%;
   }
   #invite_p{
     position: fixed;
-    top: 335px;
+    top: 355px;
     margin-left: 21%;
     background-color: khaki;
   }
   #QR_code{
     position: fixed;
-    top: 380px;
+    top: 420px;
     margin-left: 23%;
   }
   #QR_h5{
     position: fixed;
-    top: 480px;
-    margin-left: 17%;
+    top: 520px;
+    margin-left: 18%;
   }
 </style>
