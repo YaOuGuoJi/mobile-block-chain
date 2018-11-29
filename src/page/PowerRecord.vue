@@ -11,10 +11,9 @@
     </div>
     <div>
       <div class="valid_record">
-        <div class="valid_title"><span v-on:click="pageNum = 1;getPowerRecord()">生效中的算力值</span></div>
-        <div class="not_valid_title"><span v-on:click="pageNum = 1;getExpiredPowerRecord()">已失效的算力值</span></div>
+        <div class="valid_title" v-on:click="pageNum = 1;getPowerRecord()">生效中的算力值</div>
+        <div class="not_valid_title" v-on:click="pageNum = 1;getExpiredPowerRecord()">已失效的算力值</div>
       </div>
-      <div class="hr_type"></div>
       <div class="record_list">
         <div id="record-table" v-if="powerList.length > 0">
           <ul class="list-group">
@@ -129,10 +128,6 @@
   }
 </script>
 <style scoped="scoped">
-  .top_header{
-    display: block;
-  }
-
   .top_banner {
     width: 100%;
     height: 210px;
@@ -165,10 +160,12 @@
   .valid_record{
     font-family: verdana, arial, sans-serif;
     font-size: 15px;
-    float: left;
-    list-style: none;
-    margin-left: 9%;
+    text-align: center;
+    /*margin-left: 9%;*/
+    padding-left: 15%;
+    left: 9%;
     width: 100%;
+    height: 30px;
   }
 
   .valid_title{
@@ -195,19 +192,8 @@
     border-bottom: 4px solid #e3337c;
   }
 
-  .hr_type{
-    height: 1px;
-    width: 100%;
-  }
-
   #record-table {
-    margin-top: 30px;
     width: 100%;
-  }
-
-  .record_list{
-    width: 100%;
-    height: auto;
   }
 
   a {
