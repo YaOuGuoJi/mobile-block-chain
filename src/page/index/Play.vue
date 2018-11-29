@@ -18,10 +18,10 @@
       <h5 style="color: #EDEFF2" id="market_h5">算力达到350方可参与兑换</h5>
     </div>
     <div class="goods_list">
-      <div class="item"><a><img src="../../assets/imgs/play-4.png" style="width: 190px; height: 250px"/></a></div>
-      <div class="item"><a><img src="../../assets/imgs/play-5.png" style="width: 190px; height: 250px"/></a></div>
-      <div class="item"><a><img src="../../assets/imgs/play-6.png" style="width: 190px; height: 250px"/></a></div>
-      <div class="item"><a><img src="../../assets/imgs/play-6.png" style="width: 190px; height: 250px"/></a></div>
+      <div class="item"><a><img src="../../assets/imgs/play-4.png" style="width: 100%; height: 250px"/></a></div>
+      <div class="item"><a><img src="../../assets/imgs/play-5.png" style="width: 100%; height: 250px"/></a></div>
+      <div class="item"><a><img src="../../assets/imgs/play-6.png" style="width: 100%; height: 250px"/></a></div>
+      <div class="item"><a><img src="../../assets/imgs/play-6.png" style="width: 100%; height: 250px"/></a></div>
     </div>
     <div class="bottom-div">
       <label class="last-trips">~矿石免费换物~</label>
