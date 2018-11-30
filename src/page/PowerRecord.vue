@@ -154,12 +154,12 @@
 
   #not_valid_message{
     padding-top: 180px;
-    margin-left: -300px;
+    margin-left: -70%;
   }
 
   #not_valid_power_sum{
     margin-top: -25px;
-    margin-left: -150px;
+    margin-left: -30%;
   }
 
   .valid_record{
@@ -167,7 +167,8 @@
     font-size: 15px;
     float: left;
     list-style: none;
-    margin-left: 40px;
+    margin-left: 9%;
+    width: 100%;
   }
 
   .valid_title{
@@ -175,7 +176,7 @@
     float: left;
     margin-left: -35px;
     height: 30px;
-    width: 200px;
+    width: 50%;
   }
 
   .valid_title:hover{
@@ -186,7 +187,7 @@
     top: 213px;
     float: left;
     left: 208px;
-    width: 200px;
+    width: 50%;
     height: 30px;
   }
 
