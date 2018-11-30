@@ -63,7 +63,7 @@
       }
     },
     created() {
-      service('get', 'user/detail', {}).then(response => {
+      service('get', '/user/detail', {}).then(response => {
         if (response.code !== 200 || !response.data) {
           alert(response.message);
         }
