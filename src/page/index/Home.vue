@@ -85,7 +85,8 @@
       return {
         title: '首页',
         num: 0,
-        photoPath: ["../../../static/image/one.png", "../../../static/image/two.png", "../../../static/image/three.png", "../../../static/image/four.png", "../../../static/image/five.png", "../../../static/image/six.png", "../../../static/image/seven.png", "../../../static/image/eight.png"]
+        photoPath: ["../../../static/image/one.png", "../../../static/image/two.png", "../../../static/image/three.png", "../../../static/image/four.png", "../../../static/image/five.png", "../../../static/image/six.png", "../../../static/image/seven.png", "../../../static/image/eight.png"],
+        message: '请求失败！'
       }
     },
 
@@ -107,8 +108,8 @@
           if (data === undefined) {
             return
           }
-          if (data.code != 200) {
-            alert(data.message)
+          if (data.code !== 200) {
+            alert(this.message)
           }
           else {
             if (data.data.oreNumber) {
@@ -118,13 +119,13 @@
               document.getElementById("newWealth").innerHTML = "<span>财富:0.00000</span>"
             }
           }
-        })
+        });
         service("get", "/user/power/isValid").then(data => {
           if (data === undefined) {
             return
           }
-          if (data.code != 200) {
-            alert(data.message)
+          if (data.code !== 200) {
+            alert(this.message)
           }
           else {
             if (data.data.validPowerSum) {
@@ -133,23 +134,23 @@
               document.getElementById("newPower").innerHTML = "<span>力量:0.00000</span>"
             }
           }
-        })
-        service("get", "user/unreceived/ore").then(data => {
+        });
+        service("get", "/user/unreceived/ore").then(data => {
           if (data === undefined) {
             return
           }
-          if (data.code != 200) {
-            alert(data.message)
+          if (data.code !== 200) {
+            alert(this.message)
           }
           else {
             if (data.data) {
               this.getUnreceive(data.data)
             }
           }
-        })
+        });
         document.getElementById("newWealth").onclick = function () {
           window.location.href = "/ore"
-        }
+        };
         document.getElementById("newPower").onclick = function () {
           window.location.href = "/power"
         }
@@ -193,7 +194,7 @@
               sleep(900).then(() => {
                 this.innerHTML = '';
                 this.value = '';
-              })
+              });
               this.onclick = '';
               numOfReceive -= 1;
               if (!numOfReceive) {
@@ -205,7 +206,7 @@
                   document.getElementById("oreId").rows[0].cells[2].className="move";
                 })
               }
-              service("get", "user/received/ore", {oreId: value}).then(data => {
+              service("get", "/user/received/ore", {oreId: value}).then(data => {
                 if (data.code != 200) {
                   alert(data.message)
                 }

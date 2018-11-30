@@ -5,19 +5,19 @@ import axios from 'axios'
 import qs from 'qs'
 
 export function service(method, url, params = {}) {
-  if (url !== '/user/login' && url !== '/user/register') {
-    return axios({
-      url: '/api/user/isLogin',
-      method: 'get'
-    }).then(response => {
-      if (!response.data.data) {
-        app.$router.replace('/login');
-      } else {
-        return doRequest(method, url, params);
-      }
-    });
+  if (url === '/user/register' || url === '/user/login') {
+    return doRequest(method, url, params)
   }
-  return doRequest(method, url, params);
+  return axios({
+    url: '/api/user/isLogin',
+    method: 'get'
+  }).then(response => {
+    if (!response.data.data) {
+      app.$router.replace('/login');
+    } else {
+      return doRequest(method, url, params);
+    }
+  });
 }
 
 function doRequest(method, url, params) {
@@ -26,8 +26,7 @@ function doRequest(method, url, params) {
     method: method,
     data: 'post' === method ? qs.stringify(params) : {},
     params: 'get' === method ? params : {}
-  }).then(
-    response => {
+  }).then(response => {
       if (response === null || response.status !== 200) {
         window.alert('请求失败！');
         console.log('请求失败');
