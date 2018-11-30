@@ -24,6 +24,7 @@
 </template>
 <script>
   import {service} from "../js/api";
+
   import commonHeader from '../components/common-header'
   export default {
     data() {

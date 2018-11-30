@@ -97,7 +97,7 @@
         // effect : 'coverflow',
         slidesPerView: 2,
         freeMode: true,
-        centeredSlides: true,
+        // centeredSlides: true,
         watchSlidesProgress: true
       });
     },
@@ -360,7 +360,7 @@
   }
 
   .swiper-slide img {
-    padding:2%;
+    /*padding: 1%;*/
     width: 100%;
     height: 100%;
   }
