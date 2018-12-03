@@ -17,7 +17,10 @@
         <h4>算力分类</h4>
       </div>
       <div class="classify">
-        <img v-for="item in findClassify" class="classify-img" :src="item.img" @click="showClassifyIgrame(item)"/>
+        <img class="classify-img" :src="findClassify[0].img" @click="showClassifyIframe(findClassify[0])"/>
+        <img class="classify-img" :src="findClassify[1].img"/>
+        <img class="classify-img" :src="findClassify[2].img"/>
+        <img class="classify-img" :src="findClassify[3].img"/>
       </div>
       <div class="recommend">
         <div>
@@ -147,7 +150,7 @@
           }
         });
       },
-      showClassifyIgrame: function (item) {
+      showClassifyIframe: function (item) {
         this.$router.goLeft({
           path: '/find-classify-link', query: {
             pageTitle: item.name
