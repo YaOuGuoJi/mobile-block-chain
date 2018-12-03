@@ -34,18 +34,16 @@
             </div>
             <div class="div-interval"></div>
           </div>
-          <div>
-            <div class="recommend-sub" @click="togoInvite()">
-              <img class="title-img" src="../../assets/imgs/invite-li.png"/>
-              <span class="title-up">邀请好友</span>
-              <div class="div-interval"></div>
-            </div>
-            <div class="recommend-sub" @click="togoWeChat()">
-              <img class="title-img" src="../../assets/imgs/weChat-li.png"/>
-              <span class="title-up">关注微信公众号</span>
-              <div class="div-interval"></div>
-            </div>
+          <div class="recommend-sub" @click="togoInvite()">
+            <img class="title-img" src="../../assets/imgs/invite-li.png"/>
+            <span class="title-up">邀请好友</span>
           </div>
+          <div class="div-interval"></div>
+          <div class="recommend-sub" @click="togoWeChat()">
+            <img class="title-img" src="../../assets/imgs/weChat-li.png"/>
+            <span class="title-up">关注微信公众号</span>
+          </div>
+          <div class="div-interval"></div>
         </div>
       </div>
     </div>
@@ -134,7 +132,7 @@
           }
         })
       },
-      lotteryPage: function(lottery) {
+      lotteryPage: function (lottery) {
         this.$router.goLeft({
           path: '/find-link', query: {
             pageTitle: lottery.name,
@@ -258,13 +256,11 @@
       width: 15%;
       height: 55%;
       padding-left: 5%;
-      vertical-align: middle;
-      margin-top: 20px;
+      margin-top: 15px;
     }
     .title-up {
       font-size: small;
       color: black;
-      vertical-align: middle;
     }
   }
 
