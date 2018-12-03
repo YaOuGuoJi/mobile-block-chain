@@ -149,9 +149,8 @@
       },
       showClassifyIgrame: function (item) {
         this.$router.goLeft({
-          path: 'find-classify-link', query: {
-            pageTitle: item.name,
-            findClassifyLink: item.link
+          path: '/find-classify-link', query: {
+            pageTitle: item.name
           }
         })
       },
