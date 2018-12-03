@@ -113,10 +113,10 @@
           }
           else {
             if (data.data.oreNumber) {
-              document.getElementById("newWealth").innerHTML = "<span>矿石:" + data.data.oreNumber.toFixed(5) + "</span>"
+              document.getElementById("newWealth").innerHTML = "<img  src='../../../static/image/money.png' width='12%' height='70%'/>&nbsp;&nbsp;<span>矿石:" + data.data.oreNumber.toFixed(5) + "</span>"
             }
             else {
-              document.getElementById("newWealth").innerHTML = "<span>矿石:0.00000</span>"
+              document.getElementById("newWealth").innerHTML = "<img  src='../../../static/image/money.png' width='12%' height='70%'/><span>矿石:0.00000</span>"
             }
           }
         });
@@ -129,9 +129,9 @@
           }
           else {
             if (data.data.validPowerSum) {
-              document.getElementById("newPower").innerHTML = "<span>算力:" + data.data.validPowerSum.toFixed(0) + "</span>"
+              document.getElementById("newPower").innerHTML = "<img  src='../../../static/image/resouce.png' width='20%' height='70%'/>&nbsp;&nbsp;<span>算力:" + data.data.validPowerSum.toFixed(0) + "</span>"
             } else {
-              document.getElementById("newPower").innerHTML = "<span>算力:0.00000</span>"
+              document.getElementById("newPower").innerHTML = "<img  src='../../../static/image/resouce.png' width='20%' height='70%'/>&nbsp;&nbsp;<span>算力:0.00000</span>"
             }
           }
         });
@@ -202,7 +202,7 @@
                   let oreTable = document.getElementById("oreId")
                   oreTable.rows[0].cells[0].width = 47;
                   oreTable.rows[0].cells[0].height = 47;
-                  document.getElementById("oreId").rows[0].cells[2].innerHTML = "<table><tr><td><img width='30%' height='10%' src='" + photo[Math.floor(Math.random() * 8)] + "' alt='加载中'/></td></tr></table>" + "矿石生成中";
+                  document.getElementById("oreId").rows[0].cells[2].innerHTML = "<table><tr><td><img width='25%' height='10%' src='" + photo[Math.floor(Math.random() * 8)] + "' alt='加载中'/></td></tr></table>" + "矿石生成中";
                   document.getElementById("oreId").rows[0].cells[2].className="move";
                 })
               }
@@ -213,7 +213,7 @@
                 if (data.code == 200) {
                   let wealthStr = document.getElementById("newWealth").innerHTML;
                   let wealth = (parseFloat(wealthStr.substr(wealthStr.indexOf(":") + 1)) + parseFloat(inner.substr(inner.lastIndexOf(">") + 1))).toFixed(5)
-                  document.getElementById("newWealth").innerHTML = "<span>" + wealthStr.substring(wealthStr.indexOf('>') + 1, wealthStr.indexOf(':') + 1) + wealth + "</span>"
+                  document.getElementById("newWealth").innerHTML = wealthStr.substring(0, wealthStr.indexOf(':') + 1) + wealth + "</span>"
                 }
               })
             }
@@ -325,8 +325,7 @@
     height: 100%;
     width: 100%;
     padding-bottom: 50px;
-    font-size: x-small;
-  }
+    font-size: 70%;}
 
   #oreId {
     width: 100%;
@@ -377,10 +376,11 @@
     margin-top: 1%;
     margin-left: 3%;
     height: 100%;
-    width: 40%;
+    width: 45%;
     float: left;
     background-color: rgba(255, 165, 0, 0.3);
-    border-radius: 5%;
+    /*border-radius: 5%;*/
+    border-radius: 25px;
   }
 
   #newPower {
@@ -392,6 +392,7 @@
     width: 35%;
     float: left;
     background-color: rgba(255, 165, 0, 0.3);
-    border-radius: 5%;
+    border-radius:25px;
+    /*border-radius: 10%;*/
   }
 </style>
