@@ -21,6 +21,7 @@
 
 <style scoped>
   .find-link {
+    background-color: white;
     position: relative;
     width: 100%;
     height: 800px;
