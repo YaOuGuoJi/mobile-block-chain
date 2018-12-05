@@ -4,18 +4,12 @@
       <h3 id="title_h3" style="color: #EDEFF2">玩转矿石</h3>
       <h5 id="title_h5" style="color: #EDEFF2">多种玩法，赢矿石、拿现金、享权益</h5>
     </div>
-    <div class="ore_active">
-      <h4 id="active_h4" style="color: #EDEFF2">矿石活动</h4>
-      <h5 id="active_h5" style="color: #EDEFF2" v-on:click="getMore()">更多<img class="more" src="../../assets/to.png" style="width: 18px"/></h5>
-    </div>
-    <div class="active_div">
-      <a><img class="classify-img" src="../../assets/imgs/play-1.png" @click="showIframe1()"/></a>
-      <a><img class="classify-img" src="../../assets/imgs/play-2.png" @click="showIframe2()"/></a>
-      <a><img class="classify-img" src="../../assets/imgs/play-3.png" @click="showIframe3()"/></a>
+    <div class="attract">
+      <div id="attract_img"><img src="../../assets/imgs/attract.png" style="width: 90%; height: 100%;" @click="JoinIn()"/></div>
     </div>
     <div class="market">
-      <h4 style="color: #EDEFF2" id="market_h4">小镇集市</h4>
-      <h5 style="color: #EDEFF2" id="market_h5">算力达到350方可参与兑换</h5>
+      <h4 id="market_h4">商品兑换</h4>
+      <h5 id="market_h5">限每人每日一次兑换机会</h5>
     </div>
     <div class="goods_list">
       <div class="item"><a><img src="../../assets/imgs/play-4.png" style="width: 100%; height: 250px"/></a></div>
@@ -53,76 +47,46 @@
       getMore(){
         alert("敬请期待！")
       },
-      showIframe1() {
-        this.$router.goLeft({
-          path: '/find-link', query: {
-            pageTitle: '挖宝',
-            findLink: 'http://www.taobao.com'
-          }
-        });
-      },
-      showIframe2() {
-        this.$router.goLeft({
-          path: '/find-link', query: {
-            pageTitle: '抽奖',
-            findLink: 'http://www.taobao.com'
-          }
-        });
-      },
-      showIframe3() {
-        this.$router.goLeft({
-          path: '/find-link', query: {
-            pageTitle: '联赛竞猜',
-            findLink: 'http://www.taobao.com'
-          }
-        });
-      },
+      JoinIn(){
+        this.$router.togo("/JoinIn")
+      }
     }
   }
 </script>
 
 <style lang="less" scoped="scoped">
   .body {
-    margin-top: -20px;
+    position: absolute;
     width: 100%;
-    background: url("../../assets/imgs/background-play.jpg") no-repeat center left;
+    background: url("../../assets/imgs/play.jpg") no-repeat;
+    background-size: 100%;
+    height: 800px;
+    margin-top: -20px;
   }
   .top_title{
     width: 100%;
-    height: 100px;
+    height: 150px;
     border-bottom: 1px solid #e3337c;
+    padding-top: 50px;
   }
   #title_h3{
-    padding-top: 40px;
     margin-left: -65%;
   }
   #title_h5{
     margin-left: -35%;
   }
-  .ore_active{
+  .attract {
     width: 100%;
-    height: 50px;
+    height: 100px;
+    margin-top: 20px;
   }
-  #active_h4{
-    float: left;
-    margin-left: 5%;
-  }
-  #active_h5{
-    float: right;
-  }
-  .active_div{
-    height: 125px;
-    border-bottom: 1px solid #e3337c;
-  }
-  .classify-img {
-    width: 25%;
-    height: 120px;
-    float: left;
-    margin-left: 6.2%;
+  #attract_img{
+
   }
   .market{
     width: 100%;
     height: 50px;
+    margin-top: 80px;
   }
   #market_h4{
     float: left;

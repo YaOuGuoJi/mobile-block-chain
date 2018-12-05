@@ -18,6 +18,8 @@ import FindLink from '@/page/FindLink'
 import FindClassify from '@/page/FindClassify'
 import getWeChat from '@/page/getWeChat'
 import invite from '@/page/invite'
+import Attract from '@/page/Attract'
+import JoinIn from '@/page/JoinIn'
 
 Vue.use(Router);
 
@@ -134,6 +136,16 @@ export default new Router({
       path: '/invite',
       name: 'invite',
       component: invite
+    },
+    {
+      path: '/attract',
+      name: 'attract',
+      component: Attract
+    },
+    {
+      path: '/joinIn',
+      name: 'joinIn',
+      component: JoinIn
     }
   ]
 })
