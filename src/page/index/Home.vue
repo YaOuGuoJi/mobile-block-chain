@@ -50,7 +50,7 @@
         <div id="bottom" class="swiper-container">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
-              <img src="../../assets/imgs/a.png" @click="getOutLink({name:'逛天猫' ,link:'http://www.tmall.com'})"/>
+              <img src="../../assets/imgs/a.png" @click="getOutLink({name:'逛天猫' ,link:'https://s.click.taobao.com/EfHjHJw'})"/>
             </div>
             <div class="swiper-slide">
               <img src="../../assets/imgs/b.png" @click="getOutLink({name:'看小说' ,link:'http://www.17k.com'})"/>
