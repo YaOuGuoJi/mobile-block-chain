@@ -45,7 +45,7 @@
         phone: null,
         verifyCode: null,
         inviteCode: null,
-        countdown: 30,
+        countdown: 60,
         interval:null
       }
     },
@@ -69,7 +69,7 @@
         if (this.countdown == 0) {
           $("#getCode").removeAttr("disabled");
           $("#getCode").val("获取验证码")
-          this.countdown = 30;
+          this.countdown = 60;
           return
         } else {
           $("#getCode").attr("disabled","disabled");
