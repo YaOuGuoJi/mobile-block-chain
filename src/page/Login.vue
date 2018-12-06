@@ -8,19 +8,22 @@
         <div class="input-group">
           <input v-model="phone" type="text" placeholder="请输入手机号" id="phone"
                  onkeyup="value=value.replace(/[^\d]/g,'')"/>
-          <input type="image" src="../../static/image/delete.png" id="deleteOne" v-show="phone" v-on:click="deleteOne('phone')"/>
+          <input type="image" src="../../static/image/delete.png" id="deleteOne" v-show="phone"
+                 v-on:click="phone=null"/>
         </div>
         <hr/>
         <div class="input-group">
           <input v-model="verifyCode" type="text" placeholder="短信验证码" @keyup.enter="login" id="verCode"
                  onkeyup="value=value.replace(/[^\d]/g,'')"/>
-          <input type="image" src="../../static/image/delete.png" id="deleteTwo" v-show="verifyCode" v-on:click="deleteOne('verifyCode')"/>
+          <input type="image" src="../../static/image/delete.png" id="deleteTwo" v-show="verifyCode"
+                 v-on:click="verifyCode=null"/>
           <input type="text" value="获取验证码" readonly id="getCode" v-on:click="getCode"/>
         </div>
         <hr/>
         <div class="input-group">
           <input v-model="inviteCode" type="text" placeholder="邀请码(选填)" id="inviteCode"/>
-          <input type="image" src="../../static/image/delete.png" id="deleteThree" v-show="inviteCode" v-on:click="deleteOne('inviteCode')"/>
+          <input type="image" src="../../static/image/delete.png" id="deleteThree" v-show="inviteCode"
+                 v-on:click="inviteCode=null"/>
         </div>
         <hr/>
         <button id="btn" v-on:click="login"
@@ -34,36 +37,49 @@
 <script type="text/javascript">
 
   import {service} from "../js/api";
-  import md5 from 'js-md5'
-
+  import $ from 'jquery'
   export default {
     name: "Login",
     data() {
       return {
         phone: null,
         verifyCode: null,
-        inviteCode:null
+        inviteCode: null,
+        countdown: 30,
+        interval:null
       }
     },
     methods: {
       getCode: function () {
-        if (this.phone.length < 11) {
+        if (!this.phone || this.phone.length < 11) {
           alert("请输入正确的手机号");
           return
         }
-        console.log(this.phone.toString())
         service('get', '/user/verificationCode', {phoneNum: this.phone.toString()})
           .then(data => {
-          console.log(data)
-          if (data.code !== 200) {
-            alert("请输入正确的手机号")
-          }
-          else {
-            document.getElementById("getCode").value = "重发"
-          }
-        })
+            if (data.code !== 200) {
+              alert("请输入正确的手机号或稍后再试")
+            }
+            else {
+              this.getSuccess();
+            }
+          })
       },
-
+      getSuccess() {
+        if (this.countdown == 0) {
+          $("#getCode").removeAttr("disabled");
+          $("#getCode").val("获取验证码")
+          this.countdown = 30;
+          return
+        } else {
+          $("#getCode").attr("disabled","disabled");
+          $("#getCode").val("重发(" + this.countdown + ")秒");
+          this.countdown -= 1;
+          setTimeout(() => {
+            this.getSuccess();
+          }, 1000);
+        }
+      },
       login: function () {
         if (this.phone === null || this.verifyCode === null) {
           alert('请完成所有输入再登录')
@@ -76,25 +92,14 @@
         service('post', '/user/verification', {
           phoneNum: this.phone,
           code: this.verifyCode,
-          inviteCode:this.inviteCode
+          inviteCode: this.inviteCode
         }).then(data => {
-          console.log(data)
           if (data.code !== 200 || !data.data) {
             alert(data.message);
           } else {
             this.$router.push({path: '/home'})
           }
         });
-      },
-      deleteOne(me){
-        document.getElementById(me).value="";
-        document.getElementById(me).focus();
-      },
-      deleteTwo(){
-        document.getElementById("verCode").value="";
-      },
-      deleteThree(){
-        document.getElementById("inviteCode").value="";
       }
     }
   }
@@ -179,16 +184,8 @@
   .form-wrapper {
     width: 100%;
     margin-top: 3rem;
-    /*border:1px solid #ffe88c;*/
   }
 
-  .input-group {
-    /*position: relative;*/
-    /*border:1px solid #ffe88c;*/
-    /*margin:0%  15%  15%;*/
-    /*border-bottom: 1px solid #ffe88c;*/
-    /*margin-bottom: 45px;*/
-  }
 
   hr {
     color: #ffe88c;
@@ -196,13 +193,7 @@
   }
 
   .input-group input {
-    /*font-size: 18px;*/
-    /*padding: 10px 10px 10px 5px;*/
-    /*display: inline-block;*/
-    /*vertical-align: bottom;*/
-    /*width: 50%;*/
     border: none;
-    /*border-bottom: 1px solid #ffe88c;*/
     background-color: transparent;
   }
 
@@ -216,6 +207,7 @@
     width: 10%;
     vertical-align: bottom;
   }
+
   #inviteCode {
     font-size: 130%;
     width: 90%;
@@ -226,6 +218,7 @@
     width: 10%;
     vertical-align: bottom;
   }
+
   #verCode {
     padding: 0;
     font-size: 130%;
@@ -256,15 +249,6 @@
     font-size: 0.5rem;
     background: transparent;
     background-size: 100% 100%;
-  }
-
-  .help-text {
-    width: 100%;
-    text-align: center;
-    color: #7f7f7f;
-    position: absolute;
-    bottom: 50px;
-    cursor: pointer;
   }
 
   .help-text span {
