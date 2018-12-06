@@ -6,16 +6,27 @@
       </div>
       <div class="form-wrapper">
         <div class="input-group">
-          <input v-model="userName" type="text" placeholder="userName">
+          <input v-model="phone" type="text" placeholder="请输入手机号" id="phone"
+                 onkeyup="value=value.replace(/[^\d]/g,'')"/>
+          <input type="image" src="../../static/image/delete.png" id="deleteOne" v-show="phone" v-on:click="deleteOne('phone')"/>
         </div>
+        <hr/>
         <div class="input-group">
-          <input v-model="password" type="password" placeholder="password" @keyup.enter="login">
+          <input v-model="verifyCode" type="text" placeholder="短信验证码" @keyup.enter="login" id="verCode"
+                 onkeyup="value=value.replace(/[^\d]/g,'')"/>
+          <input type="image" src="../../static/image/delete.png" id="deleteTwo" v-show="verifyCode" v-on:click="deleteOne('verifyCode')"/>
+          <input type="text" value="获取验证码" readonly id="getCode" v-on:click="getCode"/>
         </div>
-        <button id="btn" v-on:click="login" style="background-image: url('../../static/image/button.png'); background-size: 100% 100%">LOGIN</button>
+        <hr/>
+        <div class="input-group">
+          <input v-model="inviteCode" type="text" placeholder="邀请码(选填)" id="inviteCode"/>
+          <input type="image" src="../../static/image/delete.png" id="deleteThree" v-show="inviteCode" v-on:click="deleteOne('inviteCode')"/>
+        </div>
+        <hr/>
+        <button id="btn" v-on:click="login"
+                style="background-image: url('../../static/image/button.png'); background-size: 100% 100%">登录
+        </button>
       </div>
-    </div>
-    <div class="help-text">
-      <span v-on:click="register">Register</span>
     </div>
   </div>
 </template>
@@ -29,32 +40,45 @@
     name: "Login",
     data() {
       return {
-        userName: null,
-        password: null
+        phone: null,
+        verifyCode: null,
+        inviteCode:null
       }
     },
     methods: {
+      getCode: function () {
+        if (this.phone.length < 11) {
+          alert("请输入正确的手机号");
+          return
+        }
+        console.log(this.phone.toString())
+        service('get', '/user/verificationCode', {phoneNum: this.phone.toString()})
+          .then(data => {
+          console.log(data)
+          if (data.code !== 200) {
+            alert("请输入正确的手机号")
+          }
+          else {
+            document.getElementById("getCode").value = "重发"
+          }
+        })
+      },
+
       login: function () {
-        if (this.userName === null) {
-          alert('请输入用户名')
+        if (this.phone === null || this.verifyCode === null) {
+          alert('请完成所有输入再登录')
           return
         }
-        if (this.userName.length < 3 || this.userName.length > 20) {
-          alert('请输入3-20字符内用户名')
+        if (this.verifyCode.length !== 6 || this.phone < 11) {
+          alert('手机号或验证码不正确')
           return
         }
-        if (this.password === null) {
-          alert('请输入密码')
-          return
-        }
-        if (this.password.length < 6 || this.password.length > 16) {
-          alert("请输入6-16位的密码")
-          return
-        }
-        service('post', '/user/login', {
-          userName: this.userName,
-          password: md5(this.password)
+        service('post', '/user/verification', {
+          phoneNum: this.phone,
+          code: this.verifyCode,
+          inviteCode:this.inviteCode
         }).then(data => {
+          console.log(data)
           if (data.code !== 200 || !data.data) {
             alert(data.message);
           } else {
@@ -62,8 +86,15 @@
           }
         });
       },
-      register: function () {
-        this.$router.push({path: '/register'})
+      deleteOne(me){
+        document.getElementById(me).value="";
+        document.getElementById(me).focus();
+      },
+      deleteTwo(){
+        document.getElementById("verCode").value="";
+      },
+      deleteThree(){
+        document.getElementById("inviteCode").value="";
       }
     }
   }
@@ -85,7 +116,6 @@
     background: linear-gradient(to right, #6ddec7, #46c0c0);
   }
 
-  input,
   button {
     border: 0;
     padding: 0;
@@ -149,21 +179,70 @@
   .form-wrapper {
     width: 100%;
     margin-top: 3rem;
+    /*border:1px solid #ffe88c;*/
   }
 
   .input-group {
-    position: relative;
-    margin-bottom: 45px;
+    /*position: relative;*/
+    /*border:1px solid #ffe88c;*/
+    /*margin:0%  15%  15%;*/
+    /*border-bottom: 1px solid #ffe88c;*/
+    /*margin-bottom: 45px;*/
+  }
+
+  hr {
+    color: #ffe88c;
+    margin: 0 10% 15%;
   }
 
   .input-group input {
-    font-size: 18px;
-    padding: 10px 10px 10px 5px;
-    display: block;
-    width: 300px;
+    /*font-size: 18px;*/
+    /*padding: 10px 10px 10px 5px;*/
+    /*display: inline-block;*/
+    /*vertical-align: bottom;*/
+    /*width: 50%;*/
     border: none;
-    border-bottom: 1px solid #ffe88c;
+    /*border-bottom: 1px solid #ffe88c;*/
     background-color: transparent;
+  }
+
+  #phone {
+    font-size: 130%;
+    width: 90%;
+    vertical-align: bottom;
+  }
+
+  #deleteOne {
+    width: 10%;
+    vertical-align: bottom;
+  }
+  #inviteCode {
+    font-size: 130%;
+    width: 90%;
+    vertical-align: bottom;
+  }
+
+  #deleteThree {
+    width: 10%;
+    vertical-align: bottom;
+  }
+  #verCode {
+    padding: 0;
+    font-size: 130%;
+    width: 44%;
+    vertical-align: bottom;
+  }
+
+  #deleteTwo {
+    width: 7%;
+    vertical-align: bottom;
+  }
+
+  #getCode {
+    font-size: 130%;
+    width: 24%;
+    vertical-align: bottom;
+    color: grey;
   }
 
   .input-group input:focus {
@@ -171,7 +250,7 @@
   }
 
   .form-wrapper button {
-    width: 80%;
+    width: 70%;
     height: 50px;
     color: #fff;
     font-size: 0.5rem;
@@ -192,5 +271,4 @@
     font-size: 0.45rem;
     color: white;
   }
-
 </style>
