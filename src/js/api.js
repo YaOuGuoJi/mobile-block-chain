@@ -5,7 +5,7 @@ import axios from 'axios'
 import qs from 'qs'
 
 export function service(method, url, params = {}) {
-  if (url === '/user/register' || url === '/user/login') {
+  if (url === '/user/verificationCode' || url === '/user/verification') {
     return doRequest(method, url, params)
   }
   return axios({

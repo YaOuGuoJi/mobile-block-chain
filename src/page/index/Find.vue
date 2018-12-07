@@ -17,7 +17,10 @@
         <h4>算力分类</h4>
       </div>
       <div class="classify">
-        <img v-for="item in findClassify" class="classify-img" :src="item.img" @click="showClassifyIgrame(item)"/>
+        <img class="classify-img" :src="findClassify[0].img" @click="showClassifyIframe(findClassify[0])"/>
+        <img class="classify-img" :src="findClassify[1].img"/>
+        <img class="classify-img" :src="findClassify[2].img"/>
+        <img class="classify-img" :src="findClassify[3].img"/>
       </div>
       <div class="recommend">
         <div>
@@ -31,18 +34,16 @@
             </div>
             <div class="div-interval"></div>
           </div>
-          <div>
-            <div class="recommend-sub" @click="togoInvite()">
-              <img class="title-img" src="../../assets/imgs/invite-li.png"/>
-              <span class="title-up">邀请好友</span>
-              <div class="div-interval"></div>
-            </div>
-            <div class="recommend-sub" @click="togoWeChat()">
-              <img class="title-img" src="../../assets/imgs/weChat-li.png"/>
-              <span class="title-up">关注微信公众号</span>
-              <div class="div-interval"></div>
-            </div>
+          <div class="recommend-sub" @click="togoInvite()">
+            <img class="title-img" src="../../assets/imgs/invite-li.png"/>
+            <span class="title-up">邀请好友</span>
           </div>
+          <div class="div-interval"></div>
+          <div class="recommend-sub" @click="togoWeChat()">
+            <img class="title-img" src="../../assets/imgs/weChat-li.png"/>
+            <span class="title-up">关注微信公众号</span>
+          </div>
+          <div class="div-interval"></div>
         </div>
       </div>
     </div>
@@ -131,7 +132,7 @@
           }
         })
       },
-      lotteryPage: function(lottery) {
+      lotteryPage: function (lottery) {
         this.$router.goLeft({
           path: '/find-link', query: {
             pageTitle: lottery.name,
@@ -147,11 +148,10 @@
           }
         });
       },
-      showClassifyIgrame: function (item) {
+      showClassifyIframe: function (item) {
         this.$router.goLeft({
-          path: 'find-classify-link', query: {
-            pageTitle: item.name,
-            findClassifyLink: item.link
+          path: '/find-classify-link', query: {
+            pageTitle: item.name
           }
         })
       },
@@ -256,13 +256,11 @@
       width: 15%;
       height: 55%;
       padding-left: 5%;
-      vertical-align: middle;
-      margin-top: 20px;
+      margin-top: 15px;
     }
     .title-up {
       font-size: small;
       color: black;
-      vertical-align: middle;
     }
   }
 
