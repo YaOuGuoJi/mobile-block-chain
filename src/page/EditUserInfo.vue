@@ -5,33 +5,41 @@
     </div>
     <div>
       <div style="text-align:left;width: 100%;" id="user_info_edit">
-        <div class="show-text"><label>用户名：</label>
-          <input id="userName" type="text" v-model="userName" readonly="readonly"/>
+        <div class="show-text">
+          <label>用户名：</label>
+          <input id="userName" type="text" v-model="userName"/><span style="color: red">*</span>
           <span class="userName-point"></span><br/></div>
         <div style="height: 20px;"></div>
-        <div class="show-text"><label> 性&nbsp;&nbsp;&nbsp;&nbsp;别：</label>
-          <input class="user-sex-boy" type="radio" name="sex" value="1"/>
-          <span style="">男</span>
-          <input class="user-sex-girl" type="radio" name="sex" value="2"/>
-          <span>女</span>
+        <div class="show-text">
+          <label> 性&nbsp;&nbsp;&nbsp;&nbsp;别：</label>
+          <input id="man" class="user-sex-boy" type="radio" name="sex" value="1"/>
+          <label for="man" style="">男</label>
+          <input id="woman" class="user-sex-girl" type="radio" name="sex" value="2"/>
+          <label for="woman">女</label>
         </div>
         <div style="height: 20px;"></div>
-        <div class="show-text"><label>生&nbsp;&nbsp;&nbsp;&nbsp;日：</label>
-          <input id="birthday" type="date" v-model="birthday"/><br/></div>
+        <div class="show-text">
+          <label>生&nbsp;&nbsp;&nbsp;&nbsp;日：</label>
+          <input id="birthday" type="date" v-model="birthday"/><span style="color: red;">*</span>
+        </div>
         <div style="height: 35px;"></div>
-        <div class="show-text"><label>电&nbsp;&nbsp;&nbsp;&nbsp;话：</label>
-          <input id="phone" name="phone" type="text" v-model="phone" @blur.prevent="check_phone()"/><span
+        <div class="show-text">
+          <label>电&nbsp;&nbsp;&nbsp;&nbsp;话：</label>
+          <input id="phone" name="phone" type="text" v-model="phone" readonly/><span
             id="err_phone"></span><br/></div>
         <div style="height: 20px;"></div>
-        <div class="show-text"><label>邮&nbsp;&nbsp;&nbsp;&nbsp;箱：</label>
-          <input id="email" name="email" type="text" v-model="email" @blur.prevent="check_email()"/><span
+        <div class="show-text">
+          <label>邮&nbsp;&nbsp;&nbsp;&nbsp;箱：</label>
+          <input id="email" name="email" type="text" v-model="email"/><span
             id="err_email"></span><br/></div>
         <div style="height: 20px;"></div>
-        <div class="show-text"><label>地&nbsp;&nbsp;&nbsp;&nbsp;址：</label>
+        <div class="show-text">
+          <label>地&nbsp;&nbsp;&nbsp;&nbsp;址：</label>
           <input id="address" type="text" v-model="address" @blur.prevent=""/><span
             id=""></span><br/></div>
         <div style="height: 20px;"></div>
-        <div class="show-text"><label>工&nbsp;&nbsp;&nbsp;&nbsp;作：</label>
+        <div class="show-text">
+          <label>工&nbsp;&nbsp;&nbsp;&nbsp;作：</label>
           <input id="job" type="text" v-model="job" @blur.prevent=""/><br/></div>
       </div>
       <div class="userInfo">
@@ -44,6 +52,7 @@
 <script>
   import commonHeader from '../components/common-header'
   import {service} from "@/js/api";
+  import $ from 'jQuery'
 
   export default {
     data() {
@@ -63,6 +72,7 @@
       }
     },
     created() {
+      console.log('created start')
       service('get', '/user/detail', {}).then(response => {
         if (response.code !== 200 || !response.data) {
           alert(response.message);
@@ -72,11 +82,11 @@
         this.birthday = this.buildBirth(this.userInfo.birthday);
         this.userName = this.userInfo.userName;
         this.sex = this.userInfo.sex;
-        let sexInput = document.getElementsByName("sex");
+        console.log(this.sex)
         if (this.sex === 1) {
-          sexInput[0].checked = true
+          $('#man').prop('checked', 'checked');
         } else {
-          sexInput[1].checked = true
+          $('#woman').prop('checked', 'checked');
         }
         this.phone = this.userInfo.phone
         this.email = this.userInfo.email;
@@ -139,7 +149,6 @@
           address: this.address,
           job: this.job
         }).then(response => {
-          console.log(response);
           if (response.code !== 200) {
             alert(response.message);
             return;
