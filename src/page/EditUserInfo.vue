@@ -52,7 +52,7 @@
 <script>
   import commonHeader from '../components/common-header'
   import {service} from "@/js/api";
-  import $ from 'jQuery'
+  import $ from 'jquery'
 
   export default {
     data() {
@@ -72,7 +72,6 @@
       }
     },
     created() {
-      console.log('created start')
       service('get', '/user/detail', {}).then(response => {
         if (response.code !== 200 || !response.data) {
           alert(response.message);
@@ -82,7 +81,6 @@
         this.birthday = this.buildBirth(this.userInfo.birthday);
         this.userName = this.userInfo.userName;
         this.sex = this.userInfo.sex;
-        console.log(this.sex)
         if (this.sex === 1) {
           $('#man').prop('checked', 'checked');
         } else {
