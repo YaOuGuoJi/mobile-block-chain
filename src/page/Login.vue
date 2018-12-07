@@ -9,24 +9,24 @@
       </div>
       <div class="inputClass">
         <input v-model="phone" type="text" placeholder="请输入手机号" id="phone"
-               onkeyup="value=value.replace(/[^\d]/g,'')" class="one"/>
+               onkeyup="value=value.replace(/[^\d]/g,'')" class="one" v-on:focus="flagOne=true" v-on:blur="flagOne=false"/>
         <input type="text" value="" readonly class="two"/>
-        <input type="image" src="../../static/image/delete.png" v-show="phone"
+        <input type="image" src="../../static/image/delete.png" v-show="phone && flagOne"
                v-on:click="deleteOne('a')" class="three"/>
       </div>
       <hr/>
       <div class="inputClass">
         <input v-model="verifyCode" type="text" placeholder="短信验证码" @keyup.enter="login"
-               id="verifyCode" onkeyup="value=value.replace(/[^\d]/g,'')" class="one"/>
-        <input type="image" src="../../static/image/delete.png" v-show="verifyCode"
+               id="verifyCode" onkeyup="value=value.replace(/[^\d]/g,'')" class="one" v-on:focus="flagTwo=true" v-on:blur="flagTwo=false"/>
+        <input type="image" src="../../static/image/delete.png" v-show="verifyCode && flagTwo"
                v-on:click="deleteOne('b')" class="three"/>
         <input type="text" value="获取验证码" readonly id="getCode" v-on:click="getCode" class="two"/>
       </div>
       <hr/>
       <div class="inputClass">
-        <input v-model="inviteCode" type="text" placeholder="邀请码(选填)" class="one" id="inviteCode"/>
+        <input v-model="inviteCode" type="text" placeholder="邀请码(选填)" class="one" id="inviteCode" v-on:focus="flagThree=true" v-on:blur="flagThree=false"/>
         <input type="text" value="" readonly class="two"/>
-        <input type="image" src="../../static/image/delete.png" v-show="inviteCode"
+        <input type="image" src="../../static/image/delete.png" v-show="inviteCode && flagThree"
                v-on:click="deleteOne('c')" class="three"/>
       </div>
       <hr/>
@@ -48,7 +48,10 @@
         verifyCode: null,
         inviteCode: null,
         countdown: 60,
-        interval: null
+        interval: null,
+        flagOne:false,
+        flagTwo:false,
+        flagThree:false
       }
     },
     methods: {
