@@ -107,7 +107,7 @@
     }
   }
 </script>
-<style>
+<style scoped>
   .ore-header {
     display: block;
   }

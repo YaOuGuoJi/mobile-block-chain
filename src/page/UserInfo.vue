@@ -12,7 +12,6 @@
           <img class="user-info-down-user-img" src="../assets/header.jpg"/>
           <br>
           <label style="font-size: 30px" v-model="userName">{{userInfo !== null ? userInfo.userName : ""}}</label><br/>
-          <label style="font-size: 18px">会员等级:{{userInfo !== null && userInfo.vip === 0 ? '普通会员' : '金牌会员'}}</label><br/>
         </div>
       </div>
       <hr style="">
@@ -24,8 +23,6 @@
         <span >邮箱：{{userInfo !== null ? userInfo.email:""}}</span><br/>
         <span >工作：{{userInfo !== null ? userInfo.job:""}}</span><br/>
         <span >地址：{{userInfo !== null ? userInfo.address:""}}</span><br/>
-        <span >人生格言:</span>
-        <span>{{motto}}</span>
       </div>
       <div class="userInfo">
         <button id="button-style" v-on:click="toEdit()">编辑</button>
@@ -48,9 +45,7 @@
         sex: null,
         phone: null,
         email: null,
-        job: null,
-        motto: "江山如此多娇，引无数英雄竞折腰"
-
+        job: null
       }
     },
     created() {
