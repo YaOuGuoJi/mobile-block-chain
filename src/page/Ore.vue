@@ -57,6 +57,7 @@
         pageSize: 15,
         address: null,
         nextPage: true,
+        flag:true
       }
     },
     components: {
@@ -86,10 +87,8 @@
           pageNum: this.pageNum,
           pageSize: this.pageSize
         }).then(data => {
-          if (data.code === 404) {
-            document.getElementsByClassName('last-trip')[0].innerHTML = "您还没有纪录"
-          }
           if (data.code === 200) {
+            this.flag=false;
             this.pageInfo = data.data.oreRecordDTOPageInfo;
             if (!this.pageInfo || !this.pageInfo.hasNextPage) {
               this.nextPage = false
@@ -98,6 +97,9 @@
             for (let ore in this.pageInfo.list) {
               this.oreList.push(this.pageInfo.list[ore]);
             }
+          }
+          if (data.code === 404 && this.flag) {
+            document.getElementsByClassName('last-trip')[0].innerHTML = "您还没有纪录"
           }
         })
       },
