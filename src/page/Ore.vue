@@ -55,7 +55,7 @@
         oreList: [],
         pageNum: 1,
         pageSize: 15,
-        address:null,
+        address: null,
         nextPage: true,
       }
     },
@@ -86,20 +86,18 @@
           pageNum: this.pageNum,
           pageSize: this.pageSize
         }).then(data => {
-          if (data.code !== 200 && data.code !== 400) {
-            //window.alert(data.message);
-            return
-          }
           if (data.code === 404) {
-            document.getElementsByClassName('last-trip')[0].innerHTML = "你还没有纪录，慢慢积累吧。"
+            document.getElementsByClassName('last-trip')[0].innerHTML = "您还没有纪录"
           }
-          this.pageInfo = data.data.oreRecordDTOPageInfo;
-          if (!this.pageInfo || !this.pageInfo.hasNextPage) {
-            this.nextPage = false
-            document.getElementsByClassName('last-trip')[0].innerHTML = "到底啦，求求你别拉了。"
-          }
-          for (let ore in this.pageInfo.list) {
-            this.oreList.push(this.pageInfo.list[ore]);
+          if (data.code === 200) {
+            this.pageInfo = data.data.oreRecordDTOPageInfo;
+            if (!this.pageInfo || !this.pageInfo.hasNextPage) {
+              this.nextPage = false
+              document.getElementsByClassName('last-trip')[0].innerHTML = "到底了，没有更多了"
+            }
+            for (let ore in this.pageInfo.list) {
+              this.oreList.push(this.pageInfo.list[ore]);
+            }
           }
         })
       },
