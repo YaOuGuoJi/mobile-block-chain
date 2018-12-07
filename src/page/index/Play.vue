@@ -12,10 +12,10 @@
       <h5 id="market_h5">限每人每日一次兑换机会</h5>
     </div>
     <div class="goods_list">
-      <div class="item"><a><img src="../../assets/imgs/play-4.png" style="width: 100%; height: 250px"/></a></div>
-      <div class="item"><a><img src="../../assets/imgs/play-5.png" style="width: 100%; height: 250px"/></a></div>
-      <div class="item"><a><img src="../../assets/imgs/play-6.png" style="width: 100%; height: 250px"/></a></div>
-      <div class="item"><a><img src="../../assets/imgs/play-6.png" style="width: 100%; height: 250px"/></a></div>
+      <div class="item"><a><img src="../../assets/imgs/coupon15.png" style="width: 100%; height: 150px"/></a></div>
+      <div class="item"><a><img src="../../assets/imgs/coupon30.png" style="width: 100%; height: 150px"/></a></div>
+      <div class="item"><a><img src="../../assets/imgs/coupon50.png" style="width: 100%; height: 150px"/></a></div>
+      <div class="item"><a><img src="../../assets/imgs/coupon100.png" style="width: 100%; height: 150px"/></a></div>
     </div>
     <div class="bottom-div">
       <label class="last-trips">~矿石免费换物~</label>
@@ -104,12 +104,12 @@
   }
   .goods_list{
     width: 100%;
-    height: 570px;
+    height: 400px;
   }
   .item{
     float: left;
     width: 46%;
-    height: 250px;
+    height: 150px;
     margin-left: 2.7%;
     margin-top: 10px;
   }
