@@ -24,8 +24,6 @@
         <span >邮箱：{{userInfo !== null ? userInfo.email:""}}</span><br/>
         <span >工作：{{userInfo !== null ? userInfo.job:""}}</span><br/>
         <span >地址：{{userInfo !== null ? userInfo.address:""}}</span><br/>
-        <span >人生格言:</span>
-        <span>{{motto}}</span>
       </div>
       <div class="userInfo">
         <button id="button-style" v-on:click="toEdit()">编辑</button>
@@ -48,9 +46,7 @@
         sex: null,
         phone: null,
         email: null,
-        job: null,
-        motto: "江山如此多娇，引无数英雄竞折腰"
-
+        job: null
       }
     },
     created() {
