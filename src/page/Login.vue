@@ -59,8 +59,12 @@
     },
     methods: {
       getCode: function () {
-        if (!this.phone || this.phone.length < 11) {
+        if (!this.phone || this.phone.length !== 11) {
           alert("请输入正确的手机号");
+          return
+        }
+        if (!this.phone.match(/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/)) {
+          alert("手机号码格式不正确")
           return
         }
         service('get', '/user/verificationCode', {phoneNum: this.phone.toString()})
