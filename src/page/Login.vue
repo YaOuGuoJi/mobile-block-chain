@@ -9,7 +9,7 @@
       </div>
       <div class="inputClass">
         <input v-model="phone" type="text" placeholder="请输入手机号" id="phone"
-               onkeyup="value=value.replace(/[^\d]/g,'')" class="one" v-on:focus="flagOne=true" v-on:blur="flagOne=false"/>
+               onkeyup="value=value.replace(/[^\d]/g,'')" class="one" v-on:focus="flagOne=true" v-on:blur="flagOne=false" />
         <input type="text" value="" readonly class="two"/>
         <input type="image" src="../../static/image/delete.png" v-show="phone && flagOne"
                v-on:click="deleteOne('a')" class="three"/>
@@ -54,6 +54,9 @@
         flagThree:false
       }
     },
+    mounted(){
+      this.getFocus();
+    },
     methods: {
       getCode: function () {
         if (!this.phone || this.phone.length < 11) {
@@ -70,6 +73,9 @@
               this.getSuccess();
             }
           })
+      },
+      getFocus(){
+        $("#phone").focus();
       },
       getSuccess() {
         if (this.countdown == 0) {

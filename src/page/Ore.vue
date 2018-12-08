@@ -168,7 +168,6 @@
 
   hr {
     background-color: #fffbf9;
-    height: 0.5px;
     margin-top: 10px;
     margin-bottom: 10px;
   }
