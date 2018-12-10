@@ -50,7 +50,7 @@
 
 <script>
   import commonHeader from '../../components/common-header'
-  import {service} from "@/js/api";
+  import {service} from "../../js/api";
 
   export default {
     data() {
