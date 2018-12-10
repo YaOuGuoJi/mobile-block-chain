@@ -50,7 +50,7 @@
         <div id="bottom" class="swiper-container">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
-              <img src="../../assets/imgs/a.png" @click="getOutLink({name:'逛天猫' ,link:'https://s.click.taobao.com/EfHjHJw'})"/>
+              <img src="../../assets/imgs/a.png" @click="getOutLink({name:'购物' ,link:'https://s.click.taobao.com/EfHjHJw'})"/>
             </div>
             <div class="swiper-slide">
               <img src="../../assets/imgs/b.png" @click="getOutLink({name:'看小说' ,link:'http://www.17k.com'})"/>
@@ -116,7 +116,7 @@
               document.getElementById("newWealth").innerHTML = "<img  src='../../../static/image/money.png' width='12%' height='70%'/>&nbsp;&nbsp;<span>矿石:" + data.data.oreNumber.toFixed(5) + "</span>"
             }
             else {
-              document.getElementById("newWealth").innerHTML = "<img  src='../../../static/image/money.png' width='12%' height='70%'/><span>矿石:0.00000</span>"
+              document.getElementById("newWealth").innerHTML = "<img  src='../../../static/image/money.png' width='12%' height='70%'/>&nbsp;&nbsp;<span>矿石:0.00000</span>"
             }
           }
         });
@@ -157,7 +157,7 @@
       },
       getOutLink(item) {
         this.$router.goLeft({
-            path: '/find-link', query: {
+            path: '/find-classify-link', query: {
               pageTitle: item.name,
               findLink: item.link
             }
@@ -202,7 +202,7 @@
                   let oreTable = document.getElementById("oreId")
                   oreTable.rows[0].cells[0].width = 47;
                   oreTable.rows[0].cells[0].height = 47;
-                  document.getElementById("oreId").rows[0].cells[2].innerHTML = "<table><tr><td><img width='25%' height='10%' src='" + photo[Math.floor(Math.random() * 8)] + "' alt='加载中'/></td></tr></table>" + "矿石生成中";
+                  document.getElementById("oreId").rows[0].cells[2].innerHTML = "<table><tr><td><img width='30%' height='10%' src='" + photo[Math.floor(Math.random() * 8)] + "' alt='加载中'/></td></tr></table>" + "矿石生成中";
                   document.getElementById("oreId").rows[0].cells[2].className="move";
                 })
               }

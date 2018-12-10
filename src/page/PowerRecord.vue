@@ -127,7 +127,7 @@
     }
   }
 </script>
-<style scoped="scoped">
+<style scoped>
   .top_banner {
     width: 100%;
     height: 210px;

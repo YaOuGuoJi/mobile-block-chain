@@ -1,35 +1,36 @@
 <template>
-  <div class="mobile-wrapper">
-    <div class="login-wrapper">
-      <div class="brand-logo">
-        <span>Mall Fan</span>
+  <div id="max">
+    <div id="backgroundDiv">
+      <img src="../assets/imgs/backgroud.jpg" id="background"/>
+    </div>
+    <div id="content">
+      <div id="logo">
+        <span id="realLogo">Mall Fan</span>
       </div>
-      <div class="form-wrapper">
-        <div class="input-group">
-          <input v-model="phone" type="text" placeholder="请输入手机号" id="phone"
-                 onkeyup="value=value.replace(/[^\d]/g,'')"/>
-          <input type="image" src="../../static/image/delete.png" id="deleteOne" v-show="phone"
-                 v-on:click="phone=null"/>
-        </div>
-        <hr/>
-        <div class="input-group">
-          <input v-model="verifyCode" type="text" placeholder="短信验证码" @keyup.enter="login" id="verCode"
-                 onkeyup="value=value.replace(/[^\d]/g,'')"/>
-          <input type="image" src="../../static/image/delete.png" id="deleteTwo" v-show="verifyCode"
-                 v-on:click="verifyCode=null"/>
-          <input type="text" value="获取验证码" readonly id="getCode" v-on:click="getCode"/>
-        </div>
-        <hr/>
-        <div class="input-group">
-          <input v-model="inviteCode" type="text" placeholder="邀请码(选填)" id="inviteCode"/>
-          <input type="image" src="../../static/image/delete.png" id="deleteThree" v-show="inviteCode"
-                 v-on:click="inviteCode=null"/>
-        </div>
-        <hr/>
-        <button id="btn" v-on:click="login"
-                style="background-image: url('../../static/image/button.png'); background-size: 100% 100%">登录
-        </button>
+      <div class="inputClass">
+        <input v-model="phone" type="text" placeholder="请输入手机号" id="phone"
+               onkeyup="value=value.replace(/[^\d]/g,'')" class="one" v-on:focus="flagOne=true" v-on:blur="flagOne=false" />
+        <input type="text" value="" readonly class="two"/>
+        <input type="image" src="../../static/image/delete.png" v-show="phone && flagOne"
+               v-on:click="deleteOne('a')" class="three"/>
       </div>
+      <hr/>
+      <div class="inputClass">
+        <input v-model="verifyCode" type="text" placeholder="短信验证码" @keyup.enter="login"
+               id="verifyCode" onkeyup="value=value.replace(/[^\d]/g,'')" class="one" v-on:focus="flagTwo=true" v-on:blur="flagTwo=false"/>
+        <input type="image" src="../../static/image/delete.png" v-show="verifyCode && flagTwo"
+               v-on:click="deleteOne('b')" class="three"/>
+        <input type="text" value="获取验证码" readonly id="getCode" v-on:click="getCode" class="two"/>
+      </div>
+      <hr/>
+      <div class="inputClass">
+        <input v-model="inviteCode" type="text" placeholder="邀请码(选填)" class="one" id="inviteCode" v-on:focus="flagThree=true" v-on:blur="flagThree=false"/>
+        <input type="text" value="" readonly class="two"/>
+        <input type="image" src="../../static/image/delete.png" v-show="inviteCode && flagThree"
+               v-on:click="deleteOne('c')" class="three"/>
+      </div>
+      <hr/>
+      <div id="buttonOne"><span id="buttonContent" v-on:click="login">登录</span></div>
     </div>
   </div>
 </template>
@@ -38,6 +39,7 @@
 
   import {service} from "../js/api";
   import $ from 'jquery'
+
   export default {
     name: "Login",
     data() {
@@ -46,13 +48,19 @@
         verifyCode: null,
         inviteCode: null,
         countdown: 60,
-        interval:null
+        interval: null,
+        flagOne:false,
+        flagTwo:false,
+        flagThree:false
       }
+    },
+    mounted(){
+      this.getFocus();
     },
     methods: {
       getCode: function () {
-        if (!this.phone || this.phone.length < 11) {
-          alert("请输入正确的手机号");
+        if (!this.phone.match(/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/)) {
+          alert("手机号码格式不正确")
           return
         }
         service('get', '/user/verificationCode', {phoneNum: this.phone.toString()})
@@ -61,9 +69,13 @@
               alert("请输入正确的手机号或稍后再试")
             }
             else {
+              $("#verifyCode").focus();
               this.getSuccess();
             }
           })
+      },
+      getFocus(){
+        $("#phone").focus();
       },
       getSuccess() {
         if (this.countdown == 0) {
@@ -72,12 +84,25 @@
           this.countdown = 60;
           return
         } else {
-          $("#getCode").attr("disabled","disabled");
+          $("#getCode").attr("disabled", "disabled");
           $("#getCode").val("重发(" + this.countdown + ")秒");
           this.countdown -= 1;
           setTimeout(() => {
             this.getSuccess();
           }, 1000);
+        }
+      },
+      deleteOne(me){
+        switch (me){
+          case 'a': this.phone=null;
+            $("#phone").focus();
+            break;
+          case 'b': this.verifyCode=null;
+            $("#verifyCode").focus();
+            break;
+          case 'c':this.inviteCode=null;
+            $("#inviteCode").focus();
+            break;
         }
       },
       login: function () {
@@ -107,152 +132,109 @@
 </script>
 
 <style scoped>
-
-  * {
-    margin: 0 auto;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
-  body {
+  #max {
+    height: 100%;
     width: 100%;
-    height: 100vh;
-    background: linear-gradient(to right, #6ddec7, #46c0c0);
   }
 
-  button {
-    border: 0;
-    padding: 0;
+  #backgroundDiv {
+    position: absolute;
+    z-index: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  #background {
+    height: 100%;
+    width: 100%;
+  }
+
+  #content {
+    position: absolute;
+    z-index: 9;
+    width: 100%;
+    height: 100%;
+  }
+
+  #logo {
+    width: 100%;
+    height: 40%;
+  }
+
+  #realLogo {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    font-size: 350%;
+    /*font-style:italic;*/
+    font-family: 宋体;
+    padding-top: 35%;
+    color: rgba(87, 15, 18, 0.8);
+    vertical-align: bottom;
+  }
+
+  .inputClass {
+    padding: 10% 12% 0;
+    vertical-align: bottom;
+    outline: none;
+    font-size: 150%;
+    width: 100%;
+    height: 10%;
+  }
+
+  .inputClass input {
+    font-family: 宋体;
+    border: none;
+    background-color: transparent;
+    vertical-align: bottom;
+  }
+
+  .inputClass input:focus {
     outline: none;
   }
 
-  button {
-    cursor: pointer;
+  .one {
+    width: 38%;
   }
 
-  .mobile-wrapper {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.25), 0 5px 15px 0 rgba(0, 0, 0, 0.25);
-    background: #1c485c url('../../static/image/register.jpg');
-    background-size: 100% 100%;
+  .two {
+    width: 33%;
   }
 
-  .mobile-wrapper img {
-    width: 100%;
-    height: 100%;
-  }
-
-  .login-wrapper {
-    width: 80%;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .brand-logo {
-    width: 100%;
-    float: left;
-    text-align: center;
-    color: rgba(87, 15, 18, 0.8);
-    font-weight: bold;
-    font-size: 1rem;
-    position: relative;
-  }
-
-  .brand-logo span {
-    font-weight: normal;
-  }
-
-  .brand-logo::before {
-    content: '';
-    position: absolute;
-    width: 40px;
-    height: 4px;
-    border-radius: 2px;
-    left: 50%;
-    bottom: -12px;
-    transform: translateX(-50%);
-  }
-
-  .form-wrapper {
-    width: 100%;
-    margin-top: 3rem;
-  }
-
-
-  hr {
-    color: #ffe88c;
-    margin: 0 10% 15%;
-  }
-
-  .input-group input {
-    border: none;
-    background-color: transparent;
-  }
-
-  #phone {
-    font-size: 130%;
-    width: 90%;
-    vertical-align: bottom;
-  }
-
-  #deleteOne {
-    width: 10%;
-    vertical-align: bottom;
-  }
-
-  #inviteCode {
-    font-size: 130%;
-    width: 90%;
-    vertical-align: bottom;
-  }
-
-  #deleteThree {
-    width: 10%;
-    vertical-align: bottom;
-  }
-
-  #verCode {
-    padding: 0;
-    font-size: 130%;
-    width: 44%;
-    vertical-align: bottom;
-  }
-
-  #deleteTwo {
-    width: 7%;
-    vertical-align: bottom;
+  .three {
+    width: 8%;
+    height: 75%;
   }
 
   #getCode {
-    font-size: 130%;
-    width: 24%;
-    vertical-align: bottom;
     color: grey;
   }
 
-  .input-group input:focus {
-    outline: none;
+  hr {
+    margin: -1% 15%;
   }
 
-  .form-wrapper button {
-    width: 70%;
-    height: 50px;
-    color: #fff;
-    font-size: 0.5rem;
-    background: transparent;
-    background-size: 100% 100%;
+  #buttonOne {
+    width: 100%;
+    height: 20%;
   }
 
-  .help-text span {
-    font-size: 0.45rem;
+  #buttonContent {
+    display: inline-block;
+    margin-top: 17%;
+    width: 40%;
+    line-height: 200%;
+    font-size: 200%;
+    font-family: 宋体;
+    border-radius: 25px;
+    background-color: rgba(238, 154, 73, 0.2);
+    border:1px solid 	#EE7942;
     color: white;
   }
+  #getCode{
+    background-color: rgba(	255, 255, 0 ,0.5);
+    border-radius: 12px;
+    padding:1% 2% 0;
+  }
+
 </style>
