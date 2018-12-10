@@ -4,7 +4,7 @@
       <common-header :title="title" :showback="true"></common-header>
     </div>
     <div class="body_img">
-      <button class="button_style" @click="goAttract()">申请入住</button>
+      <button class="button_style" @click="goAttract()">申请入驻</button>
     </div>
   </div>
 </template>
@@ -26,7 +26,7 @@
     }
   }
 </script>
-<style>
+<style scoped>
   .body_img {
     background: url("../assets/imgs/joinIn.jpg") no-repeat;
     background-size: cover;
